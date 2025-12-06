@@ -10,27 +10,27 @@ public class GamePanel extends BasePanel {
 
     private final JPanel nPanel;
     private final JPanel sPanel;
-    private final JPanel cPanel;
+    private final GameBoardPanel gameBoardPanel;
     private final JPanel ePanel;
     private final JPanel wPanel;
     private final JButton pause;
     private final JButton restart;
     private final JLabel timer;
     private final JLabel life;
-    private final JLabel point;
+    private final JLabel score;
 
     public GamePanel(){
         super();
         nPanel = new JPanel();
         sPanel = new JPanel();
-        cPanel = new JPanel();
+        gameBoardPanel = new GameBoardPanel();
         ePanel = new JPanel();
         wPanel = new JPanel();
         life = new JLabel("Lives remaining: 3");
         timer = new JLabel("0:00");
         pause = new JButton("Pause");
         restart = new JButton("Restart");
-        point = new JLabel("Point : 0");
+        score = new JLabel("Score : 0");
 
         styleButton(pause);
         styleButton(restart);
@@ -43,7 +43,7 @@ public class GamePanel extends BasePanel {
         setLayout(new BorderLayout());
         add(nPanel, BorderLayout.NORTH);
         add(sPanel, BorderLayout.SOUTH);
-        add(cPanel, BorderLayout.CENTER);
+        add(gameBoardPanel, BorderLayout.CENTER);
         add(ePanel, BorderLayout.EAST);
         add(wPanel, BorderLayout.WEST);
 
@@ -51,7 +51,7 @@ public class GamePanel extends BasePanel {
         ePanel.add(pause);
         ePanel.add(restart);
         wPanel.add(life);
-        sPanel.add(point);
+        sPanel.add(score);
 
         getPause().addActionListener(e -> pauseButton());
         getRestart().addActionListener(e -> resumeButton());
