@@ -1,16 +1,11 @@
 package snakerunner.graphics;
 
-import java.awt.Color;
 import java.awt.Component;
-import java.awt.Font;
 
 import javax.swing.Box;
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
 
-public class MenuPanel extends JPanel {
+public class MenuPanel extends BasePanel {
 
     private static final String LABEL = " Welcome to Snake Runner";
     private static final String START = "Start";
@@ -20,26 +15,20 @@ public class MenuPanel extends JPanel {
     private final JButton start;
     private final JButton option;
     private final JButton exit;
-    private final JLabel label;
-    private final Color backgrounColor;
 
     public MenuPanel(){
         super();
         start = new JButton(START);
         option = new JButton(OPTION);
         exit = new JButton(EXIT);
-        label = new JLabel(LABEL);
-        backgrounColor = new Color(100,238,100);
-        label.setFont(new Font("Arial", Font.BOLD, 32));
-        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        setBackground(backgrounColor);
+
+        createTitle(LABEL);
         
         start.setAlignmentX(Component.CENTER_ALIGNMENT);
         option.setAlignmentX(Component.CENTER_ALIGNMENT);
         exit.setAlignmentX(Component.CENTER_ALIGNMENT);
-        label.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        add(label);
+        add(createTitle(LABEL));
         add(Box.createVerticalGlue());
         add(start);
         add(option);
