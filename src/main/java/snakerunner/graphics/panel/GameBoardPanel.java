@@ -1,4 +1,4 @@
-package snakerunner.graphics;
+package snakerunner.graphics.panel;
 
 import java.awt.Color;
 

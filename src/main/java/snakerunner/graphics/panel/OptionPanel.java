@@ -1,0 +1,74 @@
+package snakerunner.graphics.panel;
+
+import java.awt.Component;
+
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
+import snakerunner.graphics.impl.BasePanelImpl;
+
+public class OptionPanel extends BasePanelImpl {
+
+    private static final String APPLY = "Apply";
+    private static final String BACK = "Back";
+    private static final String SOUND = "Sound On / Off";
+
+    private final JButton apply;
+    private final JButton back;
+    private final JCheckBox checkbox;
+    private final JLabel label;
+
+    public OptionPanel(){
+        super();
+        checkbox = new JCheckBox();
+        label = new JLabel(SOUND);
+
+        setLayoutPanel();
+        
+        checkbox.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        setSoundPanel();
+        add(Box.createVerticalGlue());
+        apply = createButton(APPLY);
+        back = createButton(BACK);
+        addActionListeners();
+    }
+
+    private JPanel setSoundPanel(){
+        JPanel soundPanel = new JPanel();
+        soundPanel.setLayout(new BoxLayout(soundPanel, BoxLayout.X_AXIS));
+        soundPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        soundPanel.setOpaque(false);
+        soundPanel.add(label);
+        soundPanel.add(checkbox);
+        add(soundPanel);
+        return soundPanel;
+    }
+
+    private JButton getApply() {
+        return apply;
+    }
+
+    private JButton getBack() {
+        return back;
+    }
+
+    private JCheckBox getCheckbox() {
+        return checkbox;
+    }
+
+    @Override
+    public void setLayoutPanel(){
+        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+    }
+
+    public void addActionListeners(){
+        getApply().addActionListener(null); //TODO
+        getBack().addActionListener(null); //TODO
+        getCheckbox().addActionListener(null); //TODO
+    }
+}

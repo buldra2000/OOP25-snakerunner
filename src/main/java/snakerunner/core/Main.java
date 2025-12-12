@@ -1,7 +1,7 @@
 package snakerunner.core;
 
 import snakerunner.graphics.MainFrame;
-import snakerunner.graphics.MainFrameImpl;
+import snakerunner.graphics.impl.MainFrameImpl;
 
 public class Main {
     public static void main(String[] args) {

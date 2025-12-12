@@ -1,4 +1,4 @@
-package snakerunner.graphics;
+package snakerunner.graphics.panel;
 
 import java.awt.BorderLayout;
 
@@ -6,7 +6,12 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class GamePanel extends BasePanel {
+import snakerunner.graphics.impl.BasePanelImpl;
+
+public class GamePanel extends BasePanelImpl {
+
+    private static final String PAUSE = "Pause";
+    private static final String RESTART = "Restart";
 
     private final JPanel nPanel;
     private final JPanel sPanel;
@@ -26,21 +31,20 @@ public class GamePanel extends BasePanel {
         gameBoardPanel = new GameBoardPanel();
         ePanel = new JPanel();
         wPanel = new JPanel();
-        life = new JLabel("Lives remaining: 3");
-        timer = new JLabel("0:00");
-        pause = new JButton("Pause");
-        restart = new JButton("Restart");
-        score = new JLabel("Score : 0");
+        life = createLabel("Lives remaining: 3");
+        timer = createLabel("0:00");
+        score = createLabel("Score : 0");
 
-        styleButton(pause);
-        styleButton(restart);
+        setLayoutPanel();
+
+        pause = createButton(PAUSE);
+        restart = createButton(RESTART);
 
         nPanel.setOpaque(false);
         sPanel.setOpaque(false);
         ePanel.setOpaque(false);
         wPanel.setOpaque(false);
 
-        setLayout(new BorderLayout());
         add(nPanel, BorderLayout.NORTH);
         add(sPanel, BorderLayout.SOUTH);
         add(gameBoardPanel, BorderLayout.CENTER);
@@ -64,16 +68,14 @@ public class GamePanel extends BasePanel {
         return restart;
     }
 
-    public void pauseButton(){
-        System.out.println("Pause button pressed");
+    /*TODO */
+    public void addActionListeners(){
+        getPause().addActionListener(null); // e ->
+        getRestart().addActionListener(null); // e ->
     }
 
-    public void resumeButton(){
-        System.out.println("Restart button pressed");
-    }
-
-    protected void addActionListeners(){
-        getPause().addActionListener(e -> pauseButton());
-        getRestart().addActionListener(e -> resumeButton());
+    @Override
+    public void setLayoutPanel() {
+        setLayout(new BorderLayout());
     }
 }

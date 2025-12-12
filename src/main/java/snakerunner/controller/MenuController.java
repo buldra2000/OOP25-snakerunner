@@ -1,7 +1,7 @@
 package snakerunner.controller;
 
-import snakerunner.graphics.MainFrameImpl;
-import snakerunner.graphics.MenuPanel;
+import snakerunner.graphics.impl.MainFrameImpl;
+import snakerunner.graphics.panel.MenuPanel;
 
 public class MenuController implements Controller {
 
