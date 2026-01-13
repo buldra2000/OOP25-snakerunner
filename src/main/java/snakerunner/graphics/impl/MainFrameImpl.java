@@ -44,6 +44,7 @@ public class MainFrameImpl extends JFrame implements MainFrame {
 
     @Override
     public void showMenu() {
+        System.out.println("MainFrame : showMenu()");
         setContentPane(menuPanel);
         revalidate();
         repaint();
@@ -51,6 +52,7 @@ public class MainFrameImpl extends JFrame implements MainFrame {
 
     @Override
     public void showGame() {
+        System.out.println("MainFrame : showGame()");
         setContentPane(gamePanel);
         revalidate();
         repaint();
@@ -58,6 +60,7 @@ public class MainFrameImpl extends JFrame implements MainFrame {
 
     @Override
     public void showOption() {
+        System.out.println("MainFrame : showOption()");
         setContentPane(optionPanel);
         revalidate();
         repaint();

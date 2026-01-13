@@ -1,5 +1,8 @@
 package snakerunner.core;
 
-public class StateGame {
-    //MENU, IN_GAME, PAUSE, GAME_OVER
+public enum StateGame {
+    MENU,
+    RUNNING,
+    PAUSED,
+    GAME_OVER
 }
