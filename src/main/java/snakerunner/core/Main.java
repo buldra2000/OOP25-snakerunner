@@ -1,10 +1,12 @@
 package snakerunner.core;
 
 import javax.swing.SwingUtilities;
-
+import snakerunner.controller.Controller;
 import snakerunner.controller.impl.ControllerImpl;
 import snakerunner.graphics.MainFrame;
 import snakerunner.graphics.impl.MainFrameImpl;
+import snakerunner.model.GameModel;
+import snakerunner.model.impl.GameModelImpl;
 
 public class Main {
     public static void main(String[] args) {
@@ -12,7 +14,8 @@ public class Main {
 
         SwingUtilities.invokeLater(() -> {
             MainFrame mainFrame = new MainFrameImpl();
-            ControllerImpl controller = new ControllerImpl(mainFrame);
+            GameModel gameModel = new GameModelImpl();
+            Controller controller = new ControllerImpl(mainFrame, gameModel);
             controller.init();
         });
     }
