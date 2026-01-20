@@ -4,9 +4,13 @@ import javax.swing.Timer;
 import snakerunner.model.GameModel;
 import snakerunner.model.Level;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import snakerunner.model.LevelManager;
 =======
 >>>>>>> c57c0f0 (added method for load a level and reset a level)
+=======
+import snakerunner.model.LevelManager;
+>>>>>>> 24f76ac (added new method in Game model)
 import snakerunner.model.Snake;
 
 public class GameModelImpl implements GameModel {
@@ -32,10 +36,13 @@ public class GameModelImpl implements GameModel {
     private Level currentLevel;
     private Snake snake;
     private LevelManager levelManager;
+<<<<<<< HEAD
 =======
     private Level currentLevel;
     private Snake snake;
 >>>>>>> c57c0f0 (added method for load a level and reset a level)
+=======
+>>>>>>> 24f76ac (added new method in Game model)
 
     @Override
     public void update() {
@@ -63,6 +70,7 @@ public class GameModelImpl implements GameModel {
 
     @Override
     public boolean isGameOver() {
+<<<<<<< HEAD
         /*
         if (level.IsBlocked(snake.getHead())) {
             return true;
@@ -97,6 +105,10 @@ public class GameModelImpl implements GameModel {
     @Override
     public void nextLevel() {
         this.currentLevel = levelManager.nextLevel();
+=======
+        // WIN OR DEATH CONDITION
+        return false;
+>>>>>>> 24f76ac (added new method in Game model)
     }
 
     @Override
@@ -108,6 +120,11 @@ public class GameModelImpl implements GameModel {
     @Override
     public void resetLevel() {
         //snake = new Snake()
+    }
+
+    @Override
+    public void nextLevel() {
+        this.currentLevel = levelManager.nextLevel();
     }
     
 }
