@@ -1,8 +1,13 @@
 package snakerunner.model.impl;
 
 import snakerunner.model.GameModel;
+import snakerunner.model.Level;
+import snakerunner.model.Snake;
 
 public class GameModelImpl implements GameModel {
+
+    private Level currentLevel;
+    private Snake snake;
 
     @Override
     public void update() {
@@ -23,6 +28,17 @@ public class GameModelImpl implements GameModel {
     public boolean isGameOver() {
         // TODO Auto-generated method stub
         return false;
+    }
+
+    @Override
+    public void loadLevel(Level level) {
+        this.currentLevel = level;
+        resetLevel();
+    }
+
+    @Override
+    public void resetLevel() {
+        //snake = new Snake()
     }
     
 }
