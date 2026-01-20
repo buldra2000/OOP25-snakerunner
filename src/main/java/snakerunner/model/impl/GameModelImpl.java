@@ -3,11 +3,15 @@ package snakerunner.model.impl;
 import javax.swing.Timer;
 import snakerunner.model.GameModel;
 import snakerunner.model.Level;
+<<<<<<< HEAD
 import snakerunner.model.LevelManager;
+=======
+>>>>>>> c57c0f0 (added method for load a level and reset a level)
 import snakerunner.model.Snake;
 
 public class GameModelImpl implements GameModel {
 
+<<<<<<< HEAD
     private static final int START_TIME = 180;
     private static final int DELAY = 1000;
     private int timeLeft;
@@ -28,6 +32,10 @@ public class GameModelImpl implements GameModel {
     private Level currentLevel;
     private Snake snake;
     private LevelManager levelManager;
+=======
+    private Level currentLevel;
+    private Snake snake;
+>>>>>>> c57c0f0 (added method for load a level and reset a level)
 
     @Override
     public void update() {
@@ -89,6 +97,17 @@ public class GameModelImpl implements GameModel {
     @Override
     public void nextLevel() {
         this.currentLevel = levelManager.nextLevel();
+    }
+
+    @Override
+    public void loadLevel(Level level) {
+        this.currentLevel = level;
+        resetLevel();
+    }
+
+    @Override
+    public void resetLevel() {
+        //snake = new Snake()
     }
     
 }
