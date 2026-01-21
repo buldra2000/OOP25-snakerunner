@@ -24,6 +24,8 @@ public class ControllerImpl implements Controller {
         // Implementation to start the game loop
         mainFrame.startGameLoop();
         //gameModel.loadLevel(level);
+        gameModel.startTimer();
+        
     }
 
     @Override
@@ -35,5 +37,10 @@ public class ControllerImpl implements Controller {
             System.out.println("Controller: Game Over!");
             mainFrame.showMenu();
         }
+    }
+
+    @Override
+    public GameModel getModel(){
+        return gameModel;
     }
 }
