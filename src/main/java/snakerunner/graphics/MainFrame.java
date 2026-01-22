@@ -19,4 +19,6 @@ public interface MainFrame {
     public void startGameLoop();
 
     public void stopGameLoop();
+
+    void setSoundEnabled(boolean isEnable);
 }
