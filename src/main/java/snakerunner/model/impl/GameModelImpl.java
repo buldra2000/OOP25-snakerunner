@@ -71,6 +71,9 @@ public class GameModelImpl implements GameModel {
     @Override
     public boolean isGameOver() {
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 8dc557d (Added new methods for the grid and the obstacles)
         /*
         if (level.IsBlocked(snake.getHead())) {
             return true;
@@ -79,6 +82,7 @@ public class GameModelImpl implements GameModel {
         }
         */
        return false;
+<<<<<<< HEAD
     }
 
     @Override
@@ -109,6 +113,8 @@ public class GameModelImpl implements GameModel {
         // WIN OR DEATH CONDITION
         return false;
 >>>>>>> 24f76ac (added new method in Game model)
+=======
+>>>>>>> 8dc557d (Added new methods for the grid and the obstacles)
     }
 
     @Override
