@@ -1,8 +1,8 @@
 package snakerunner.graphics.panel;
 
 import java.awt.BorderLayout;
-import java.awt.Component;
 
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -75,10 +75,8 @@ public class GamePanel extends BasePanelImpl {
         
         sPanel.setLayout(new BoxLayout(sPanel, BoxLayout.X_AXIS));
 
-        scoreView.setAlignmentX(Component.RIGHT_ALIGNMENT);
-        back.setAlignmentX(Component.LEFT_ALIGNMENT);
-
         sPanel.add(scoreView);
+        sPanel.add(Box.createHorizontalGlue());
         sPanel.add(back);
 
 

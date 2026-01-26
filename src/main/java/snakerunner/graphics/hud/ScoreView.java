@@ -9,7 +9,7 @@ import javax.swing.JLabel;
 /*ScoreView is a HUD component and is used to show score in GamePanel*/
 public class ScoreView extends JLabel{
 
-    private static final int WIDTH = 60;
+    private static final int WIDTH = 100;
     private static final int HEIGHT = 30;
     private static final String SCORE_TEXT = "Score : %03d";
     private static final int X = 1;
@@ -20,6 +20,7 @@ public class ScoreView extends JLabel{
     public ScoreView(){
         setOpaque(false);
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
+        setMaximumSize(getPreferredSize());
     }
     
     public void setScore(int score){
