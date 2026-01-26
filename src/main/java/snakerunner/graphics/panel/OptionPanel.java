@@ -78,7 +78,7 @@ public class OptionPanel extends BasePanelImpl {
     @Override
     public void addActionListeners(){
         System.out.println("OptionPanel : Adding action listeners to OptionPanel buttons");
-        getApply().addActionListener(e -> {});
+        getApply().addActionListener(e -> mainFrame.showMenu());
         getBack().addActionListener(e -> mainFrame.showMenu());
         getCheckbox().addActionListener(e -> {
             boolean enable = getCheckbox().isSelected();
