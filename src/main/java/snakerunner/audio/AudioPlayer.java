@@ -1,7 +1,6 @@
 package snakerunner.audio;
 
-import java.net.URL;
-
+import java.io.*;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
@@ -27,18 +26,29 @@ public class AudioPlayer {
         }
 
         try {
-            URL soundURL = AudioPlayer.class.getResource("/" + fileName);
-            System.out.println("URL: " + soundURL);
+            final InputStream sound = AudioPlayer.class.getResourceAsStream("/" + fileName);
+            System.out.println("stream: " + sound);
 
-            if (soundURL == null) {
+            if (sound == null) {
                 System.out.println("Sound not found.");
                 return;
             }
 
-            AudioInputStream AudioStream = AudioSystem.getAudioInputStream(soundURL);
+            final BufferedInputStream bstream = new BufferedInputStream(sound);
+            AudioInputStream audioStream = AudioSystem.getAudioInputStream(bstream);
+            System.out.println("stream: " + bstream);
+
             Clip clip = AudioSystem.getClip();
-            clip.open(AudioStream);
+            clip.open(audioStream);
             clip.start();
+
+            clip.addLineListener(event -> {
+                if (event.getType() == javax.sound.sampled.LineEvent.Type.STOP) {
+                clip.close();
+                }
+            });
+
+
         } catch (Exception e) {
             System.out.println("Error playing sound.");
             e.printStackTrace();

@@ -12,7 +12,7 @@ public class AudioTest {
         if (soundURL != null) {
             AudioPlayer.playSound(fileName);
         } else {
-            System.out.println("File non trovato nel classpath!");
+            System.out.println("File not found in classpath.");
         }
 
         try { Thread.sleep(2000); } catch (InterruptedException e) {}
