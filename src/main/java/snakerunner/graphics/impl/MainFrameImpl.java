@@ -3,6 +3,9 @@ package snakerunner.graphics.impl;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 
+import java.net.URL;
+
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.Timer;
 
@@ -26,6 +29,7 @@ public class MainFrameImpl extends JFrame implements MainFrame {
 
     public MainFrameImpl() {
         super(TITLE);
+        setIcon();
         menuPanel = PanelFactory.createMenuPanel(this);
         gamePanel = PanelFactory.createGamePanel(this);
         optionPanel = PanelFactory.createOptionPanel(this);
@@ -36,6 +40,13 @@ public class MainFrameImpl extends JFrame implements MainFrame {
     @Override
     public void display() {
         setVisible(true);
+    }
+
+    private void setIcon(){
+        URL iconURL = getClass().getResource("/icon.png");
+        System.out.println("Icon URL: " + iconURL);
+        ImageIcon icon = new ImageIcon(iconURL);
+        setIconImage(icon.getImage());
     }
 
     public void setDimensionFrame(){
@@ -99,5 +110,10 @@ public class MainFrameImpl extends JFrame implements MainFrame {
     @Override
     public void pause() {
         controller.pause();
+    }
+
+    @Override
+    public void resume(){
+        controller.resume();
     }
 }

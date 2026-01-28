@@ -10,6 +10,14 @@
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
+# Ignore Gradle
+.gradle
+
+# Ignore Gradle build output
+build
+
+bin/
+
 # Package Files #
 *.jar
 *.war
