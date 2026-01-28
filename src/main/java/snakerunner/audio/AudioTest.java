@@ -2,6 +2,7 @@ package snakerunner.audio;
 
 import java.net.URL;
 
+/*Class test for AudioPlayer */
 public class AudioTest {
     public static void main(String[] args) {
         String fileName = "eat.wav";
@@ -15,6 +16,10 @@ public class AudioTest {
             System.out.println("File not found in classpath.");
         }
 
-        try { Thread.sleep(2000); } catch (InterruptedException e) {}
+        try{ 
+            Thread.sleep(5000); 
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }

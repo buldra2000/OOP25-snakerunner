@@ -9,7 +9,7 @@ public class AudioPlayer {
 
     private static boolean soundEnable = true;
 
-    public AudioPlayer(){}
+    public AudioPlayer(){} //Empty constructor
 
     public static void setSoundEnabled(boolean enable){
         soundEnable = enable;
@@ -35,7 +35,7 @@ public class AudioPlayer {
             }
 
             final BufferedInputStream bstream = new BufferedInputStream(sound);
-            AudioInputStream audioStream = AudioSystem.getAudioInputStream(bstream);
+            final AudioInputStream audioStream = AudioSystem.getAudioInputStream(bstream);
             System.out.println("stream: " + bstream);
 
             Clip clip = AudioSystem.getClip();
@@ -47,7 +47,6 @@ public class AudioPlayer {
                 clip.close();
                 }
             });
-
 
         } catch (Exception e) {
             System.out.println("Error playing sound.");
