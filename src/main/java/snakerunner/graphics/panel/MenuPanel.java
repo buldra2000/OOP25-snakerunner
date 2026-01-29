@@ -2,6 +2,8 @@ package snakerunner.graphics.panel;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 import snakerunner.graphics.MainFrame;
 import snakerunner.graphics.impl.BasePanelImpl;
@@ -57,6 +59,17 @@ public class MenuPanel extends BasePanelImpl {
         System.out.println("MenuPanel : Adding action listeners to MenuPanel buttons");
         getStartButton().addActionListener(e -> mainFrame.showGame());
         getOptionButton().addActionListener(e -> mainFrame.showOption());
-        getExitButton().addActionListener(e -> System.exit(0));
+        getExitButton().addActionListener(e -> {
+                int n = JOptionPane.showConfirmDialog(
+                    (JFrame) mainFrame,
+                    "Are you sure to quit?",
+                    "Quit?",
+                    JOptionPane.YES_NO_OPTION 
+                );
+
+                if( n == JOptionPane.YES_OPTION){
+                    System.exit(0);
+                }
+        });
     }
 }

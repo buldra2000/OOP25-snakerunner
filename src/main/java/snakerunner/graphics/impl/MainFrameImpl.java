@@ -3,10 +3,10 @@ package snakerunner.graphics.impl;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 
-import java.net.URL;
-
-import javax.swing.ImageIcon;
+//import java.net.URL;
+//import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.Timer;
 
 import snakerunner.controller.Controller;
@@ -29,7 +29,7 @@ public class MainFrameImpl extends JFrame implements MainFrame {
 
     public MainFrameImpl() {
         super(TITLE);
-        setIcon();
+        //setIcon();
         menuPanel = PanelFactory.createMenuPanel(this);
         gamePanel = PanelFactory.createGamePanel(this);
         optionPanel = PanelFactory.createOptionPanel(this);
@@ -41,13 +41,14 @@ public class MainFrameImpl extends JFrame implements MainFrame {
     public void display() {
         setVisible(true);
     }
-
+    /*
     private void setIcon(){
         URL iconURL = getClass().getResource("/icon.png");
         System.out.println("Icon URL: " + iconURL);
         ImageIcon icon = new ImageIcon(iconURL);
         setIconImage(icon.getImage());
     }
+    */
 
     public void setDimensionFrame(){
         Dimension screensize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -116,4 +117,17 @@ public class MainFrameImpl extends JFrame implements MainFrame {
     public void resume(){
         controller.resume();
     }
+
+    @Override
+    public void won(){
+        JOptionPane.showMessageDialog(this, "You Won!");
+        System.exit(0);
+    }
+
+    @Override
+    public void lose(){
+        JOptionPane.showMessageDialog(this, "You Lose!");
+        System.exit(0);
+    }
+
 }

@@ -2,21 +2,25 @@ package snakerunner.model;
 
 public interface GameModel {
     
-    public void update();
+    void update();
 
-    public void checkCollisions();
+    void checkCollisions();
 
-    public void startTimer();
+    void startTimer();
 
-    public void stopTimer();
+    void stopTimer();
 
-    public int getTimeLeft();
+    int getTimeLeft();
 
-    public boolean isGameOver();
+    boolean isGameOver();
 
-    public void loadLevel(Level level);
+    void loadLevel(Level level);
 
-    public void resetLevel();
+    void resetLevel();
 
-    public void nextLevel();
+    void nextLevel();
+
+    boolean hasWon();
+
+    boolean hasLost();
 }

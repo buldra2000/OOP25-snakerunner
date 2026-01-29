@@ -90,5 +90,15 @@ public class GameModelImpl implements GameModel {
     public void nextLevel() {
         this.currentLevel = levelManager.nextLevel();
     }
+
+    @Override
+    public boolean hasWon(){
+        return false;
+    }
+
+    @Override
+    public boolean hasLost(){
+        return false;
+    }
     
 }

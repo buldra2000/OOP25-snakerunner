@@ -28,6 +28,7 @@ public class ControllerImpl implements Controller {
         state = StateGame.RUNNING;
         gameModel.startTimer();
         System.out.println("StateGame.RUNNING , StartTimer");
+        mainFrame.startGameLoop(); //TODO
     }
 
     @Override
