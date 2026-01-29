@@ -27,6 +27,10 @@ public class ScoreView extends BaseView{
         repaint();
     }
 
+    public int getScore() {
+        return score;
+    }
+
     @Override
     protected void paintComponent(Graphics g){
         super.paintComponent(g);

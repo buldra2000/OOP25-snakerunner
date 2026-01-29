@@ -27,6 +27,10 @@ public class TimerView extends BaseView {
         repaint();
     }
 
+    public int getTimeLeft() {
+        return timeLeft;
+    }
+
     @Override
     protected void paintComponent(Graphics g){
         super.paintComponent(g);

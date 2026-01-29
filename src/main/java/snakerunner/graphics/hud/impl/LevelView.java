@@ -26,6 +26,10 @@ public class LevelView extends BaseView{
         repaint();
     }
 
+    public int getLevel() {
+        return level;
+    }
+
     @Override
     protected void paintComponent(Graphics g){
         super.paintComponent(g);

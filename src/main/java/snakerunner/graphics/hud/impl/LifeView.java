@@ -26,6 +26,10 @@ public class LifeView extends BaseView{
         repaint();
     }
 
+    public int getLife() {
+        return life;
+    }
+
     @Override
     protected void paintComponent(Graphics g){
         super.paintComponent(g);
