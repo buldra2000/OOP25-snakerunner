@@ -1,8 +1,8 @@
 package snakerunner.model.impl;
 
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Queue;
 
 import snakerunner.commons.Point2D;
 import snakerunner.model.Food;
@@ -19,7 +19,7 @@ public class GameModelImpl implements GameModel {
 
     private Level currentLevel;
     private Snake snake;
-    private Queue<Food> foods;
+    private List<Food> foods;
     //private LevelManager levelManager;
 
     public GameModelImpl() {
@@ -55,9 +55,12 @@ public class GameModelImpl implements GameModel {
     @Override
     public void loadLevel(LevelData data) {
         this.currentLevel = new LevelImpl(data);
+        System.out.println("Spawn Snake...");
         spawnSnake();
+        System.out.println("Spawn Foods...");
         spawnFoods(data.getFoodPositions());
 
+        debugPrintLevel();
     }
 
     @Override
@@ -78,6 +81,11 @@ public class GameModelImpl implements GameModel {
     }
 
     @Override
+    public List<Food> getFoods() {
+        return Collections.unmodifiableList(foods);    
+    }
+
+    @Override
     public Level getLevel() {
         return this.currentLevel;
     }
@@ -92,5 +100,21 @@ public class GameModelImpl implements GameModel {
         for (Point2D<Integer, Integer> p : foodPositions) {
             foods.add(new FoodImpl(FoodEffect, p));
         }
+    }
+
+    private void debugPrintLevel() {
+        System.out.println("=== LEVEL DEBUG ===");
+
+        System.out.println("Walls:");
+        for (Point2D<Integer, Integer> p : currentLevel.getObstacles()) {
+            System.out.println("  wall at " + p);
+        }
+
+        System.out.println("Fruits:");
+        for (Food f : foods) {
+            System.out.println("  fruit at " + f.getPosition());
+        }
+
+        System.out.println("===================");
     }
 }

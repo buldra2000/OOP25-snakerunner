@@ -1,5 +1,7 @@
 package snakerunner.model;
 
+import java.util.List;
+
 public interface GameModel {
     
     public void update();
@@ -15,6 +17,9 @@ public interface GameModel {
     public void nextLevel();
 
     public Snake getSnake();
+
+    //GETTER PER LA VIEW / DEBUG
+    public List<Food> getFoods();
 
     public Level getLevel();
 }
