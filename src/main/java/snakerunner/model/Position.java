@@ -1,4 +1,5 @@
 package snakerunner.model;
+//This file will be deleted
 
 public class Position {
     //Coordinates 
