@@ -2,6 +2,9 @@ package snakerunner.model.impl;
 
 import javax.swing.Timer;
 import snakerunner.model.GameModel;
+import snakerunner.model.Level;
+import snakerunner.model.LevelManager;
+import snakerunner.model.Snake;
 
 public class GameModelImpl implements GameModel {
 
@@ -22,6 +25,9 @@ public class GameModelImpl implements GameModel {
             timer.stop();
         }
     }
+    private Level currentLevel;
+    private Snake snake;
+    private LevelManager levelManager;
 
     @Override
     public void update() {
@@ -40,13 +46,23 @@ public class GameModelImpl implements GameModel {
 
     @Override
     public void startTimer(){
+        if(timer.isRunning()){
+            timer.stop();
+        } else {
         timer.start();
+        }
     }
 
     @Override
     public boolean isGameOver() {
-        // TODO Auto-generated method stub
-        return false;
+        /*
+        if (level.IsBlocked(snake.getHead())) {
+            return true;
+        } else {
+            return false;
+        }
+        */
+       return false;
     }
 
     @Override
@@ -60,5 +76,19 @@ public class GameModelImpl implements GameModel {
     }
 
     
+    public void loadLevel(Level level) {
+        this.currentLevel = level;
+        resetLevel();
+    }
+
+    @Override
+    public void resetLevel() {
+        //snake = new Snake()
+    }
+
+    @Override
+    public void nextLevel() {
+        this.currentLevel = levelManager.nextLevel();
+    }
     
 }

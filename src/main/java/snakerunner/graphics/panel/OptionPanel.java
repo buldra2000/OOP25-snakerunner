@@ -9,6 +9,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import snakerunner.audio.AudioPlayer;
 import snakerunner.graphics.MainFrame;
 import snakerunner.graphics.impl.BasePanelImpl;
 
@@ -77,8 +78,12 @@ public class OptionPanel extends BasePanelImpl {
     @Override
     public void addActionListeners(){
         System.out.println("OptionPanel : Adding action listeners to OptionPanel buttons");
-        getApply().addActionListener(e -> {});
+        getApply().addActionListener(e -> mainFrame.showMenu());
         getBack().addActionListener(e -> mainFrame.showMenu());
-        getCheckbox().addActionListener(e -> {});
+        getCheckbox().addActionListener(e -> {
+            boolean enable = getCheckbox().isSelected();
+            AudioPlayer.setSoundEnabled(enable);
+            System.out.println("AudioPlayer setSoundEnabled():" + enable);
+        });
     }
 }

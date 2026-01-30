@@ -14,9 +14,13 @@ public interface MainFrame {
 
     public void pause();
 
+    public void resume();
+
     public void setController(Controller controller);
 
     public void startGameLoop();
 
     public void stopGameLoop();
+
+    public void setSoundEnabled(boolean isEnable);
 }

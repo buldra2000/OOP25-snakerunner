@@ -2,8 +2,13 @@ package snakerunner.graphics.impl;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
+
+import java.net.URL;
+
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.Timer;
+
 import snakerunner.controller.Controller;
 import snakerunner.graphics.MainFrame;
 import snakerunner.graphics.panel.GamePanel;
@@ -15,8 +20,7 @@ public class MainFrameImpl extends JFrame implements MainFrame {
     
     private static final String TITLE = "Snake Runner";
     private static final double PROPORTION = 0.5;
-    
-    // Controller
+
     private Controller controller;
     private Timer timer;
     private MenuPanel menuPanel;
@@ -25,6 +29,7 @@ public class MainFrameImpl extends JFrame implements MainFrame {
 
     public MainFrameImpl() {
         super(TITLE);
+        setIcon();
         menuPanel = PanelFactory.createMenuPanel(this);
         gamePanel = PanelFactory.createGamePanel(this);
         optionPanel = PanelFactory.createOptionPanel(this);
@@ -37,7 +42,14 @@ public class MainFrameImpl extends JFrame implements MainFrame {
         setVisible(true);
     }
 
-    private void setDimensionFrame(){
+    private void setIcon(){
+        URL iconURL = getClass().getResource("/icon.png");
+        System.out.println("Icon URL: " + iconURL);
+        ImageIcon icon = new ImageIcon(iconURL);
+        setIconImage(icon.getImage());
+    }
+
+    public void setDimensionFrame(){
         Dimension screensize = Toolkit.getDefaultToolkit().getScreenSize();
         int width = (int)(screensize.width * PROPORTION);
         int height = (int)(screensize.height * PROPORTION);
@@ -46,7 +58,6 @@ public class MainFrameImpl extends JFrame implements MainFrame {
 
     @Override
     public void showMenu() {
-        System.out.println("MainFrame : showMenu()");
         setContentPane(menuPanel);
         revalidate();
         repaint();
@@ -54,23 +65,15 @@ public class MainFrameImpl extends JFrame implements MainFrame {
 
     @Override
     public void showGame() {
-        System.out.println("MainFrame : showGame()");
         setContentPane(gamePanel);
         revalidate();
         repaint();
 
         controller.start();
-        System.out.println("Controller.start()");
-    }
-
-    @Override
-    public void pause(){
-        controller.pause();
     }
 
     @Override
     public void showOption() {
-        System.out.println("MainFrame : showOption()");
         setContentPane(optionPanel);
         revalidate();
         repaint();
@@ -97,5 +100,20 @@ public class MainFrameImpl extends JFrame implements MainFrame {
     if (timer != null) {
             timer.stop();
         }
+    }
+
+    @Override
+    public void setSoundEnabled(boolean isEnable) {
+        controller.setSoundEnable(isEnable);
+    }
+
+    @Override
+    public void pause() {
+        controller.pause();
+    }
+
+    @Override
+    public void resume(){
+        controller.resume();
     }
 }
