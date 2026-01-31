@@ -93,12 +93,12 @@ public class GameModelImpl implements GameModel {
 
     @Override
     public boolean hasWon(){
-        return false;
+        return false; //TODO
     }
 
     @Override
     public boolean hasLost(){
-        return false;
+        return false; //TODO
     }
     
 }

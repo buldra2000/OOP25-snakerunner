@@ -83,7 +83,7 @@ public class OptionPanel extends BasePanelImpl {
         getCheckbox().addActionListener(e -> {
             boolean enable = getCheckbox().isSelected();
             AudioPlayer.setSoundEnabled(enable);
-            System.out.println("AudioPlayer setSoundEnabled():" + enable);
+            System.out.println("OptionPanel: setSoundEnabled():" + enable);
         });
     }
 }
