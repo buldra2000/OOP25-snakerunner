@@ -29,7 +29,7 @@ public class MainFrameImpl extends JFrame implements MainFrame {
 
     public MainFrameImpl() {
         super(TITLE);
-        setIcon();
+        //setIcon();
         menuPanel = PanelFactory.createMenuPanel(this);
         gamePanel = PanelFactory.createGamePanel(this);
         optionPanel = PanelFactory.createOptionPanel(this);
@@ -42,12 +42,15 @@ public class MainFrameImpl extends JFrame implements MainFrame {
         setVisible(true);
     }
 
+    /*
     private void setIcon(){
         URL iconURL = getClass().getResource("/icon.png");
         System.out.println("Icon URL: " + iconURL);
         ImageIcon icon = new ImageIcon(iconURL);
         setIconImage(icon.getImage());
     }
+    */
+    
 
     public void setDimensionFrame(){
         Dimension screensize = Toolkit.getDefaultToolkit().getScreenSize();
