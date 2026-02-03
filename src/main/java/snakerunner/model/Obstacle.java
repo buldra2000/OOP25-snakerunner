@@ -31,34 +31,38 @@ public class Obstacle extends Entity{
 
 //We check if targetX is between x and x + width and targetY is between y and y + height
     public boolean isHit(int targetX, int targetY){
-     return targetX>= this.x && targetX< this.x + this.width && 
-            targetY>= this.y && targetY< this.y + this.height;
+     return targetX>= this.x && targetX< this.x + this.width && //Checking if x is between the beginning and the end of the obstacle
+            targetY>= this.y && targetY< this.y + this.height;//Checking if the y is between the beginning and the end of the obstacle
      
 
     }
 
     public Set<Point2D<Integer, Integer>> getOccupiedPositions(){
         Set<Point2D<Integer, Integer>> positions = new HashSet<>();
-        for(int i = 0; i< width; i++){
+        for(int i = 0; i< width; i++){ //We check every cell
             for (int j= 0; j< height; j++){
+                //adds a new "point" to the set for every cell that's occupied
                 positions.add(new Point2D<Integer,Integer>(x + i, y+j));
             }
         }
         return positions;
     }
 
+
+    //Predefined set of obstacles. This list is not dynamic for now.
     public static Set<Point2D<Integer, Integer>> generatePresetVerticalPipes() {
         Set<Point2D<Integer, Integer>> allPositions = new HashSet<>();
 
         //Obstacles. These are temporary obstacles. They may change
-         //Pipes are distanced by 4 "blocks"
-        Obstacle obs1 = new Obstacle(6, 3, 1, 10); 
-        Obstacle obs2 = new Obstacle(10, 7, 1, 10); 
-        Obstacle obs3 = new Obstacle(30, 10, 1, 10);
-        Obstacle obs4 = new Obstacle(50, 15, 1, 10);
-        Obstacle obs5 = new Obstacle(3, 15, 4, 1);
+         
+        Obstacle obs1 = new Obstacle(6, 3, 1, 10); //Vertical
+        Obstacle obs2 = new Obstacle(10, 7, 1, 10); //Vertical
+        Obstacle obs3 = new Obstacle(30, 10, 1, 10);//Vertical
+        Obstacle obs4 = new Obstacle(50, 15, 1, 10);//Vertical
+        Obstacle obs5 = new Obstacle(3, 15, 4, 1); //Horizontal
 
         
+        //Position calculation
         allPositions.addAll(obs1.getOccupiedPositions());
         allPositions.addAll(obs2.getOccupiedPositions());
         allPositions.addAll(obs3.getOccupiedPositions());
