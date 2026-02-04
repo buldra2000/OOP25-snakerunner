@@ -4,6 +4,8 @@ import snakerunner.controller.Controller;
 import snakerunner.core.StateGame;
 import snakerunner.graphics.MainFrame;
 import snakerunner.model.GameModel;
+import snakerunner.model.LevelData;
+import java.awt.event.KeyEvent;
 
 public class ControllerImpl implements Controller {
     private StateGame state;
@@ -25,29 +27,10 @@ public class ControllerImpl implements Controller {
     @Override
     public void start() {
         // Implementation to start the game loop
-        state = StateGame.RUNNING;
-        gameModel.startTimer();
-        System.out.println("StateGame.RUNNING , StartTimer");
-    }
-
-    @Override
-    public void pause(){
-        state = StateGame.PAUSED;
-        gameModel.stopTimer();
-        System.out.println("StateGame.PAUSED , StopTimer");
-        mainFrame.startGameLoop();
-        //gameModel.loadLevel(level);
-    }
-
-    @Override
-    public void resume(){
-        state = StateGame.RUNNING;
-        gameModel.startTimer();
-        System.out.println("StateGame.RESUME , StartTimer");
         mainFrame.startGameLoop();
         //gameModel.loadLevel(level);
         state = StateGame.RUNNING;
-        gameModel.startTimer();
+        mainFrame.startTimer();
         System.out.println("StateGame.RUNNING , StartTimer");
     }
 
@@ -58,8 +41,10 @@ public class ControllerImpl implements Controller {
             state = StateGame.PAUSED;
         }
 
-        gameModel.stopTimer();
+        mainFrame.stopTimer();
         System.out.println("StateGame.PAUSED , StopTimer");
+        mainFrame.startGameLoop();
+        //gameModel.loadLevel(level);
     }
 
     @Override
@@ -79,12 +64,48 @@ public class ControllerImpl implements Controller {
     }
 
     @Override
+    public void inputKeyPressed(int keyCode) {
+        // Accept input only if the game is running
+        if (state == StateGame.RUNNING) {
+            switch (keyCode) {
+                case KeyEvent.VK_UP:
+                case KeyEvent.VK_W:
+                    gameModel.moveSnakeUp();
+                    break;
+                case KeyEvent.VK_DOWN:
+                case KeyEvent.VK_S:
+                    gameModel.moveSnakeDown();
+                    break;
+                case KeyEvent.VK_LEFT:
+                case KeyEvent.VK_A:
+                    gameModel.moveSnakeLeft();
+                    break;
+                case KeyEvent.VK_RIGHT:
+                case KeyEvent.VK_D:
+                    gameModel.moveSnakeRight();
+                    break;
+            }
+        }
+    }
+   
+
+    @Override
     public GameModel getModel(){
         return gameModel;
     }
 
     @Override
+    public MainFrame getView() {
+        return mainFrame;
+    }
+
+    @Override
     public void setSoundEnable(boolean isEnable){
         //TODO
+    }
+
+    @Override
+    public void loadLevel(LevelData data) {
+        gameModel.loadLevel(data);
     }
 }
