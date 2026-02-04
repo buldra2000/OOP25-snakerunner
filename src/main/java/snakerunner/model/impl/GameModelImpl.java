@@ -5,7 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import snakerunner.commons.Point2D;
-import snakerunner.model.Food;
+import snakerunner.model.Collectible;
 import snakerunner.model.FoodEffect;
 import snakerunner.model.GameModel;
 import snakerunner.model.Level;
@@ -19,7 +19,7 @@ public class GameModelImpl implements GameModel {
 
     private Level currentLevel;
     private Snake snake;
-    private List<Food> foods;
+    private List<Collectible> foods;
     //private LevelManager levelManager;
 
     public GameModelImpl() {
@@ -75,7 +75,7 @@ public class GameModelImpl implements GameModel {
     }
 
     @Override
-    public List<Food> getFoods() {
+    public List<Collectible> getFoods() {
         return Collections.unmodifiableList(foods);    
     }
 
@@ -92,7 +92,7 @@ public class GameModelImpl implements GameModel {
         foods = new LinkedList<>();
         
         for (Point2D<Integer, Integer> p : foodPositions) {
-            foods.add(new FoodImpl(FoodEffect, p));
+            foods.add((Collectible) new FoodImpl(FoodEffect, p));
         }
     }
 
@@ -105,7 +105,7 @@ public class GameModelImpl implements GameModel {
         }
 
         System.out.println("Fruits:");
-        for (Food f : foods) {
+        for (Collectible f : foods) {
             System.out.println("  fruit at " + f.getPosition());
         }
 
