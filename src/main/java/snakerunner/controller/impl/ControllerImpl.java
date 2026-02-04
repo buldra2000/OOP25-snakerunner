@@ -32,27 +32,6 @@ public class ControllerImpl implements Controller {
 
     @Override
     public void pause(){
-        state = StateGame.PAUSED;
-        gameModel.stopTimer();
-        System.out.println("StateGame.PAUSED , StopTimer");
-        mainFrame.startGameLoop();
-        //gameModel.loadLevel(level);
-    }
-
-    @Override
-    public void resume(){
-        state = StateGame.RUNNING;
-        gameModel.startTimer();
-        System.out.println("StateGame.RESUME , StartTimer");
-        mainFrame.startGameLoop();
-        //gameModel.loadLevel(level);
-        state = StateGame.RUNNING;
-        gameModel.startTimer();
-        System.out.println("StateGame.RUNNING , StartTimer");
-    }
-
-    @Override
-    public void pause(){
 
         if(state == StateGame.RUNNING){
             state = StateGame.PAUSED;

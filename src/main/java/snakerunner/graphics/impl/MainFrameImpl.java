@@ -3,9 +3,6 @@ package snakerunner.graphics.impl;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 
-import java.net.URL;
-
-import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.Timer;
 
@@ -99,5 +96,11 @@ public class MainFrameImpl extends JFrame implements MainFrame {
     if (timer != null) {
             timer.stop();
         }
+    }
+
+    @Override
+    public void setSoundEnabled(boolean isEnable) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'setSoundEnabled'");
     }
 }
