@@ -71,7 +71,7 @@ public class GameBoardPanel extends JPanel {
      * @param g
      */
     private void drawObstacle(Graphics g){
-        g.setColor(Color.RED);
+        g.setColor(Color.ORANGE);
 
         for(Point2D<Integer, Integer> p : controller.getObstacles()){
             final int x = p.getX();

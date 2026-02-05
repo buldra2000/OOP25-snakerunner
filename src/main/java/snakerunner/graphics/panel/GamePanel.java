@@ -96,10 +96,19 @@ public class GamePanel extends BasePanelImpl {
         back.addActionListener(e -> controller.onBackMenu());
     }
 
+
+    
     public void updateTimer(final int timeLeft){
         //timerView.setValue(timeLeft);
+        
         repaint();
+
     }
+    //Commented because it was causing merge conflicts
+    /*public void updateObstacles(java.util.Set<snakerunner.commons.Point2D<Integer, Integer>> obstacles){
+        gameBoardPanel.setObstacles(obstacles);
+        repaint();
+    }*/
 
     public TimerView getTimerView() {
         return timerView;
