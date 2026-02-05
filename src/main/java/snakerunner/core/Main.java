@@ -8,15 +8,13 @@ import snakerunner.graphics.impl.MainFrameImpl;
 import snakerunner.model.GameModel;
 import snakerunner.model.impl.GameModelImpl;
 
-public final class Main {
+public class Main {
+    public static void main(String[] args) {
+        System.out.println("Hello Snake Runner!");
 
-    private Main(){}
-
-    public static void main(final String[] args) {
-
-        final MainFrame mainFrame = new MainFrameImpl();
-        final GameModel gameModel = new GameModelImpl();
-        final Controller controller = new ControllerImpl(mainFrame, gameModel);
+        MainFrame mainFrame = new MainFrameImpl();
+        GameModel gameModel = new GameModelImpl();
+        Controller controller = new ControllerImpl(mainFrame, gameModel);
 
         mainFrame.setController(controller);
         

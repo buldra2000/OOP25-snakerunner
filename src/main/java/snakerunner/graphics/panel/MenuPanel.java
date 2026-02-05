@@ -3,25 +3,24 @@ package snakerunner.graphics.panel;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 
-import snakerunner.controller.Controller;
+import snakerunner.graphics.MainFrame;
 import snakerunner.graphics.impl.BasePanelImpl;
 
 public class MenuPanel extends BasePanelImpl {
 
-    private static final long serialVersionUID = 1L;
     private static final String START = "Start";
     private static final String OPTION = "Option";
     private static final String EXIT = "Exit";
 
-    private final Controller controller;
+    private MainFrame mainFrame;
 
     private final JButton start;
     private final JButton option;
     private final JButton exit;
 
-    public MenuPanel(final Controller controller){
+    public MenuPanel(MainFrame mainFrame){
         super();
-        this.controller = controller;
+        this.mainFrame = mainFrame;
 
         setLayoutPanel();
 
@@ -36,6 +35,18 @@ public class MenuPanel extends BasePanelImpl {
         this.addActionListeners();
     }
 
+    private JButton getStartButton() {
+        return start;
+    }
+
+    private JButton getOptionButton() {
+        return option;
+    }
+
+    private JButton getExitButton() {
+        return exit;
+    }
+
     @Override
     public void setLayoutPanel() {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -43,8 +54,9 @@ public class MenuPanel extends BasePanelImpl {
 
     @Override
     public void addActionListeners() {
-        start.addActionListener(e -> controller.onStart());
-        option.addActionListener(e -> controller.onOption());
-        exit.addActionListener(e -> controller.exit());
+        System.out.println("MenuPanel : Adding action listeners to MenuPanel buttons");
+        getStartButton().addActionListener(e -> mainFrame.showGame());
+        getOptionButton().addActionListener(e -> mainFrame.showOption());
+        getExitButton().addActionListener(e -> System.exit(0));
     }
 }

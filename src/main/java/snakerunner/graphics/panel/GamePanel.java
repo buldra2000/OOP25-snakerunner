@@ -1,11 +1,13 @@
 package snakerunner.graphics.panel;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
+
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-import snakerunner.controller.Controller;
+import snakerunner.graphics.MainFrame;
 import snakerunner.graphics.hud.LevelView;
 import snakerunner.graphics.hud.LifeView;
 import snakerunner.graphics.hud.ScoreView;
@@ -14,17 +16,16 @@ import snakerunner.graphics.impl.BasePanelImpl;
 
 public class GamePanel extends BasePanelImpl {
 
-    private static final long serialVersionUID = 1L;
     private static final String PAUSE = "Pause";
     private static final String RESUME = "Resume";
     private static final String BACK = "Back to Menu";
 
-    private final TimerView timerView;
-    private final ScoreView scoreView;
-    private final LevelView levelView;
-    private final LifeView lifeView;
+    private TimerView timerView;
+    private ScoreView scoreView;
+    private LevelView levelView;
+    private LifeView lifeView;
 
-    private final Controller controller;
+    private MainFrame mainFrame;
 
     private final JPanel nPanel;
     private final JPanel sPanel;
@@ -35,9 +36,9 @@ public class GamePanel extends BasePanelImpl {
     private final JButton resume;
     private final JButton back;
 
-    public GamePanel(final Controller controller){
+    public GamePanel(MainFrame mainFrame){
         super();
-        this.controller = controller;
+        this.mainFrame = mainFrame;
         nPanel = new JPanel();
         sPanel = new JPanel();
         gameBoardPanel = new GameBoardPanel();
@@ -74,14 +75,26 @@ public class GamePanel extends BasePanelImpl {
         
         sPanel.setLayout(new BoxLayout(sPanel, BoxLayout.X_AXIS));
 
-        scoreView.setAlignmentX(RIGHT_ALIGNMENT);
-        back.setAlignmentX(LEFT_ALIGNMENT);
+        scoreView.setAlignmentX(Component.RIGHT_ALIGNMENT);
+        back.setAlignmentX(Component.LEFT_ALIGNMENT);
 
         sPanel.add(scoreView);
         sPanel.add(back);
 
 
         this.addActionListeners();
+    }
+
+    private JButton getPause() {
+        return pause;
+    }
+
+    private JButton getResume() {
+        return resume;
+    }
+
+    private JButton getBacktoMenu(){
+        return back;
     }
 
     @Override
@@ -91,12 +104,13 @@ public class GamePanel extends BasePanelImpl {
 
     @Override
     public void addActionListeners(){
-        pause.addActionListener(e -> controller.pause());
-        resume.addActionListener(e -> {});
-        back.addActionListener(e -> controller.onBackMenu());
+        System.out.println("GamePanel : Adding action listeners to GamePanel buttons");
+        getPause().addActionListener(e -> mainFrame.pause());
+        getResume().addActionListener(e -> {});
+        getBacktoMenu().addActionListener(e -> mainFrame.showMenu());
     }
 
-    public void updateTimer(final int timeLeft){
-        //timerView.setTimeLeft(timeLeft);
+    public void updateTimer(int timeLeft){
+        timerView.setTimeLeft(timeLeft);
     }
 }

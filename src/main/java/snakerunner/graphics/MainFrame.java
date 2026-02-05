@@ -1,25 +1,24 @@
 package snakerunner.graphics;
 
 import snakerunner.controller.Controller;
-import snakerunner.graphics.panel.GamePanel;
-import snakerunner.graphics.panel.MenuPanel;
-import snakerunner.graphics.panel.OptionPanel;
 
 public interface MainFrame {
 
-    void display();
+    public void display();
 
-    void showMenu();
+    public void showMenu();
 
-    void showGame();
+    public void showGame();
 
-    void setPanels(final MenuPanel menuPanel, final GamePanel gamePanel, final OptionPanel optionPanel);
+    public void showOption();
 
-    void showOption();
+    public void pause();
 
-    void pause();
+    public void setController(Controller controller);
 
-    void setController(Controller controller);
+    public void startGameLoop(Runnable onTick);
 
-    void setSoundEnabled(boolean isEnable);
+    public void stopGameLoop();
+
+    public void setSoundEnabled(boolean isEnable);
 }

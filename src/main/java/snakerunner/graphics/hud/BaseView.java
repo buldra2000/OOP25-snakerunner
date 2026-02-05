@@ -6,15 +6,9 @@ import javax.swing.JLabel;
 
 public abstract class BaseView extends JLabel{
 
-    private static final long serialVersionUID = 1L;
-
-    public BaseView(final int width, final int height){
-        init(width,height);
-    }
-
-    private void init(final int width, final int height){
+    public BaseView(int WIDTH, int HEIGHT){
         setOpaque(false);
-        setPreferredSize(new Dimension(width, height));
+        setPreferredSize(new Dimension(WIDTH, HEIGHT));
     }
 
     public abstract void setValue(int value);
