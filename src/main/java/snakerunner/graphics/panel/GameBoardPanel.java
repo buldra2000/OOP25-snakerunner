@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 
 public class GameBoardPanel extends JPanel {
 
+    private static final long serialVersionUID = 1L;
     private static final int CELL = 10;
 
     private Point apple;
@@ -22,11 +23,11 @@ public class GameBoardPanel extends JPanel {
     }
 
     @Override
-    protected void paintComponent(Graphics g){
+    protected void paintComponent(final Graphics g){
         super.paintComponent(g);
 
         g.setColor(Color.GREEN);
-        for(Point p : snakeBody){
+        for(final Point p : snakeBody){
             g.fillRect(p.x * CELL, p.y * CELL, CELL, CELL);
         }
 
@@ -36,11 +37,11 @@ public class GameBoardPanel extends JPanel {
         }
     }
 
-    public void setApple(Point apple) {
+    public void setApple(final Point apple) {
         this.apple = apple;
     }
 
-    public void setSnakeBody(java.util.List<Point> snakeBody) {
+    public void setSnakeBody(final List<Point> snakeBody) {
         this.snakeBody = snakeBody;
     }
 }

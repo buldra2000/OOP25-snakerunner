@@ -4,21 +4,21 @@ import snakerunner.controller.Controller;
 
 public interface MainFrame {
 
-    public void display();
+    void display();
 
-    public void showMenu();
+    void showMenu();
 
-    public void showGame();
+    void showGame();
 
-    public void showOption();
+    void showOption();
 
-    public void pause();
+    void pause();
 
-    public void setController(Controller controller);
+    void setController(Controller controller);
 
-    public void startGameLoop(Runnable onTick);
+    void startGameLoop(Runnable onTick);
 
-    public void stopGameLoop();
+    void stopGameLoop();
 
-    public void setSoundEnabled(boolean isEnable);
+    void setSoundEnabled(boolean isEnable);
 }

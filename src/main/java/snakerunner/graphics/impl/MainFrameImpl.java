@@ -14,15 +14,15 @@ import snakerunner.graphics.panel.OptionPanel;
 import snakerunner.graphics.panel.PanelFactory;
 
 public class MainFrameImpl extends JFrame implements MainFrame {
-    
+
+    private static final long serialVersionUID = 1L;
     private static final String TITLE = "Snake Runner";
     private static final double PROPORTION = 0.5;
     private Controller controller;
     private Timer timer;
-    private int timeLeft;
-    private MenuPanel menuPanel;
-    private GamePanel gamePanel;
-    private OptionPanel optionPanel;
+    private final MenuPanel menuPanel;
+    private final GamePanel gamePanel;
+    private final OptionPanel optionPanel;
 
     public MainFrameImpl() {
         super(TITLE);
@@ -32,16 +32,6 @@ public class MainFrameImpl extends JFrame implements MainFrame {
         optionPanel = PanelFactory.createOptionPanel(this);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setDimensionFrame();
-        timer = new Timer(DELAY, e -> updateTimer());
-        timeLeft = START_TIME;
-    }
-
-     private void updateTimer(){
-        timeLeft--;
-
-        if(timeLeft<=0){
-            timer.stop();
-        }
     }
 
     @Override
@@ -50,9 +40,9 @@ public class MainFrameImpl extends JFrame implements MainFrame {
     }
 
     private void setDimensionFrame(){
-        Dimension screensize = Toolkit.getDefaultToolkit().getScreenSize();
-        int width = (int)(screensize.width * PROPORTION);
-        int height = (int)(screensize.height * PROPORTION);
+        final Dimension screensize = Toolkit.getDefaultToolkit().getScreenSize();
+        final int width = (int)(screensize.width * PROPORTION);
+        final int height = (int)(screensize.height * PROPORTION);
         setSize(width,height);
     }
 
@@ -70,7 +60,6 @@ public class MainFrameImpl extends JFrame implements MainFrame {
         repaint();
 
         controller.start();
-        System.out.println("Controller.start()");
     }
 
     @Override
@@ -86,12 +75,12 @@ public class MainFrameImpl extends JFrame implements MainFrame {
     }
 
     @Override
-    public void setController(Controller controller) {
+    public void setController(final Controller controller) {
         this.controller = controller;
     }
 
     @Override
-    public void startGameLoop(Runnable onTick) {
+    public void startGameLoop(final Runnable onTick) {
         timer = new Timer(200, e -> onTick.run()); 
         //gamePanel.updateTimer(/*getTimeLeft()*/);
         timer.start();
@@ -105,7 +94,7 @@ public class MainFrameImpl extends JFrame implements MainFrame {
     }
 
     @Override
-    public void setSoundEnabled(boolean isEnable) {
+    public void setSoundEnabled(final boolean isEnable) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'setSoundEnabled'");
     }

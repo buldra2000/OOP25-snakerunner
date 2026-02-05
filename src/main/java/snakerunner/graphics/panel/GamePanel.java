@@ -1,12 +1,9 @@
 package snakerunner.graphics.panel;
 
 import java.awt.BorderLayout;
-import java.awt.Component;
-
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
-
 import snakerunner.graphics.MainFrame;
 import snakerunner.graphics.hud.LevelView;
 import snakerunner.graphics.hud.LifeView;
@@ -16,16 +13,17 @@ import snakerunner.graphics.impl.BasePanelImpl;
 
 public class GamePanel extends BasePanelImpl {
 
+    private static final long serialVersionUID = 1L;
     private static final String PAUSE = "Pause";
     private static final String RESUME = "Resume";
     private static final String BACK = "Back to Menu";
 
-    private TimerView timerView;
-    private ScoreView scoreView;
-    private LevelView levelView;
-    private LifeView lifeView;
+    private final TimerView timerView;
+    private final ScoreView scoreView;
+    private final LevelView levelView;
+    private final LifeView lifeView;
 
-    private MainFrame mainFrame;
+    private final MainFrame mainFrame;
 
     private final JPanel nPanel;
     private final JPanel sPanel;
@@ -36,7 +34,7 @@ public class GamePanel extends BasePanelImpl {
     private final JButton resume;
     private final JButton back;
 
-    public GamePanel(MainFrame mainFrame){
+    public GamePanel(final MainFrame mainFrame){
         super();
         this.mainFrame = mainFrame;
         nPanel = new JPanel();
@@ -75,8 +73,8 @@ public class GamePanel extends BasePanelImpl {
         
         sPanel.setLayout(new BoxLayout(sPanel, BoxLayout.X_AXIS));
 
-        scoreView.setAlignmentX(Component.RIGHT_ALIGNMENT);
-        back.setAlignmentX(Component.LEFT_ALIGNMENT);
+        scoreView.setAlignmentX(RIGHT_ALIGNMENT);
+        back.setAlignmentX(LEFT_ALIGNMENT);
 
         sPanel.add(scoreView);
         sPanel.add(back);
@@ -104,13 +102,12 @@ public class GamePanel extends BasePanelImpl {
 
     @Override
     public void addActionListeners(){
-        System.out.println("GamePanel : Adding action listeners to GamePanel buttons");
         getPause().addActionListener(e -> mainFrame.pause());
         getResume().addActionListener(e -> {});
         getBacktoMenu().addActionListener(e -> mainFrame.showMenu());
     }
 
-    public void updateTimer(int timeLeft){
-        timerView.setTimeLeft(timeLeft);
+    public void updateTimer(final int timeLeft){
+        //timerView.setTimeLeft(timeLeft);
     }
 }

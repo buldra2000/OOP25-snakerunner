@@ -4,20 +4,20 @@ import java.util.List;
 
 public interface GameModel {
     
-    public void update();
+    void update();
 
-    public void checkCollisions();
+    void checkCollisions();
 
-    public boolean isGameOver();
+    boolean isGameOver();
 
-    public void loadLevel(LevelData data);
+    void loadLevel(LevelData data);
 
-    public void resetLevel();
+    void resetLevel();
 
-    public Snake getSnake();
+    Snake getSnake();
 
     //GETTER PER LA VIEW / DEBUG
-    public List<Collectible> getFoods();
+    List<Collectible> getFoods();
 
-    public Level getLevel();
+    Level getLevel();
 }

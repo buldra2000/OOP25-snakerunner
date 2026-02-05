@@ -8,17 +8,18 @@ import snakerunner.graphics.impl.BasePanelImpl;
 
 public class MenuPanel extends BasePanelImpl {
 
+    private static final long serialVersionUID = 1L;
     private static final String START = "Start";
     private static final String OPTION = "Option";
     private static final String EXIT = "Exit";
 
-    private MainFrame mainFrame;
+    private final MainFrame mainFrame;
 
     private final JButton start;
     private final JButton option;
     private final JButton exit;
 
-    public MenuPanel(MainFrame mainFrame){
+    public MenuPanel(final MainFrame mainFrame){
         super();
         this.mainFrame = mainFrame;
 
@@ -54,7 +55,6 @@ public class MenuPanel extends BasePanelImpl {
 
     @Override
     public void addActionListeners() {
-        System.out.println("MenuPanel : Adding action listeners to MenuPanel buttons");
         getStartButton().addActionListener(e -> mainFrame.showGame());
         getOptionButton().addActionListener(e -> mainFrame.showOption());
         getExitButton().addActionListener(e -> System.exit(0));

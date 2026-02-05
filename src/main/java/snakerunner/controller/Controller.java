@@ -8,22 +8,22 @@ import snakerunner.model.GameModel;
 
 public interface Controller {
 
-    public void init();
+    void init();
 
     /**
      * Starts the game loop.
      */
-    public void start();
+    void start();
 
-    public void pause();
+    void pause();
 
-    public GameModel getModel();
+    GameModel getModel();
 
-    public MainFrame getView();
+    MainFrame getView();
 
-    public void updateGame();
+    void updateGame();
 
-    public void setSoundEnable(boolean isEnable);
+    void setSoundEnable(boolean isEnable);
 
-    public void loadLevelFromFile(String filepath);
+    void loadLevelFromFile(String filepath);
 }

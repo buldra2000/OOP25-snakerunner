@@ -1,15 +1,13 @@
 package snakerunner.graphics.hud;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Graphics;
 
-import javax.swing.JPanel;
-
 /*ScoreView is a HUD component and is used to show score in GamePanel*/
-public class ScoreView extends JPanel{
+public class ScoreView extends BaseView{
 
-    private static final int WIDTH = 60;
+    private static final long serialVersionUID = 1L;
+    private static final int WIDTH = 100;
     private static final int HEIGHT = 30;
     private static final String SCORE_TEXT = "Score : %03d";
     private static final int X = 1;
@@ -18,20 +16,26 @@ public class ScoreView extends JPanel{
     private int score;
 
     public ScoreView(){
-        setOpaque(false);
-        setPreferredSize(new Dimension(WIDTH, HEIGHT));
+        super(WIDTH, HEIGHT);
+        init();
+    }
+
+    @SuppressWarnings({"method-call-in-constructor", "OverridableMethodCallDuringObjectConstruction", "OverridableMethodCallInConstructor"})
+    private void init(){
+        setMaximumSize(getPreferredSize());
     }
     
-    public void setScore(int score){
+    @Override
+    public void setValue(final int score){
         this.score = score;
         repaint();
     }
 
     @Override
-    protected void paintComponent(Graphics g){
+    protected void paintComponent(final Graphics g){
         super.paintComponent(g);
 
-        String scoreText = String.format(SCORE_TEXT, score);
+        final String scoreText = String.format(SCORE_TEXT, score);
 
         g.setColor(Color.BLACK);
         g.drawString(scoreText, X, Y);
