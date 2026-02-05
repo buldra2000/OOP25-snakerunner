@@ -35,12 +35,14 @@ public interface Controller {
 
     /**
      * Get obstacles from Model (Controller - Model)
+     * 
      * @return
      */
     Set<Point2D<Integer, Integer>> getObstacles();
 
     /**
      * Get Collectibles from Model (Controller  Model)
+     * 
      * @return
      */
     List<Point2D<Integer, Integer>> getCollectibles();
@@ -50,7 +52,12 @@ public interface Controller {
      */
     void resume();
 
-    public MainFrame getView();
+    /**
+     * Get View
+     * 
+     * @return
+     */
+    MainFrame getView();
 
     /**
      * Update gameLoop
@@ -59,6 +66,7 @@ public interface Controller {
 
     /**
      * Load level from file
+     * 
      * @param filepath path file levels
      */
     void loadLevelFromFile(String filepath);

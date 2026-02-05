@@ -40,7 +40,7 @@ public class ControllerImpl implements Controller {
         initGameLoop();
     }
 
-    private void initGameLoop(){
+    private void initGameLoop() {
         gameLoopTimer = new Timer(1000, e -> {
             updateGame();
         });
@@ -61,7 +61,7 @@ public class ControllerImpl implements Controller {
     }
 
     @Override
-    public void onOption(){
+    public void onOption() {
         mainFrame.showOption();
     }
 
@@ -76,8 +76,8 @@ public class ControllerImpl implements Controller {
     }
 
     @Override
-    public void pause(){
-        if(state == StateGame.RUNNING){
+    public void pause() {
+        if (state == StateGame.RUNNING) {
             state = StateGame.PAUSED;
             gameLoopTimer.stop();
         }
@@ -87,7 +87,7 @@ public class ControllerImpl implements Controller {
     //tick di gioco 
     @Override
     public void updateGame() {
-        if (state != StateGame.RUNNING){
+        if (state != StateGame.RUNNING) {
             return;
         }
 
@@ -96,7 +96,6 @@ public class ControllerImpl implements Controller {
         timeLeft--;
 
         if (gameModel.isGameOver()) {
-            System.out.println("Controller: Game Over!");
             state = StateGame.GAME_OVER;
             mainFrame.showMenu();
         }
@@ -106,12 +105,12 @@ public class ControllerImpl implements Controller {
     }
 
     @Override
-    public Set<Point2D<Integer, Integer>> getObstacles(){
+    public Set<Point2D<Integer, Integer>> getObstacles() {
         return gameModel.getLevel().getObstacles();
     }
 
     @Override
-    public List<Point2D<Integer, Integer>> getCollectibles(){
+    public List<Point2D<Integer, Integer>> getCollectibles() {
         return gameModel.getCollectibles()
             .stream()
             .map(Collectible::getPosition)
@@ -119,12 +118,12 @@ public class ControllerImpl implements Controller {
     }
 
     @Override
-    public void onBackMenu(){
+    public void onBackMenu() {
         mainFrame.showMenu();
     }
 
     @Override
-    public GameModel getModel(){
+    public GameModel getModel() {
         return gameModel;
     }
 
@@ -144,11 +143,11 @@ public class ControllerImpl implements Controller {
                 throw new IllegalArgumentException("File livello non trovato: " + filePath);
             }
 
-            List<String> lines = new BufferedReader(new InputStreamReader(is))
+            final List<String> lines = new BufferedReader(new InputStreamReader(is))
                     .lines()
                     .toList();
 
-            LevelData level = LevelLoader.load(lines);
+            final LevelData level = LevelLoader.load(lines);
             gameModel.loadLevel(level);
 
         } catch (IOException e) {
@@ -157,19 +156,20 @@ public class ControllerImpl implements Controller {
     }
     
 
-    private void updateHUD(){
+    private void updateHUD() {
         timerView.setTimeLeft(timeLeft);
     }
 
     @Override
-    public void exit(){
+    public void exit() {
         System.exit(0);
     }
 
     @Override
     public void resume() {
-        if(state == StateGame.PAUSED){
+        if (state == StateGame.PAUSED) {
             state = StateGame.RUNNING;
         }
+        gameLoopTimer.restart();
     }
 }
