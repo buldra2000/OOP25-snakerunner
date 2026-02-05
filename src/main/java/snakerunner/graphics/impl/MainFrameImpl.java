@@ -2,15 +2,12 @@ package snakerunner.graphics.impl;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
-
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-
 import snakerunner.graphics.MainFrame;
 import snakerunner.graphics.panel.GamePanel;
 import snakerunner.graphics.panel.MenuPanel;
 import snakerunner.graphics.panel.OptionPanel;
-import snakerunner.graphics.panel.PanelFactory;
 
 public class MainFrameImpl extends JFrame implements MainFrame {
     
