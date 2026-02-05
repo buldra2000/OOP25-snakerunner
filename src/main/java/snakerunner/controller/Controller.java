@@ -1,5 +1,6 @@
 package snakerunner.controller;
 
+import snakerunner.graphics.MainFrame;
 import snakerunner.model.GameModel;
 
 //LinkedBlockingQueue -> thread safe
@@ -7,7 +8,7 @@ import snakerunner.model.GameModel;
 
 public interface Controller {
 
-    public void init();
+    void init();
 
     /**
      * Starts the game loop.
@@ -18,6 +19,7 @@ public interface Controller {
 
     GameModel getModel();
 
+<<<<<<< HEAD
     void updateGame();
 
     void setSoundEnable(boolean isEnable);
@@ -32,4 +34,13 @@ public interface Controller {
     void onResume();
 
     void onBackToMenu();
+=======
+    MainFrame getView();
+
+    void updateGame();
+
+    void setSoundEnable(boolean isEnable);
+
+    void loadLevelFromFile(String filepath);
+>>>>>>> main
 }

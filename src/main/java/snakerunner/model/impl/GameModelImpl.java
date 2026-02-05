@@ -1,37 +1,23 @@
 package snakerunner.model.impl;
 
-import javax.swing.Timer;
+import java.util.Collections;
+import java.util.List;
 
+import snakerunner.commons.Point2D;
+import snakerunner.model.Collectible;
 import snakerunner.model.GameModel;
 import snakerunner.model.Level;
-import snakerunner.model.LevelManager;
+import snakerunner.model.LevelData;
 import snakerunner.model.Snake;
 
 public class GameModelImpl implements GameModel {
 
-    private static final int START_TIME = 180;
-    private static final int DELAY = 1000;
-
-    private int timeLeft;
-    private Timer timer;
     private Level currentLevel;
     private Snake snake;
-    private LevelManager levelManager;
+    private List<Collectible> collectibles;
+    //private LevelManager levelManager;
 
     public GameModelImpl() {
-        timeLeft = START_TIME;
-        timer = new Timer(DELAY, e -> {
-            updateTimer();
-            System.out.println(timeLeft);
-        });
-    }
-
-    private void updateTimer(){
-        timeLeft--;
-
-        if(timeLeft<=0){
-            timer.stop();
-        }
     }
 
     @Override
@@ -39,7 +25,7 @@ public class GameModelImpl implements GameModel {
         // Every game update logic goes here and updates the game state accordingly.
         
         //snake.move();
-        checkCollisions();
+        //checkCollisions();
         
     }
 
@@ -47,11 +33,6 @@ public class GameModelImpl implements GameModel {
     public void checkCollisions() {
         // TODO Auto-generated method stub
 
-    }
-
-    @Override
-    public void startTimer(){
-        timer.start();
     }
 
     @Override
@@ -64,47 +45,50 @@ public class GameModelImpl implements GameModel {
         }
         */
        return false;
-        // WIN OR DEATH CONDITION
     }
 
     @Override
-    public boolean hasWon(){
-        return false; //TODO
-    }
-
-    @Override
-    public boolean hasLost(){
-        return false; //TODO
-    }
-
-    public void loadLevel(Level level) {
-        this.currentLevel = level;
-        resetLevel();
+    public void loadLevel(LevelData data) {
+        this.currentLevel = new LevelImpl(data);
+        this.collectibles = data.getCollectibles();
+        //this.snake = new SnakeImpl(new Point2D<>(5,5), 3);
+        debugPrintLevel();
     }
 
     @Override
     public void resetLevel() {
-        //snake = new Snake()
+        //this.snake = new SnakeImpl();
+        //this.food = new FoodImpl();
     }
 
     @Override
-    public void nextLevel() {
-        this.currentLevel = levelManager.nextLevel();
+    public Snake getSnake() {
+        return this.snake;
     }
 
     @Override
-    public int getTimeLeft() {
-        return timeLeft;
+    public List<Collectible> getCollectibles() {
+        return Collections.unmodifiableList(collectibles);    
     }
 
     @Override
-    public void stopTimer() {
-        timer.stop();
+    public Level getLevel() {
+        return this.currentLevel;
     }
 
-    @Override
-    public int getLevel() {
-        return currentLevel != null ? 2 : 1;
+    private void debugPrintLevel() {
+        System.out.println("=== LEVEL DEBUG ===");
+
+        System.out.println("Walls:");
+        for (Point2D<Integer, Integer> p : currentLevel.getObstacles()) {
+            System.out.println("  wall at " + p);
+        }
+
+        System.out.println("Collectibles:");
+        for (Collectible c : collectibles) {
+            System.out.println("  collectible at " + c.getPosition());
+        }
+
+        System.out.println("===================");
     }
-    
 }

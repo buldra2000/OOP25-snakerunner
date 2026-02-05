@@ -1,61 +1,53 @@
 package snakerunner.graphics.panel;
 
-import java.awt.Component;
-
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-
 import snakerunner.audio.AudioPlayer;
 import snakerunner.controller.Controller;
 import snakerunner.graphics.impl.BasePanelImpl;
 
 public class OptionPanel extends BasePanelImpl {
 
+    private static final long serialVersionUID = 1L;
+
     private static final String APPLY = "Apply";
     private static final String BACK = "Back";
     private static final String SOUND = "Sound On / Off";
 
-    private Controller controller;
-
+    private final Controller controller;
     private final JButton apply;
     private final JButton back;
     private final JCheckBox checkbox;
     private final JLabel label;
 
-    public OptionPanel(Controller controller){
+    public OptionPanel(final Controller controller){
         super();
         this.controller = controller;
         checkbox = new JCheckBox();
         label = new JLabel(SOUND);
-
         setLayoutPanel();
-        
-        checkbox.setAlignmentX(Component.CENTER_ALIGNMENT);
-
-        setSoundPanel();
+        checkbox.setAlignmentX(CENTER_ALIGNMENT);
+        initSoundPanel();
         add(Box.createVerticalGlue());
         apply = createButton(APPLY);
         back = createButton(BACK);
-
         add(apply);
         add(back);
-
-        this.addActionListeners();
+        addActionListeners();
     }
 
-    private JPanel setSoundPanel(){
-        JPanel soundPanel = new JPanel();
+    private void initSoundPanel(){
+        final JPanel soundPanel = new JPanel();
         soundPanel.setLayout(new BoxLayout(soundPanel, BoxLayout.X_AXIS));
-        soundPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        soundPanel.setAlignmentX(CENTER_ALIGNMENT);
         soundPanel.setOpaque(false);
         soundPanel.add(label);
         soundPanel.add(checkbox);
         add(soundPanel);
-        return soundPanel;
     }
 
     @Override
@@ -65,13 +57,11 @@ public class OptionPanel extends BasePanelImpl {
 
     @Override
     public void addActionListeners(){
-        System.out.println("OptionPanel : Adding action listeners to OptionPanel buttons");
         apply.addActionListener(e -> controller.onBackToMenu());
         back.addActionListener(e -> controller.onBackToMenu());
         checkbox.addActionListener(e -> {
-            boolean enable = checkbox.isSelected();
+            final boolean enable = checkbox.isSelected();
             AudioPlayer.setSoundEnabled(enable);
-            System.out.println("OptionPanel: setSoundEnabled():" + enable);
         });
     }
 }

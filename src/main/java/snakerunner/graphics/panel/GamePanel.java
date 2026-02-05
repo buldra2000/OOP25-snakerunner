@@ -1,21 +1,20 @@
 package snakerunner.graphics.panel;
 
 import java.awt.BorderLayout;
-import java.awt.Component;
-
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import snakerunner.controller.Controller;
-import snakerunner.graphics.hud.impl.LevelView;
-import snakerunner.graphics.hud.impl.LifeView;
-import snakerunner.graphics.hud.impl.ScoreView;
-import snakerunner.graphics.hud.impl.TimerView;
+import snakerunner.graphics.hud.LevelView;
+import snakerunner.graphics.hud.LifeView;
+import snakerunner.graphics.hud.ScoreView;
+import snakerunner.graphics.hud.TimerView;
 import snakerunner.graphics.impl.BasePanelImpl;
 
 public class GamePanel extends BasePanelImpl {
 
+    private static final long serialVersionUID = 1L;
     private static final String PAUSE = "Pause";
     private static final String RESUME = "Resume";
     private static final String BACK = "Back to Menu";
@@ -25,7 +24,7 @@ public class GamePanel extends BasePanelImpl {
     private final LevelView levelView;
     private final LifeView lifeView;
 
-    private Controller controller;
+    private final Controller controller;
 
     private final JPanel nPanel;
     private final JPanel sPanel;
@@ -36,7 +35,7 @@ public class GamePanel extends BasePanelImpl {
     private final JButton resume;
     private final JButton back;
 
-    public GamePanel(Controller controller){
+    public GamePanel(final Controller controller){
         super();
         this.controller = controller;
         nPanel = new JPanel();
@@ -75,8 +74,8 @@ public class GamePanel extends BasePanelImpl {
         
         sPanel.setLayout(new BoxLayout(sPanel, BoxLayout.X_AXIS));
 
-        scoreView.setAlignmentX(Component.RIGHT_ALIGNMENT);
-        back.setAlignmentX(Component.LEFT_ALIGNMENT);
+        scoreView.setAlignmentX(RIGHT_ALIGNMENT);
+        back.setAlignmentX(LEFT_ALIGNMENT);
 
         sPanel.add(scoreView);
         sPanel.add(back);
@@ -91,29 +90,12 @@ public class GamePanel extends BasePanelImpl {
 
     @Override
     public void addActionListeners(){
-        System.out.println("GamePanel : Adding action listeners to GamePanel buttons");
-        pause.addActionListener(e -> controller.onPause());
-        resume.addActionListener(e -> controller.onResume());
+        pause.addActionListener(e -> controller.pause());
+        resume.addActionListener(e -> controller.resume());
         back.addActionListener(e -> controller.onBackToMenu());
     }
 
-    //TimerView
-    public void updateTimer(int timeLeft){
-        timerView.setValue(timeLeft);
-    }
-
-    //LevelView
-    public void updateLevel(int level){
-        levelView.setValue(level);
-    }
-
-    //ScoreView
-    public void updateScore(int score){
-        scoreView.setValue(score);
-    }
-
-    //LifeView
-    public void updateLife(int life){
-        lifeView.setValue(life);
+    public void updateTimer(final int timeLeft){
+        //timerView.setTimeLeft(timeLeft);
     }
 }

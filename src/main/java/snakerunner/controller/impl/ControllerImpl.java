@@ -1,8 +1,14 @@
 package snakerunner.controller.impl;
 
-import javax.swing.Timer;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-import snakerunner.audio.AudioPlayer;
 import snakerunner.controller.Controller;
 import snakerunner.core.StateGame;
 import snakerunner.graphics.MainFrame;
@@ -11,20 +17,19 @@ import snakerunner.graphics.panel.MenuPanel;
 import snakerunner.graphics.panel.OptionPanel;
 import snakerunner.graphics.panel.PanelFactory;
 import snakerunner.model.GameModel;
+import snakerunner.model.LevelData;
+import snakerunner.model.impl.LevelLoader;
 
 public class ControllerImpl implements Controller {
+
+    private static final Logger LOGGER = Logger.getLogger(ControllerImpl.class.getName()); 
+
     private StateGame state;
 
     private final MainFrame mainFrame;
     private final GameModel gameModel;
 
-    private Timer gameLoopTimer;
-
-    private GamePanel gamePanel;
-    private MenuPanel menuPanel;
-    private OptionPanel optionPanel;
-
-    public ControllerImpl(MainFrame mainFrame, GameModel gameModel) {
+    public ControllerImpl(final MainFrame mainFrame, final GameModel gameModel) {
         this.mainFrame = mainFrame; //view
         this.gameModel = gameModel; //model
         this.state = StateGame.MENU;
@@ -55,53 +60,35 @@ public class ControllerImpl implements Controller {
         mainFrame.showGame();
         // Implementation to start the game loop
         state = StateGame.RUNNING;
-
-        updateHUD();
-
-        gameLoopTimer.start();
-        gameModel.startTimer();
-        System.out.println("StateGame.RUNNING , StartTimer");
     }
 
     @Override
     public void pause(){
-        state = StateGame.PAUSED;
-        gameLoopTimer.stop();
-        gameModel.stopTimer();
-        System.out.println("StateGame.PAUSED , StopTimer");
-        //gameModel.loadLevel(level);
+
+        if(state == StateGame.RUNNING){
+            state = StateGame.PAUSED;
+        }
     }
 
-    @Override
-    public void resume(){
-        state = StateGame.RUNNING;
-        gameLoopTimer.restart();
-        gameModel.startTimer();
-        System.out.println("StateGame.RESUME , StartTimer");
-        //gameModel.loadLevel(level);
-    }
 
+    //tick di gioco 
     @Override
     public void updateGame() {
         if (state != StateGame.RUNNING){
             return;
         }
 
-        //un tick di gioco
         gameModel.update();
 
         updateHUD();
 
         if (gameModel.isGameOver()) {
-            System.out.println("Controller: Game Over!");
+            mainFrame.stopGameLoop();
             state = StateGame.GAME_OVER;
             mainFrame.showMenu();
         }
-    }
 
-    @Override
-    public void onOption(){
-        mainFrame.showOption();
+        //view Render
     }
 
     @Override
@@ -110,31 +97,39 @@ public class ControllerImpl implements Controller {
     }
 
     @Override
+    public MainFrame getView() {
+        return mainFrame;
+    }
+
+    @Override
     public void setSoundEnable(boolean isEnable){
-        AudioPlayer.setSoundEnabled(isEnable);
+        //TODO
     }
 
     @Override
-    public void onPause() {
-        pause();
-    }
+    public void loadLevelFromFile(final String filePath) {
+        // Legge il file dal classpath (resources)
+        try (InputStream is = LevelLoader.class
+                .getClassLoader()
+                .getResourceAsStream(filePath)) {
 
-    @Override
-    public void onResume() {
-        resume();
-    }
+            if (is == null) {
+                final String errorMsg = "File not found: " + filePath;
+                LOGGER.log(Level.SEVERE, errorMsg);
+                throw new IllegalArgumentException(errorMsg);
+            }
 
-    @Override
-    public void onBackToMenu() {
-        state = StateGame.MENU;
-        mainFrame.showMenu();
-    }
+            final List<String> lines = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8))
+                    .lines()
+                    .toList();
 
-    private void updateHUD(){
-        gamePanel.updateTimer(gameModel.getTimeLeft());
-        gamePanel.updateLevel(gameModel.getLevel());
-        //gamePanel.updateLife(gameModel.getLife());
-        //gamePanel.updateScore(gameModel.getScore());
-    }
+            final LevelData level = LevelLoader.load(lines);
+            gameModel.loadLevel(level);
 
+        } catch (IOException e) {
+            final String errorMsg = "Error file load" + filePath;
+            LOGGER.log(Level.SEVERE, errorMsg, e);
+            throw new IllegalStateException(errorMsg, e);
+        }
+    }
 }

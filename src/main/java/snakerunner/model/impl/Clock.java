@@ -5,16 +5,17 @@ import snakerunner.model.Collectible;
 import snakerunner.model.CollectibleType;
 import snakerunner.model.Snake;
 
-public class FoodImpl implements Collectible{
+public class Clock implements Collectible{
     private final Point2D<Integer, Integer> position;
 
-    public FoodImpl(Point2D<Integer, Integer> position){
+    public Clock(Point2D<Integer, Integer> position){
         this.position = position;
     }
 
     @Override
     public void consume(Snake snake) {
-        // Implement consumption logic here
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'consume'");
     }
 
     @Override
@@ -24,6 +25,7 @@ public class FoodImpl implements Collectible{
 
     @Override
     public CollectibleType getType() {
-        return CollectibleType.FOOD;
+        return CollectibleType.CLOCK;
     }
+    
 }

@@ -3,20 +3,22 @@ package snakerunner.graphics.impl;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 
-//import java.net.URL;
-//import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.Timer;
 
+import snakerunner.controller.Controller;
 import snakerunner.graphics.MainFrame;
 import snakerunner.graphics.panel.GamePanel;
 import snakerunner.graphics.panel.MenuPanel;
 import snakerunner.graphics.panel.OptionPanel;
 
 public class MainFrameImpl extends JFrame implements MainFrame {
-    
+
+    private static final long serialVersionUID = 1L;
     private static final String TITLE = "Snake Runner";
     private static final double PROPORTION = 0.5;
-
+    private Controller controller;
+    private Timer timer;
     private MenuPanel menuPanel;
     private GamePanel gamePanel;
     private OptionPanel optionPanel;
@@ -42,9 +44,9 @@ public class MainFrameImpl extends JFrame implements MainFrame {
     */
 
     private void setDimensionFrame(){
-        Dimension screensize = Toolkit.getDefaultToolkit().getScreenSize();
-        int width = (int)(screensize.width * PROPORTION);
-        int height = (int)(screensize.height * PROPORTION);
+        final Dimension screensize = Toolkit.getDefaultToolkit().getScreenSize();
+        final int width = (int)(screensize.width * PROPORTION);
+        final int height = (int)(screensize.height * PROPORTION);
         setSize(width,height);
     }
 
@@ -60,6 +62,13 @@ public class MainFrameImpl extends JFrame implements MainFrame {
         setContentPane(gamePanel);
         revalidate();
         repaint();
+
+        controller.start();
+    }
+
+    @Override
+    public void pause(){
+        controller.pause();
     }
 
     @Override
@@ -76,22 +85,52 @@ public class MainFrameImpl extends JFrame implements MainFrame {
     }
 
     @Override
+    public void setController(final Controller controller) {
+        this.controller = controller;
+    }
+
+    @Override
+    public void startGameLoop(final Runnable onTick) {
+        timer = new Timer(200, e -> onTick.run()); 
+        //gamePanel.updateTimer(getTimeLeft());
+        //gamePanel.updateTimer(/*getTimeLeft()*/);
+        timer.start();
+    }
+
+    @Override
+    public void stopGameLoop() {
+    if (timer != null) {
+            timer.stop();
+        }
+    }
+
+    @Override
+    public void setSoundEnabled(final boolean isEnable) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'setSoundEnabled'");
+    }
+
+    @Override
     public void setGamePanel(GamePanel gamePanel) {
-        this.gamePanel = gamePanel;
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'setGamePanel'");
     }
 
     @Override
     public void setOptionPanel(OptionPanel optionPanel) {
-        this.optionPanel = optionPanel;
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'setOptionPanel'");
     }
 
     @Override
     public void won() {
-        System.out.println("you won");
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'won'");
     }
 
     @Override
     public void lose() {
-        System.out.println("you lost");
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'lose'");
     }
 }

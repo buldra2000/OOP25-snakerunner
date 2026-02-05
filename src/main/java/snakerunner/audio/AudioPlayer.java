@@ -1,22 +1,24 @@
 package snakerunner.audio;
 
 import java.io.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineEvent;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 
-public class AudioPlayer {
+public final class AudioPlayer {
 
-    private static final String ERROR = "Error playing sound.";
-    private static final String NOT_FOUND = "Sound not found.";
-    private static final String STREAM = "stream: ";
-
+    private static final Logger LOGGER = Logger.getLogger(AudioPlayer.class.getName());
     private static boolean soundEnable = true;
 
-    public AudioPlayer(){} //Empty constructor
+    private AudioPlayer(){} //Empty constructor
 
-    public static void setSoundEnabled(boolean enable){
+    public static void setSoundEnabled(final boolean enable){
         soundEnable = enable;
     }
 
@@ -24,7 +26,7 @@ public class AudioPlayer {
         return soundEnable;
     }
 
-    public static void playSound(String fileName){
+    public static void playSound(final String fileName) {
 
         if (!soundEnable) {
             return;
@@ -35,16 +37,13 @@ public class AudioPlayer {
               BufferedInputStream bstream = new BufferedInputStream(sound);
               AudioInputStream audioStream = AudioSystem.getAudioInputStream(bstream);
             ) {
-                System.out.println(STREAM + sound);
 
                 if (sound == null) {
-                    System.out.println(NOT_FOUND);
+                    LOGGER.log(Level.WARNING, "File not found.", fileName);
                     return;
                 }
 
-                System.out.println(STREAM + bstream);
-
-                Clip clip = AudioSystem.getClip();
+                final Clip clip = AudioSystem.getClip();
                 clip.open(audioStream);
                 clip.start();
 
@@ -54,9 +53,8 @@ public class AudioPlayer {
                     }
                 });
 
-            } catch (Exception e) {
-                System.out.println(ERROR);
-                e.printStackTrace();
-        }
+            } catch (UnsupportedAudioFileException | LineUnavailableException | IOException e) {
+                LOGGER.log(Level.SEVERE, "Format audio not supported: " + fileName, e);
+            }
     }
 }

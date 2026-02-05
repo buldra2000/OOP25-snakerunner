@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 
 public class GameBoardPanel extends JPanel {
 
+    private static final long serialVersionUID = 1L;
     private static final int CELL = 10;
 
     private int rows = 60;
@@ -20,7 +21,7 @@ public class GameBoardPanel extends JPanel {
     }
 
     @Override
-    protected void paintComponent(Graphics g){
+    protected void paintComponent(final Graphics g){
         super.paintComponent(g);
 
         drawGrid(g);
@@ -32,8 +33,8 @@ public class GameBoardPanel extends JPanel {
     private void drawGrid(Graphics g){
         g.setColor(Color.BLACK);
 
-        int width = cols * CELL;
-        int height = rows * CELL;
+        final int width = cols * CELL;
+        final int height = rows * CELL;
 
         for (int x = 0; x <= cols; x++){
             g.drawLine(x * CELL, 0, x * CELL, height);
