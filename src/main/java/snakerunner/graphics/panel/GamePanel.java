@@ -46,7 +46,7 @@ public class GamePanel extends BasePanelImpl {
 
         timerView = new TimerView();
         scoreView = new ScoreView();
-        levelView = new LevelView(controller);
+        levelView = new LevelView();
         lifeView = new LifeView();
 
         setLayoutPanel();
@@ -91,7 +91,7 @@ public class GamePanel extends BasePanelImpl {
     @Override
     public void addActionListeners(){
         pause.addActionListener(e -> controller.pause());
-        resume.addActionListener(e -> controller.pause());
+        resume.addActionListener(e -> controller.resume());
         back.addActionListener(e -> controller.onBackMenu());
     }
 
@@ -99,4 +99,10 @@ public class GamePanel extends BasePanelImpl {
         timerView.setValue(timeLeft);
         repaint();
     }
+
+    public TimerView getTimerView() {
+        return timerView;
+    }
+
+    
 }

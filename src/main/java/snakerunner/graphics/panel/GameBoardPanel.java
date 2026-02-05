@@ -1,7 +1,6 @@
 package snakerunner.graphics.panel;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Graphics;
 
 import javax.swing.JPanel;
@@ -16,14 +15,10 @@ public class GameBoardPanel extends JPanel {
 
     private final Controller controller;
 
-    private int rows = this.getWidth();
-    private int cols = this.getWidth();
-
     public GameBoardPanel(Controller controller){
         this.controller = controller;
         setOpaque(true);
         setBackground(Color.GRAY);
-        setPreferredSize(new Dimension(cols * CELL, rows * CELL));
     }
 
     /**
@@ -47,15 +42,21 @@ public class GameBoardPanel extends JPanel {
     private void drawGrid(Graphics g){
         g.setColor(Color.BLACK);
 
-        final int width = cols * CELL;
-        final int height = rows * CELL;
+        final int panelWidth = getWidth();
+        final int panelHeight = getHeight();
+
+        final int cols = panelWidth / CELL;
+        final int rows = panelHeight / CELL;
+
+        final int gridWidth = cols * CELL;
+        final int gridHeight = rows * CELL;
 
         for (int x = 0; x <= cols; x++){
-            g.drawLine(x * CELL, 0, x * CELL, height);
+            g.drawLine(x * CELL, 0, x * CELL, gridHeight);
         }
 
         for (int y = 0; y <= rows; y++){
-            g.drawLine(0, y * CELL,width, y * CELL);
+            g.drawLine(0, y * CELL,gridWidth, y * CELL);
         }
     }
 
@@ -64,8 +65,6 @@ public class GameBoardPanel extends JPanel {
      * @param g
      */
     private void drawSnake(Graphics g){}
-
-
 
     /**
      * Draw obstacle

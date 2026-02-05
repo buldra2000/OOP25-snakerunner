@@ -14,7 +14,7 @@ import snakerunner.commons.Point2D;
 import snakerunner.controller.Controller;
 import snakerunner.core.StateGame;
 import snakerunner.graphics.MainFrame;
-import snakerunner.graphics.panel.GameBoardPanel;
+import snakerunner.graphics.hud.TimerView;
 import snakerunner.graphics.panel.GamePanel;
 import snakerunner.graphics.panel.MenuPanel;
 import snakerunner.graphics.panel.OptionPanel;
@@ -32,10 +32,12 @@ public class ControllerImpl implements Controller {
     private MenuPanel menuPanel;
     private OptionPanel optionPanel;
     private GamePanel gamePanel;
-    private GameBoardPanel gameBoardPanel;
     private Timer gameLoopTimer;
+    private TimerView timerView;
     private final MainFrame mainFrame;
     private final GameModel gameModel;
+
+    private int timeLeft = 180;
 
     public ControllerImpl(final MainFrame mainFrame, final GameModel gameModel) {
         this.mainFrame = mainFrame; //view
@@ -45,9 +47,8 @@ public class ControllerImpl implements Controller {
     }
 
     private void initGameLoop(){
-        gameLoopTimer = new Timer(16, e -> {
+        gameLoopTimer = new Timer(1000, e -> {
             updateGame();
-            gameBoardPanel.repaint();
         });
     }
 
@@ -59,9 +60,10 @@ public class ControllerImpl implements Controller {
         gamePanel = PanelFactory.createGamePanel(this);
 
         mainFrame.setPanels(menuPanel, gamePanel, optionPanel);
-
         mainFrame.showMenu();
         mainFrame.display();
+
+        timerView = gamePanel.getTimerView();
     }
 
     @Override
@@ -71,14 +73,15 @@ public class ControllerImpl implements Controller {
 
     @Override
     public void start() {
+        gameLoopTimer.start();
         mainFrame.showGame();
         // Implementation to start the game loop
         state = StateGame.RUNNING;
+        timerView.setValue(timeLeft);
     }
 
     @Override
     public void pause(){
-
         if(state == StateGame.RUNNING){
             state = StateGame.PAUSED;
         }
@@ -94,6 +97,7 @@ public class ControllerImpl implements Controller {
 
         gameModel.update();
         gameModel.checkCollisions();
+        timeLeft--;
 
         if (gameModel.isGameOver()) {
             state = StateGame.GAME_OVER;
@@ -134,11 +138,6 @@ public class ControllerImpl implements Controller {
     }
 
     @Override
-    public void setSoundEnable(boolean isEnable){
-        //TODO
-    }
-
-    @Override
     public void loadLevelFromFile(final String filePath) {
         // Legge il file dal classpath (resources)
         try (InputStream is = LevelLoader.class
@@ -167,7 +166,7 @@ public class ControllerImpl implements Controller {
     
 
     private void updateHUD(){
-        //TODO
+        timerView.setValue(timeLeft);
     }
 
     @Override
@@ -177,19 +176,8 @@ public class ControllerImpl implements Controller {
 
     @Override
     public void resume() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'resume'");
-    }
-
-    @Override
-    public void onPause() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'onPause'");
-    }
-
-    @Override
-    public void onResume() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'onResume'");
+        if(state == StateGame.PAUSED){
+            state = StateGame.RUNNING;
+        }
     }
 }
