@@ -17,7 +17,7 @@ public interface GameModel {
     Snake getSnake();
 
     //GETTER PER LA VIEW / DEBUG
-    List<Collectible> getFoods();
+    public List<Collectible> getCollectibles();
 
     Level getLevel();
 }

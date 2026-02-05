@@ -32,6 +32,8 @@ public class MainFrameImpl extends JFrame implements MainFrame {
         optionPanel = PanelFactory.createOptionPanel(this);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setDimensionFrame();
+        //timer = new Timer(DELAY, e -> updateTimer());
+        //timeLeft = START_TIME;
     }
 
     @Override
@@ -82,6 +84,7 @@ public class MainFrameImpl extends JFrame implements MainFrame {
     @Override
     public void startGameLoop(final Runnable onTick) {
         timer = new Timer(200, e -> onTick.run()); 
+        //gamePanel.updateTimer(getTimeLeft());
         //gamePanel.updateTimer(/*getTimeLeft()*/);
         timer.start();
     }
