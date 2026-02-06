@@ -3,6 +3,7 @@ package snakerunner.model.impl;
 import snakerunner.commons.Point2D;
 import snakerunner.model.Collectible;
 import snakerunner.model.CollectibleType;
+import snakerunner.model.GameModel;
 
 public class FoodImpl implements Collectible{
     private final static int SCORE_POINTS = 10;
@@ -13,7 +14,7 @@ public class FoodImpl implements Collectible{
     }
 
     @Override
-    public void consume(GameModelImpl model) {
+    public void consume(GameModel model) {
         model.addScore(SCORE_POINTS);
     }
 
