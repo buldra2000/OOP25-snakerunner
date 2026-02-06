@@ -43,4 +43,10 @@ public interface MainFrame {
      * Show JDialog "You lose!"
      */
     void lose();
+    
+    public void startGameLoop(int delay);
+
+    public void stopGameLoop();
+    
+    public void setTimerDelay(int delay);
 }

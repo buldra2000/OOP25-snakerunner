@@ -83,4 +83,14 @@ public class MainFrameImpl extends JFrame implements MainFrame {
             JOptionPane.INFORMATION_MESSAGE
         );
     }
+
+    public void startGameLoop(int delay) {
+        timer = new Timer(delay, e -> controller.updateGame()); 
+        gamePanel.updateTimer(getTimeLeft());
+    }
+
+    @Override
+    public void setTimerDelay(int delay) {
+        timer.setDelay(delay);
+    }
 }

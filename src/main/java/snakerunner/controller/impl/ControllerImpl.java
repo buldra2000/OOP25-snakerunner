@@ -30,6 +30,8 @@ public class ControllerImpl implements Controller {
     private TimerView timerView;
     private final MainFrame mainFrame;
     private final GameModel gameModel;
+    private int currentLevel = 1; //fixare magic number
+    private static final int MAX_LEVEL = 4; //fixare magic number
 
     private int timeLeft;
 
@@ -72,6 +74,8 @@ public class ControllerImpl implements Controller {
         gameLoopTimer.start();
         mainFrame.showGame();
         // Implementation to start the game loop
+        loadCurrentLevel();
+        mainFrame.startGameLoop(gameModel.getSpeed());
         state = StateGame.RUNNING;
     }
 
@@ -92,12 +96,16 @@ public class ControllerImpl implements Controller {
         }
 
         gameModel.update();
-        gameModel.checkCollisions();
         timeLeft--;
+        mainFrame.setTimerDelay(gameModel.getSpeed());
 
         if (gameModel.isGameOver()) {
             state = StateGame.GAME_OVER;
             mainFrame.showMenu();
+        } else if (gameModel.isLevelCompleted()) {
+            System.out.println("Controller: Level Completed!");
+            mainFrame.stopGameLoop();
+            nextLevel();
         }
 
         //view Render
@@ -130,8 +138,13 @@ public class ControllerImpl implements Controller {
     }
 
     @Override
-    public void loadLevelFromFile(final String filePath) {
-        // Legge il file dal classpath (resources)
+    public void setSoundEnable(boolean isEnable){
+        //TODO
+    }
+
+    @Override
+    public void loadLevelFromFile(String filePath) {
+        
         try (InputStream is = LevelLoader.class
                 .getClassLoader()
                 .getResourceAsStream(filePath)) {
@@ -155,7 +168,6 @@ public class ControllerImpl implements Controller {
 
     private void updateHUD() {
         timerView.setTimeLeft(timeLeft);
-    }
 
     @Override
     public void exit() {
@@ -168,5 +180,19 @@ public class ControllerImpl implements Controller {
             state = StateGame.RUNNING;
         }
         gameLoopTimer.restart();
+    }
+
+    private void loadCurrentLevel() {
+        String filePath = "levels/level" + currentLevel + ".txt";
+        loadLevelFromFile(filePath);
+    }
+
+    private void nextLevel() {
+        currentLevel++;
+        if (currentLevel > MAX_LEVEL) {
+            currentLevel = 1; 
+        }
+        loadCurrentLevel();
+        mainFrame.startGameLoop(gameModel.getSpeed());
     }
 }
