@@ -90,6 +90,12 @@ public class MainFrameImpl extends JFrame implements MainFrame {
     }
 
     @Override
+    public void stopGameLoop() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'stopGameLoop'");
+    }
+
+    @Override
     public void setTimerDelay(int delay) {
         timer.setDelay(delay);
     }
