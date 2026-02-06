@@ -18,6 +18,8 @@ public class GameModelImpl implements GameModel {
     private List<Collectible> collectibles;
     private boolean levelCompleted;
     private int score;
+    private int speed = 150;
+    private int slowEffectDuration = 0;
 
     public GameModelImpl() {
     }
@@ -25,14 +27,19 @@ public class GameModelImpl implements GameModel {
     @Override
     public void update() {
         // Every game update logic goes here and updates the game state accordingly.
-        
         //snake.move();
 
         //controllo impatti con ostacoli/porte/corpo del serpente
         checkCollisions();
-
         //gestione power-up e cibo
         checkCollectibles();
+
+        if (slowEffectDuration > 0) {
+            slowEffectDuration--;
+            if (slowEffectDuration == 0) {
+                speed = 150; // reset speed after slow effect ends
+            }
+        }
 
         if (collectibles.isEmpty()) {
             levelCompleted = true;
@@ -97,6 +104,17 @@ public class GameModelImpl implements GameModel {
         return score;
     }
 
+    @Override
+    public void applySlowEffect() {
+        speed = 300;
+        slowEffectDuration = 50;
+    }
+
+    @Override
+    public int getSpeed() {
+        return speed;
+    }
+
     private void debugPrintLevel() {
         System.out.println("=== LEVEL DEBUG ===");
 
@@ -131,4 +149,5 @@ public class GameModelImpl implements GameModel {
             }
         }
     }
+
 }

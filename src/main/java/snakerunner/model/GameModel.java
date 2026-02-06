@@ -24,4 +24,8 @@ public interface GameModel {
     public void addScore(int points);
 
     public int getScore();
+    
+    public void applySlowEffect();
+
+    public int getSpeed();
 }
