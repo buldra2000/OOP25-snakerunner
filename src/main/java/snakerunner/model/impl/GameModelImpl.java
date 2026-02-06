@@ -11,6 +11,7 @@ import snakerunner.model.GameModel;
 import snakerunner.model.Level;
 import snakerunner.model.LevelData;
 import snakerunner.model.Snake;
+import snakerunner.model.Position;
 
 public class GameModelImpl implements GameModel {
 
@@ -39,34 +40,33 @@ public class GameModelImpl implements GameModel {
         //snake.move();
         //checkCollisions();
     }
-    
-    @Override
-    public void moveSnakeUp() {
-        if (this.snake != null) {
-            this.snake.setDirectionUp();
-        }
+
+    @Override 
+    public Position getSnakeHeadPosition(){
+        return (snake != null ) ? snake.getHeadPosition() : null;
     }
-    @Override
-    public void moveSnakeDown() {
-        if (this.snake != null) {
-            this.snake.setDirectionDown();
-        }
-    }
-      
-    @Override
-    public void moveSnakeLeft() {
-        if (this.snake != null) {
-            this.snake.setDirectionLeft();
-        }
-    }  
 
     @Override
-    public void moveSnakeRight() {
-        if (this.snake != null) {
-            this.snake.setDirectionRight();
-        }
+    public void moveSnakeUp(){
+        if (this.snake != null) this.snake.setDirectionUp();
+    }
+
+    @Override
+    public void moveSnakeDown(){
+        if (this.snake != null) this.snake.setDirectionDown();
+
     }
     
+    @Override
+    public void moveSnakeLeft(){
+        if (this.snake !=null) this.snake.setDirectionLeft();
+    }
+
+    @Override
+    public void moveSnakeRight(){
+        if (this.snake !=null) this.snake.setDirectionRight();
+    }
+
 
     @Override
     public void checkCollisions() {
