@@ -4,28 +4,70 @@ import java.util.List;
 
 public interface GameModel {
     
-    public void update();
+    /** 
+     * Updates the game state. 
+     */
+    void update();
 
-    public boolean isGameOver();
+    /** 
+     * Checks if the game is over. 
+     */
+    boolean isGameOver();
 
-    public void loadLevel(LevelData data);
+    /** 
+     * Loads a level from the given data. 
+     */
+    void loadLevel(LevelData data);
 
-    public void resetLevel();
+    /** 
+     * Resets the current level to its initial state. 
+     */
+    void resetLevel();
 
-    public Snake getSnake();
+    /** 
+     * Returns the snake in the game. 
+     */
+    Snake getSnake();
 
-    //GETTER PER LA VIEW / DEBUG
-    public List<Collectible> getCollectibles();
+    /** 
+     * Returns the list of collectibles in the game. 
+     */
+    List<Collectible> getCollectibles();
 
-    public Level getLevel();
+    /** 
+     * Returns the current level. 
+     */
+    Level getLevel();
 
-    public boolean isLevelCompleted();
 
-    public void addScore(int points);
-
-    public int getScore();
+    //Adding obstacles
+    java.util.Set<snakerunner.commons.Point2D<Integer,Integer>> getObstacles();
     
-    public void applySlowEffect();
+    /**
+     * Checks if the current level is completed.
+     * @return true if the level is completed, false otherwise.
+     */
+    boolean isLevelCompleted();
 
-    public int getSpeed();
+    /** Adds points to the player's score. 
+     * @param points The number of points to add to the score.
+     */
+    void addScore(int points);
+
+    /** 
+     * Returns the current score. 
+     * @return The current score.
+     */
+    int getScore();
+    
+    /** 
+     * Applies the slow effect to the game after the snake consumes a clock.
+     */
+    void applySlowEffect();
+
+    /** 
+     * Returns the current speed of the game. 
+     * @return The current speed of the game.
+     */
+    int getSpeed();
 }

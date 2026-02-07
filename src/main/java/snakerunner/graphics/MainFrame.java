@@ -1,30 +1,44 @@
 package snakerunner.graphics;
 
-import snakerunner.controller.Controller;
+import snakerunner.graphics.panel.BasePanel;
 
 public interface MainFrame {
 
-    public void display();
+    /**
+     * Show Frame
+     */
+    void display();
 
-    public void showMenu();
+    /**
+     * Show MenuPanel
+     */
+    void showMenu();
 
-    public void showGame();
+    /**
+     * Show GamePanel
+     */
+    void showGame();
 
-    public void showOption();
+    /**
+     * Set Panel
+     * @param menuPanel Set MenuPanel
+     * @param gamePanel Set GamePanel
+     * @param optionPanel Set OptionPanel
+     */
+    void setPanels(BasePanel menuPanel, BasePanel gamePanel, BasePanel optionPanel);
 
-    public void pause();
+    /**
+     * Show OptionPanel
+     */
+    void showOption();
 
-    public void setController(Controller controller);
+    /**
+     * Show JDialog "You won!"
+     */
+    void won();
 
-    public void startGameLoop(int delay);
-
-    public void stopGameLoop();
-
-    public void startTimer();
-
-    public void stopTimer();
-
-    public int getTimeLeft();
-
-    public void setTimerDelay(int delay);
+    /**
+     * Show JDialog "You lose!"
+     */
+    void lose();
 }

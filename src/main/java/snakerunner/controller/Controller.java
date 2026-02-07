@@ -1,29 +1,107 @@
 package snakerunner.controller;
 
+import java.util.List;
+import java.util.Set;
+import snakerunner.commons.Point2D;
 import snakerunner.graphics.MainFrame;
+import snakerunner.model.Collectible;
 import snakerunner.model.GameModel;
+import snakerunner.model.Snake;
+
 
 //LinkedBlockingQueue -> thread safe
-//Il controller non deve vedere Swing
+//controller must not see Swing
 
 public interface Controller {
 
-    public void init();
+    /**
+     * Set Panel
+     */
+    void init();
 
     /**
      * Starts the game loop.
      */
-    public void start();
+    void start();
 
-    public void pause();
+    /**
+     * Show OptionPanel (Controller - View)
+     */
+    void onOption();
 
-    public GameModel getModel();
+    /**
+     * Pause Game (Model - Controller - View)
+     */
+    void pause();
 
-    public MainFrame getView();
+    GameModel getModel();
 
-    public void updateGame();
+    /**
+     * Get Snake
+     * @return
+     */
+    Snake getSnake();
 
-    public void setSoundEnable(boolean isEnable);
+    /**
+     * Get obstacles from Model (Controller - Model)
+     * 
+     * @return
+     */
+    Set<Point2D<Integer, Integer>> getObstacles();
 
-    public void loadLevelFromFile(String filepath);
+    /** 
+     * Get Collectibles from Model (Controller - Model)
+    */
+    List<Collectible> getCollectibles();
+
+    /**
+     * Get Level from Model (Controller - Model)
+     * @return
+     */
+    int getLevel();
+
+    /**
+     * Get Score from Model (Controller - Model)
+     * @return
+     */
+    int getScore();
+
+    /**
+     * Add Score from Model (Controller - Model)
+     */
+    void addScore(final int points);
+
+    /**
+     * Resume game
+     */
+    void resume();
+
+    /**
+     * Get View
+     * 
+     * @return
+     */
+    MainFrame getView();
+
+    /**
+     * Update gameLoop
+     */
+    void updateGame();
+
+    /**
+     * Load level from file
+     * 
+     * @param filepath path file levels
+     */
+    void loadLevelFromFile(String filepath);
+
+    /**
+     * Back to menu (Controller - View)
+     */
+    void onBackMenu();
+
+    /**
+     * Exit to the application
+     */
+    void exit();
 }

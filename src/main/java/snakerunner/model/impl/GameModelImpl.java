@@ -3,13 +3,15 @@ package snakerunner.model.impl;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
-import snakerunner.commons.Point2D;
+import snakerunner.commons.Point2D; //This is not used at the moment we could delete it
 import snakerunner.model.Collectible;
 import snakerunner.model.GameModel;
 import snakerunner.model.Level;
 import snakerunner.model.LevelData;
 import snakerunner.model.Snake;
+
 
 public class GameModelImpl implements GameModel {
 
@@ -25,12 +27,29 @@ public class GameModelImpl implements GameModel {
     }
 
     @Override
+    public Set<Point2D<Integer, Integer>> getObstacles(){
+        //Error control in case the current level is still null
+        if (currentLevel != null) {
+            //We get the coordinates
+            return currentLevel.getObstacles();
+        }
+        return Collections.emptySet(); //In order to avoid errors we return an empty set of points.
+    }
+    @Override
     public void update() {
         // Every game update logic goes here and updates the game state accordingly.
         //snake.move();
 
-        //controllo impatti con ostacoli/porte/corpo del serpente
         checkCollisions();
+        // TODO Auto-generated method stub
+        //Should we check for a collision in case the snake hits itself?
+
+        //Collision with walls
+        //gameOver= true;
+        //Collision with collectibles
+
+        //controllo impatti con ostacoli/porte/corpo del serpente
+        //checkCollisions();
         //gestione power-up e cibo
         checkCollectibles();
 
