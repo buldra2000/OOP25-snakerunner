@@ -3,6 +3,9 @@ package snakerunner.model.impl;
 import snakerunner.commons.Point2D;
 import snakerunner.model.Grid;
 
+/**
+ * Implementation of the Grid interface representing the grid of the game.
+ */
 public class GridImpl implements Grid{
     private final int width;
     private final int height;
