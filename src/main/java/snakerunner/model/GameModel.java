@@ -1,6 +1,9 @@
 package snakerunner.model;
 
 import java.util.List;
+import java.util.Set;
+
+import snakerunner.commons.Point2D;
 
 public interface GameModel {
     
@@ -41,7 +44,7 @@ public interface GameModel {
 
 
     //Adding obstacles
-    java.util.Set<snakerunner.commons.Point2D<Integer,Integer>> getObstacles();
+    Set<Point2D<Integer, Integer>> getObstacles();
     
     /**
      * Checks if the current level is completed.
