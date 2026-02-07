@@ -6,8 +6,7 @@ import java.awt.Toolkit;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.Timer;
-import snakerunner.controller.Controller;
+
 import snakerunner.graphics.MainFrame;
 import snakerunner.graphics.panel.BasePanel;
 
@@ -16,11 +15,9 @@ public final class MainFrameImpl extends JFrame implements MainFrame {
     private static final long serialVersionUID = 1L;
     private static final String TITLE = "Snake Runner";
     private static final double PROPORTION = 0.5;
-    private Controller controller;
     private BasePanel menuPanel;
     private BasePanel gamePanel;
     private BasePanel optionPanel;
-    private Timer timer;
 
 
     public MainFrameImpl() {
@@ -90,21 +87,4 @@ public final class MainFrameImpl extends JFrame implements MainFrame {
         );
     }
 
-    @Override
-    public void startGameLoop(int delay) {
-        timer = new Timer(delay, e -> controller.updateGame()); 
-        timer.start();
-    }
-
-    @Override
-    public void stopGameLoop() {
-    if (timer != null) {
-            timer.stop();
-        }
-    }
-
-    @Override
-    public void setTimerDelay(int delay) {
-        timer.setDelay(delay);
-    }
 }
