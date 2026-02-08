@@ -1,5 +1,4 @@
 package snakerunner.model;
-import java.awt.Point;
 
 import snakerunner.commons.Point2D;
 
