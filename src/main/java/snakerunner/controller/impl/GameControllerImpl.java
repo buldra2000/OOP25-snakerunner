@@ -236,7 +236,6 @@ public class GameControllerImpl implements GameController {
     }
     
     private void handleLevelCompleted() {
-        System.out.println("You've completed the level!");
         gameLoopTimer.stop();
         nextLevel();
         loadCurrentLevel();
