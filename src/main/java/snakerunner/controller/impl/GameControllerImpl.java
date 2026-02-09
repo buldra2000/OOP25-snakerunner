@@ -29,6 +29,8 @@ public class GameControllerImpl implements GameController, KeyListener {
     private Timer gameLoopTimer;
     private BaseHUD timerView;
     private BaseHUD scoreView;
+    private BaseHUD levelView;
+    private BaseHUD lifeView;
     private final MainFrame mainFrame;
     private final GameModel gameModel;
     private int currentLevel = INITIAL_LEVEL; 
@@ -90,7 +92,7 @@ public class GameControllerImpl implements GameController, KeyListener {
     @Override
     public void start() {
         gameModel.resetLives();
-        timeLeft = 5;
+        timeLeft = 100;
         loadCurrentLevel();
         if (mainFrame instanceof javax.swing.JFrame) {
         ((javax.swing.JFrame) mainFrame).requestFocusInWindow();
@@ -134,13 +136,14 @@ public class GameControllerImpl implements GameController, KeyListener {
         // Aggiorna la velocità del timer in base alla velocità attuale del gioco
         setTimerDelay(gameModel.getSpeed());
 
-        if (gameModel.isGameOver()) {
+        if (gameModel.isGameOver() || timeLeft == 0) {
             gameLoopTimer.stop();
             state = StateGame.GAME_OVER;
-            mainFrame.showMenu();
+            mainFrame.lose();
+            state = StateGame.MENU;
         } else if (gameModel.isLevelCompleted()) {
             handleLevelCompleted();
-        }
+            }
 
         //view Render
         updateHUD();
@@ -173,6 +176,9 @@ public class GameControllerImpl implements GameController, KeyListener {
     private void updateHUD() {
         timerView.setValue(timeLeft);
         scoreView.setValue(gameModel.getScore());
+        levelView.setValue(currentLevel);
+        lifeView.setValue(gameModel.getLives());
+        
     }
 
     private void loadCurrentLevel() {
@@ -184,8 +190,9 @@ public class GameControllerImpl implements GameController, KeyListener {
     private void nextLevel() {
         currentLevel++;
         if (currentLevel > MAX_LEVEL) {
-            currentLevel = 1; 
-            //show win screen
+            currentLevel = 1;
+            mainFrame.won();
+            state = StateGame.MENU;
         }
     }
 
@@ -201,9 +208,11 @@ public class GameControllerImpl implements GameController, KeyListener {
     }
 
     @Override
-    public void setHUD(final BaseHUD timerView, final BaseHUD scoreView) {
+    public void setHUD(final BaseHUD timerView, final BaseHUD scoreView, final BaseHUD levelView, final BaseHUD lifeView) {
         this.timerView = timerView;
         this.scoreView = scoreView;
+        this.levelView = levelView;
+        this.lifeView = lifeView;
     }
     
     private void handleLevelCompleted() {

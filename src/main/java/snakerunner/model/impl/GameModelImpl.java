@@ -20,6 +20,8 @@ public class GameModelImpl implements GameModel {
     private static final int SLOW_EFFECT_DURATION = 50;
     private static final int SLOW_EFFECT_SPEED = 300;
     private static final int INITIAL_LIVES = 3;
+    private static final Point2D<Integer, Integer> STARTING_POSITION = new Point2D<>(5, 10);
+    private boolean isGameOver;
 
     private Level currentLevel;
     private Snake snake;
@@ -33,7 +35,7 @@ public class GameModelImpl implements GameModel {
 
     public GameModelImpl() {
         currentLevel = null;
-        snake = new Snake(new Point2D<>(5, 10)); // Starting position of the snake
+        snake = new Snake(STARTING_POSITION); // Starting position of the snake
         collectibles = Collections.emptyList();
         levelCompleted = false;
         score = 0;
@@ -89,8 +91,7 @@ public class GameModelImpl implements GameModel {
         }
         if (collectibles.isEmpty()) {
             levelCompleted = true;
-        }
-    
+        }    
     }
 
     @Override
@@ -124,11 +125,6 @@ public class GameModelImpl implements GameModel {
     }
 
     @Override
-    public Level getLevel() {
-        return this.currentLevel;
-    }
-
-    @Override
     public Set<Point2D<Integer, Integer>> getObstacles(){
         //Error control in case the current level is still null
         if (currentLevel != null) {
@@ -152,6 +148,17 @@ public class GameModelImpl implements GameModel {
     public int getScore() {
         return score;
     }
+
+    @Override
+    public int getLives() {
+        return lives;
+    }
+
+    @Override
+    public Level getLevel() {
+        return this.currentLevel;
+    }
+
 
     @Override
     public void applySlowEffect() {
@@ -241,5 +248,10 @@ public class GameModelImpl implements GameModel {
         this.isGameOver = false;
         this.speed = INITIAL_SPEED;
         this.slowEffectDuration = 0;
+    }
+
+    @Override
+    public void resetLives() {
+        //TODO
     }
 }
