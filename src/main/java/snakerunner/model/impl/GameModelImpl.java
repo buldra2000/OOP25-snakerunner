@@ -164,6 +164,7 @@ public class GameModelImpl implements GameModel {
         this.snake = new Snake(STARTING_POSITION);
         this.collectibles = Collections.emptyList();
         this.levelCompleted = false;
+        this.isGameOver = false;
         this.score = 0;
         this.speed = INITIAL_SPEED;
         this.slowEffectDuration = 0;
