@@ -200,6 +200,12 @@ public class GameControllerImpl implements GameController {
         }
     }
     
+    @Override
+    public void setHUD(BaseHUD timerView, BaseHUD scoreView) {
+        this.timerView = timerView;
+        this.scoreView = scoreView;
+    }
+
     private void updateHUD() {
         timerView.setValue(timeLeft);
         scoreView.setValue(gameModel.getScore());
@@ -227,12 +233,6 @@ public class GameControllerImpl implements GameController {
     // Metodo per aggiornare il delay del timer dopo aver raccolto un orologio
     private void setTimerDelay(int delay) {
         gameLoopTimer.setDelay(delay);
-    }
-
-    @Override
-    public void setHUD(BaseHUD timerView, BaseHUD scoreView) {
-        this.timerView = timerView;
-        this.scoreView = scoreView;
     }
     
     private void handleLevelCompleted() {
