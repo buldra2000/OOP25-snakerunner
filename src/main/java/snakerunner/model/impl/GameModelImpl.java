@@ -66,18 +66,12 @@ public class GameModelImpl implements GameModel {
         //gestione power-up e cibo
         checkCollectibles();
 
-        if (slowEffectDuration > 0) {
-            slowEffectDuration--;
-            if (slowEffectDuration == 0) {
-                speed = INITIAL_SPEED; // reset speed after slow effect ends
-            }
-        }
+        checkSlowEffect();
 
         if (collectibles.isEmpty()) {
             levelCompleted = true;
-            System.out.println("Level Completed!");
             //debug
-            resetLevel();
+            //resetLevel();
         }
     
     }
@@ -164,6 +158,16 @@ public class GameModelImpl implements GameModel {
         }
     }
 
+    @Override
+    public void resetState() {
+        this.snake = new Snake(STARTING_POSITION);
+        this.collectibles = Collections.emptyList();
+        this.levelCompleted = false;
+        this.score = 0;
+        this.speed = INITIAL_SPEED;
+        this.slowEffectDuration = 0;
+    }
+
     private void checkCollisions() {
         // Implement collision detection logic here
         Point2D<Integer,Integer> head= snake.getHead();
@@ -188,14 +192,12 @@ public class GameModelImpl implements GameModel {
         }
     }
 
-    private void resetLevel() {
-        this.snake = new Snake(STARTING_POSITION);
-        this.collectibles = Collections.emptyList();
-        this.levelCompleted = false;
-        this.score = 0;
-        this.speed = INITIAL_SPEED;
-        this.slowEffectDuration = 0;
-
-        loadLevel(currentLevelData);
+    private void checkSlowEffect() {
+        if (slowEffectDuration > 0) {
+            slowEffectDuration--;
+            if (slowEffectDuration == 0) {
+                speed = INITIAL_SPEED; // reset speed after slow effect ends
+            }
+        }
     }
 }

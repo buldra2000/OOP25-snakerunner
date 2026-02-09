@@ -1,5 +1,7 @@
 package snakerunner.controller.impl;
 
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -26,8 +28,6 @@ import snakerunner.model.GameModel;
 import snakerunner.model.LevelData;
 import snakerunner.model.Snake;
 import snakerunner.model.impl.LevelLoader;
-import java.awt.event.KeyListener;
-import java.awt.event.KeyEvent;
 
 public class ControllerImpl implements Controller, KeyListener {
 
@@ -154,12 +154,11 @@ public class ControllerImpl implements Controller, KeyListener {
         setTimerDelay(gameModel.getSpeed());
 
         if (gameModel.isGameOver()) {
+            gameLoopTimer.stop();
             state = StateGame.GAME_OVER;
             mainFrame.showMenu();
         } else if (gameModel.isLevelCompleted()) {
-            System.out.println("Controller: Level Completed!");
-            gameLoopTimer.stop();
-            nextLevel();
+            handleLevelCompleted();
         }
 
         //view Render
@@ -256,6 +255,7 @@ public class ControllerImpl implements Controller, KeyListener {
     }
 
     private void loadCurrentLevel() {
+        gameModel.resetState();
         String filePath = "levels/level" + currentLevel + ".txt";
         loadLevelFromFile(filePath);
     }
@@ -265,8 +265,6 @@ public class ControllerImpl implements Controller, KeyListener {
         if (currentLevel > MAX_LEVEL) {
             currentLevel = 1; 
         }
-        loadCurrentLevel();
-        //gameloop??
     }
 
     private void initGameLoop(int delay) {
@@ -278,5 +276,13 @@ public class ControllerImpl implements Controller, KeyListener {
     // Metodo per aggiornare il delay del timer dopo aver raccolto un orologio
     private void setTimerDelay(int delay) {
         gameLoopTimer.setDelay(delay);
+    }
+
+    private void handleLevelCompleted() {
+        System.out.println("You've completed the level!");
+        gameLoopTimer.stop();
+        nextLevel();
+        loadCurrentLevel();
+        gameLoopTimer.start();
     }
 }
