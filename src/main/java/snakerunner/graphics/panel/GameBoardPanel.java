@@ -11,7 +11,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 import snakerunner.commons.Point2D;
-import snakerunner.controller.GameController;
+import snakerunner.controller.WorldController;
 import snakerunner.model.Collectible;
 import snakerunner.model.Direction;
 import snakerunner.model.Door;
@@ -22,15 +22,15 @@ public final class GameBoardPanel extends JPanel {
 
     private static final long serialVersionUID = 1L;
     private static final int CELL = 20;
-    private final GameController controller;
+    private WorldController worldController;
     private Image foodImage, clockImage, keyImage, obstacleImage;
     private Image snakeHeadUp, snakeHeadDown, snakeHeadLeft, snakeHeadRight;
     private Image snakeTailUp, snakeTailDown, snakeTailLeft, snakeTailRight;
     private Image /*snakeBodyTopLeft, snakeBodyBottomLeft, snakeBodyBottomRight,*/ snakeBodyVertical, snakeBodyHorizontal;
     private Image doorClose, doorOpen;
 
-    public GameBoardPanel(final GameController controller) {
-        this.controller = controller;
+    public GameBoardPanel(final WorldController worldController) {
+        this.worldController = worldController;
         setOpaque(true);
         setBackground(Color.GRAY);
         loadImages();
@@ -43,6 +43,8 @@ public final class GameBoardPanel extends JPanel {
     @Override
     protected void paintComponent(final Graphics g) {
         super.paintComponent(g);
+
+        if (worldController == null) return;
 
         drawGrid(g);
         drawSnake(g);
@@ -73,16 +75,16 @@ public final class GameBoardPanel extends JPanel {
         snakeBodyHorizontal = loadImage("images/body_horizontal.png");
     }
 
-    private Image loadImage(String path) {
+    private Image loadImage(final String path) {
         try (InputStream is = getClass().getClassLoader().getResourceAsStream(path)) {
             if (is == null) {
                 return null;
             }
             
-            Image img = ImageIO.read(is);
+            final Image img = ImageIO.read(is);
             return img;
             
-        } catch (IOException e) {
+        } catch (final IOException e) {
             throw new RuntimeException("Load Images Error", e);
         }
     }
@@ -117,7 +119,7 @@ public final class GameBoardPanel extends JPanel {
      * @param g
      */
     private void drawSnake(final Graphics g) {
-        final Snake snake = controller.getSnake();
+        final Snake snake = worldController.getSnake();
 
         if (snake == null || snake.getFullBody().isEmpty()) {
             return;
@@ -134,7 +136,7 @@ public final class GameBoardPanel extends JPanel {
             final Image segmentImage;
 
             if (i == 0) {
-                segmentImage = getHeadImage(controller.getDirection());
+                segmentImage = getHeadImage(worldController.getDirection());
             } else if (i == body.size() - 1) {
                 final Direction tailDirection = getDirection(body.get(i - 1).pos, pos);
                 segmentImage = getTailImage(tailDirection);
@@ -214,7 +216,7 @@ public final class GameBoardPanel extends JPanel {
     private void drawObstacle(final Graphics g) {
         g.setColor(Color.RED);
 
-        for (final Point2D<Integer, Integer> p : controller.getObstacles()) {
+        for (final Point2D<Integer, Integer> p : worldController.getObstacles()) {
             final int x = p.getX() * CELL;
             final int y = p.getY() * CELL;
 
@@ -228,7 +230,7 @@ public final class GameBoardPanel extends JPanel {
      * @param g
      */
     private void drawCollectibles(final Graphics g) {
-       for (final Collectible collectible : controller.getCollectibles()) {
+       for (final Collectible collectible : worldController.getCollectibles()) {
         final Point2D<Integer, Integer> p = collectible.getPosition();
         final int x = p.getX() * CELL;
         final int y = p.getY() * CELL;
@@ -246,14 +248,14 @@ public final class GameBoardPanel extends JPanel {
     }
 
     private void drawDoors(final Graphics g) {
-        final List<Door> doors = controller.getDoors();
+        final List<Door> doors = worldController.getDoors();
 
         if (doors == null) {
             return;
         }
 
         for (final Door door : doors) {
-            Point2D<Integer, Integer> p = door.getPosition();
+            final Point2D<Integer, Integer> p = door.getPosition();
             final int x = p.getX() * CELL;
             final int y = p.getY() * CELL;
 
