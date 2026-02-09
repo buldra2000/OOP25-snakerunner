@@ -23,7 +23,7 @@ public final class GameBoardPanel extends JPanel {
     private static final long serialVersionUID = 1L;
     private static final int CELL = 20;
     private WorldController worldController;
-    private Image foodImage, clockImage, keyImage, obstacleImage;
+    private Image foodImage, clockImage, keyImage, obstacleImage, mushroomImage;
     private Image snakeHeadUp, snakeHeadDown, snakeHeadLeft, snakeHeadRight;
     private Image snakeTailUp, snakeTailDown, snakeTailLeft, snakeTailRight;
     private Image /*snakeBodyTopLeft, snakeBodyBottomLeft, snakeBodyBottomRight,*/ snakeBodyVertical, snakeBodyHorizontal;
@@ -59,6 +59,7 @@ public final class GameBoardPanel extends JPanel {
         foodImage = loadImage("images/food.png");
         clockImage = loadImage("images/clock.png");
         keyImage = loadImage("images/key.png");
+        mushroomImage = loadImage("images/mushroom.png");
         obstacleImage =loadImage("images/obstacle.png");
         snakeHeadUp = loadImage("images/head_up.png");
         snakeHeadDown = loadImage("images/head_down.png");
@@ -239,6 +240,7 @@ public final class GameBoardPanel extends JPanel {
             case FOOD -> g.drawImage(foodImage, x, y, CELL, CELL, this);
             case CLOCK -> g.drawImage(clockImage, x, y, CELL, CELL, this);
             case KEY -> g.drawImage(keyImage, x, y, CELL, CELL, this);
+            case LIFE_BOOST -> g.drawImage(mushroomImage, x, y, CELL, CELL, this);
             default -> {
                 g.setColor(Color.YELLOW);
                 g.fillOval(x, y, CELL, CELL);
