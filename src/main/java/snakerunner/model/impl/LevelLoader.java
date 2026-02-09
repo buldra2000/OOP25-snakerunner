@@ -87,6 +87,6 @@ public final class LevelLoader {
             }
         }
 
-        return new LevelDataImpl(obstacles, collectibles,doors);
+        return new LevelDataImpl(obstacles, collectibles, doors);
     }
 }

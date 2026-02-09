@@ -7,8 +7,8 @@ import java.util.Set;
 
 import snakerunner.commons.Point2D;
 import snakerunner.model.Collectible;
-import snakerunner.model.LevelData;
 import snakerunner.model.Door;
+import snakerunner.model.LevelData;
 
 /**
  * The LevelDataImpl class implements the LevelData interface 
@@ -24,8 +24,9 @@ public class LevelDataImpl implements LevelData {
      * 
      * @param obstacles of the level.
      * @param collectibles of the level.
+     * @param doors of the level.
      */
-    public LevelDataImpl(final Set<Point2D<Integer, Integer>> obstacles, final List<Collectible> collectibles) {
+    public LevelDataImpl(final Set<Point2D<Integer, Integer>> obstacles, final List<Collectible> collectibles, final List<Door> doors) {
         this.obstacles = new HashSet<>(obstacles);
         this.collectibles = new ArrayList<>(collectibles);
         this.doors = new ArrayList<>(doors);
