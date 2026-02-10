@@ -22,8 +22,6 @@ public final class GameModelImpl implements GameModel {
     private static final int SLOW_EFFECT_DURATION = 50;
     private static final int SLOW_EFFECT_SPEED = 300;
     private static final int INITIAL_LIVES = 3;
-    private static final int X = 5;
-    private static final int Y = 5;
     private static final Point2D<Integer, Integer> STARTING_POSITION = new Point2D<>(5, 10);
     private boolean isGameOver;
 
@@ -68,7 +66,7 @@ public final class GameModelImpl implements GameModel {
 
             if (this.lives > 0) {
                 //the snake respawns
-                this.snake = new Snake(new Point2D<>(X, Y));
+                this.snake = new Snake(STARTING_POSITION);
             } else {
                 return;
             }
