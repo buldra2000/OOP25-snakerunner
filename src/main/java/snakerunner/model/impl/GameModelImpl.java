@@ -7,11 +7,11 @@ import java.util.Set;
 
 import snakerunner.commons.Point2D; //This is not used at the moment we could delete it
 import snakerunner.model.Collectible;
+import snakerunner.model.Door;
 import snakerunner.model.GameModel;
 import snakerunner.model.Level;
 import snakerunner.model.LevelData;
 import snakerunner.model.Snake;
-import snakerunner.model.Door;
 
 
 public class GameModelImpl implements GameModel {
@@ -190,25 +190,6 @@ public class GameModelImpl implements GameModel {
         this.isGameOver = false;
         this.lives =3;
     }
-
-
-    /*
-    private void debugPrintLevel() {
-        System.out.println("=== LEVEL DEBUG ===");
-
-        System.out.println("Walls:");
-        for (Point2D<Integer, Integer> p : currentLevel.getObstacles()) {
-            System.out.println("  wall at " + p);
-        }
-
-        System.out.println("Collectibles:");
-        for (Collectible c : collectibles) {
-            System.out.println("  collectible at " + c.getPosition());
-        }
-
-        System.out.println("===================");
-    }
-    */
 
     private void checkCollisions() {
         // Implement collision detection logic here
