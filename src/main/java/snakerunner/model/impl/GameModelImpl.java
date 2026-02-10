@@ -73,9 +73,7 @@ public final class GameModelImpl implements GameModel {
         if (isGameOver) {
             resetAfterGameOver();
         }
-        if (collectibles.isEmpty()) {
-            levelCompleted = true;
-        }
+        
     }
 
     @Override
