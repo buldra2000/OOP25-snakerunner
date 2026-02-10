@@ -12,7 +12,6 @@ import java.util.List;
 import javax.swing.Timer;
 
 import snakerunner.controller.GameController;
-import snakerunner.controller.WorldController;
 import snakerunner.core.StateGame;
 import snakerunner.graphics.MainFrame;
 import snakerunner.graphics.hud.BaseHUD;
@@ -21,42 +20,50 @@ import snakerunner.model.GameModel;
 import snakerunner.model.LevelData;
 import snakerunner.model.impl.LevelLoader;
 
-public class GameControllerImpl implements GameController, KeyListener {
+/**
+ * GameControllerImpl define methods for GameController'Interface.
+ */
+public final class GameControllerImpl implements GameController, KeyListener {
 
-    private static final int MAX_LEVEL = 4; 
-
+    private static final int MAX_LEVEL = 4;
+    private static final int INITIAL_LEVEL = 1;
     private StateGame state;
     private Timer gameLoopTimer;
     private BaseHUD timerView;
     private BaseHUD scoreView;
+    private BaseHUD levelView;
+    private BaseHUD lifeView;
     private final MainFrame mainFrame;
     private final GameModel gameModel;
-    private WorldController worldController;
-    private int currentLevel = 1; 
-    
-
+    private int currentLevel = INITIAL_LEVEL;
     private int timeLeft;
 
+    /**
+     * Constructor for GameControllerImpl.
+     *
+     * @param mainFrame the main frame of the game.
+     * @param gameModel the game model that contains the game state and logic.
+     */
     public GameControllerImpl(final MainFrame mainFrame, final GameModel gameModel) {
-        this.mainFrame = mainFrame; 
-        this.gameModel = gameModel; 
+        this.mainFrame = mainFrame;
+        this.gameModel = gameModel;
         this.state = StateGame.MENU;
         initGameLoop(gameModel.getSpeed());
     }
 
     //Creation components
-    
+
     //KeyListener
     @Override
-    public void keyPressed(final KeyEvent e){
+    public void keyPressed(final KeyEvent e) {
         //if the fame is not running we ignore the keys
-        if (state !=StateGame.RUNNING){
+        if (state != StateGame.RUNNING) {
             return;
         }
         final int key = e.getKeyCode();
 
-        //the keyboard bottoms becomes the snake's direction 
-        switch (key){
+        //the keyboard bottoms becomes the snake's direction WASD
+        switch (key) {
             case KeyEvent.VK_UP:
                 gameModel.getSnake().setDirection(Direction.UP);
                 break;
@@ -72,26 +79,29 @@ public class GameControllerImpl implements GameController, KeyListener {
             case KeyEvent.VK_P:
                 pause();
                 break;
-
+            default:
+                break;
         }
-
-
     }
 
-    @Override 
-    public void keyTyped(final KeyEvent e){
+    @Override
+    public void keyTyped(final KeyEvent e) {
 
     }
 
     @Override
-    public void keyReleased(final KeyEvent e){
+    public void keyReleased(final KeyEvent e) {
 
     }
 
+    /**
+     * Starts the game by initializing the timer, loading the current level,
+     * and updating the HUD.
+     */
     @Override
     public void start() {
         gameModel.resetLives();
-        timeLeft = 5;
+        timeLeft = 100;
         loadCurrentLevel();
         if (mainFrame instanceof javax.swing.JFrame) {
         ((javax.swing.JFrame) mainFrame).requestFocusInWindow();
@@ -102,6 +112,9 @@ public class GameControllerImpl implements GameController, KeyListener {
         state = StateGame.RUNNING;
     }
 
+    /**
+     * Pauses the game if it is currently running by stopping the game loop timer.
+     */
     @Override
     public void pause() {
         if (state == StateGame.RUNNING) {
@@ -110,6 +123,10 @@ public class GameControllerImpl implements GameController, KeyListener {
         }
     }
 
+    /**
+     * Resumes the game if it is currently paused by restarting.
+     * the game loop timer and updating the game state to RUNNING.
+     */
     @Override
     public void resume() {
         if (state == StateGame.PAUSED) {
@@ -118,11 +135,15 @@ public class GameControllerImpl implements GameController, KeyListener {
 
             if (mainFrame instanceof javax.swing.JFrame) {
             ((javax.swing.JFrame) mainFrame).requestFocusInWindow();
-            }  
+            }
         }
     }
 
-    //tick di gioco 
+    /**
+     * Updates the game state by calling the update method of the game model,
+     * checking for game over and level completion conditions,
+     * and updating the HUD and main frame accordingly.
+     */
     @Override
     public void updateGame() {
         if (state != StateGame.RUNNING) {
@@ -132,25 +153,27 @@ public class GameControllerImpl implements GameController, KeyListener {
         gameModel.update();
         timeLeft--;
 
-        // Aggiorna la velocità del timer in base alla velocità attuale del gioco
         setTimerDelay(gameModel.getSpeed());
 
-        if (gameModel.isGameOver()) {
+        if (gameModel.isGameOver() || timeLeft == 0) {
             gameLoopTimer.stop();
             state = StateGame.GAME_OVER;
-            mainFrame.showMenu();
+            mainFrame.lose();
+            return;
         } else if (gameModel.isLevelCompleted()) {
             handleLevelCompleted();
-        }
+            }
 
         //view Render
         updateHUD();
         mainFrame.refresh();
     }
-    
+
+    /**
+     * Loads a level from a file and updates the game model with the new level data.
+     */
     @Override
     public void loadLevelFromFile(final String filePath) {
-        
         try (InputStream is = LevelLoader.class
                 .getClassLoader()
                 .getResourceAsStream(filePath)) {
@@ -167,13 +190,26 @@ public class GameControllerImpl implements GameController, KeyListener {
             gameModel.loadLevel(level);
 
         } catch (final IOException e) {
-            throw new RuntimeException("Errore caricamento livello", e);
+            throw new IllegalStateException("Errore caricamento livello", e);
         }
+    }
+
+    /**
+     * Sets the delay of the game loop timer
+     * after collecting a power-up.
+     *
+     * @param delay the new delay for the game loop timer in milliseconds.
+     */
+    private void setTimerDelay(final int delay) {
+        gameLoopTimer.setDelay(delay);
     }
 
     private void updateHUD() {
         timerView.setValue(timeLeft);
         scoreView.setValue(gameModel.getScore());
+        levelView.setValue(currentLevel);
+        lifeView.setValue(gameModel.getLives());
+
     }
 
     private void loadCurrentLevel() {
@@ -185,8 +221,11 @@ public class GameControllerImpl implements GameController, KeyListener {
     private void nextLevel() {
         currentLevel++;
         if (currentLevel > MAX_LEVEL) {
-            currentLevel = 1; 
-            //show win screen
+            currentLevel = 1;
+            mainFrame.won();
+            state = StateGame.MENU;
+        } else {
+            mainFrame.levelComplete();
         }
     }
 
@@ -196,17 +235,14 @@ public class GameControllerImpl implements GameController, KeyListener {
         });
     }
 
-    // Metodo per aggiornare il delay del timer dopo aver raccolto un orologio
-    private void setTimerDelay(final int delay) {
-        gameLoopTimer.setDelay(delay);
+    @Override
+    public void setHUD(final BaseHUD timer, final BaseHUD score, final BaseHUD level, final BaseHUD life) {
+        this.timerView = timer;
+        this.scoreView = score;
+        this.levelView = level;
+        this.lifeView = life;
     }
 
-    @Override
-    public void setHUD(final BaseHUD timerView, final BaseHUD scoreView) {
-        this.timerView = timerView;
-        this.scoreView = scoreView;
-    }
-    
     private void handleLevelCompleted() {
         gameLoopTimer.stop();
         nextLevel();
@@ -216,10 +252,4 @@ public class GameControllerImpl implements GameController, KeyListener {
     }
         gameLoopTimer.start();
     }
-
-    @Override
-    public WorldController getWorldController() {
-    return this.worldController;
-}
-
 }

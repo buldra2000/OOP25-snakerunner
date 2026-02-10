@@ -6,10 +6,8 @@ import java.awt.Image;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
-
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
-
 import snakerunner.commons.Point2D;
 import snakerunner.controller.WorldController;
 import snakerunner.model.Collectible;
@@ -18,17 +16,38 @@ import snakerunner.model.Door;
 import snakerunner.model.Snake;
 import snakerunner.model.SnakeSegment;
 
+/**
+ * GameBoardPanel define the visualization of the game.
+ */
 public final class GameBoardPanel extends JPanel {
 
     private static final long serialVersionUID = 1L;
     private static final int CELL = 20;
-    private WorldController worldController;
-    private Image foodImage, clockImage, keyImage, obstacleImage, mushroomImage;
-    private Image snakeHeadUp, snakeHeadDown, snakeHeadLeft, snakeHeadRight;
-    private Image snakeTailUp, snakeTailDown, snakeTailLeft, snakeTailRight;
-    private Image /*snakeBodyTopLeft, snakeBodyBottomLeft, snakeBodyBottomRight,*/ snakeBodyVertical, snakeBodyHorizontal;
-    private Image doorClose, doorOpen;
+    private final WorldController worldController;
+    private Image foodImage;
+    private Image keyImage;
+    private Image obstacleImage;
+    private Image mushroomImage;
+    private Image flagImage;
+    private Image clockImage;
+    private Image snakeHeadUp; 
+    private Image snakeHeadDown;
+    private Image snakeHeadLeft;
+    private Image snakeHeadRight;
+    private Image snakeTailUp;
+    private Image snakeTailDown;
+    private Image snakeTailLeft;
+    private Image snakeTailRight;
+    private Image snakeBodyVertical;
+    private Image snakeBodyHorizontal;
+    private Image doorClose;
+    private Image doorOpen;
 
+    /**
+     * Constructor for GameBoardPanel.
+     * 
+     * @param worldController WorldController.
+     */
     public GameBoardPanel(final WorldController worldController) {
         this.worldController = worldController;
         setOpaque(true);
@@ -37,14 +56,17 @@ public final class GameBoardPanel extends JPanel {
     }
 
     /**
-     * Draw all Components
-     * @param g Graphics g
+     * Draw all Components.
+     * 
+     * @param g Graphics g.
      */
     @Override
     protected void paintComponent(final Graphics g) {
         super.paintComponent(g);
 
-        if (worldController == null) return;
+        if (worldController == null) {
+            return;
+        }
 
         drawGrid(g);
         drawSnake(g);
@@ -59,8 +81,9 @@ public final class GameBoardPanel extends JPanel {
         foodImage = loadImage("images/food.png");
         clockImage = loadImage("images/clock.png");
         keyImage = loadImage("images/key.png");
+        flagImage = loadImage("images/flag.png");
         mushroomImage = loadImage("images/mushroom.png");
-        obstacleImage =loadImage("images/obstacle.png");
+        obstacleImage = loadImage("images/obstacle.png");
         snakeHeadUp = loadImage("images/head_up.png");
         snakeHeadDown = loadImage("images/head_down.png");
         snakeHeadLeft = loadImage("images/head_left.png");
@@ -69,9 +92,6 @@ public final class GameBoardPanel extends JPanel {
         snakeTailDown = loadImage("images/tail_down.png");
         snakeTailLeft = loadImage("images/tail_left.png");
         snakeTailRight = loadImage("images/tail_right.png");
-        //snakeBodyTopLeft = loadImage("images/body_topleft.png");
-        //snakeBodyBottomLeft = loadImage("images/body_bottomleft.png");
-        //snakeBodyBottomRight = loadImage("images/body_bottomright.png");
         snakeBodyVertical = loadImage("images/body_vertical.png");
         snakeBodyHorizontal = loadImage("images/body_horizontal.png");
     }
@@ -81,18 +101,18 @@ public final class GameBoardPanel extends JPanel {
             if (is == null) {
                 return null;
             }
-            
-            final Image img = ImageIO.read(is);
-            return img;
-            
+
+            return ImageIO.read(is);
+
         } catch (final IOException e) {
-            throw new RuntimeException("Load Images Error", e);
+            throw new IllegalStateException("Load Images Error", e);
         }
     }
 
     /**
-     * Draw Grid
-     * @param g Graphics g
+     * Draw Grid.
+     * 
+     * @param g Graphics g.
      */
     private void drawGrid(final Graphics g) {
         g.setColor(Color.BLACK);
@@ -111,13 +131,14 @@ public final class GameBoardPanel extends JPanel {
         }
 
         for (int y = 0; y <= rows; y++) {
-            g.drawLine(0, y * CELL,gridWidth, y * CELL);
+            g.drawLine(0, y * CELL, gridWidth, y * CELL);
         }
     }
 
     /**
-     * Draw snake
-     * @param g
+     * Draw snake.
+     * 
+     * @param g Graphics g.
      */
     private void drawSnake(final Graphics g) {
         final Snake snake = worldController.getSnake();
@@ -151,7 +172,10 @@ public final class GameBoardPanel extends JPanel {
     }
 
     /**
-     * Get head image based on direction
+     * Get head image based on direction.
+     * 
+     * @param direction The direction of the snake.
+     * @return the {@Link image} corresponding to the given direction.
      */
     private Image getHeadImage(final Direction direction) {
         return switch (direction) {
@@ -159,12 +183,14 @@ public final class GameBoardPanel extends JPanel {
             case DOWN -> snakeHeadDown;
             case LEFT -> snakeHeadLeft;
             case RIGHT -> snakeHeadRight;
-            default -> snakeHeadRight;
         };
     }
 
     /**
-     * Get tail image based on direction
+     * Get tail image based on direction.
+     * 
+     * @param direction The direction of the snake.
+     * @return the {@Link image} corresponding to the given direction.
      */
     private Image getTailImage(final Direction direction) {
         return switch (direction) {
@@ -172,22 +198,27 @@ public final class GameBoardPanel extends JPanel {
             case DOWN -> snakeTailDown;
             case LEFT -> snakeTailLeft;
             case RIGHT -> snakeTailRight;
-            default -> snakeTailRight;
         };
     }
 
     /**
-     * Get body image (only vertical/horizontal)
+     * Determines the correct body segment image (vertical or horizontal) based 
+     * on the displacement between two points.
+     * 
+     * @param prev The coordinates of the previous segment.
+     * @param current The coordinates of the current segment.
+     * @return The {@link Image} representing a vertical segment.
      */
     private Image getBodyImage(final Point2D<Integer, Integer> prev, final Point2D<Integer, Integer> current) {
-        
+
         final int dx = current.getX() - prev.getX();
-        final int dy = current.getY() - prev.getY();
 
         if (dx == 0) {
             return snakeBodyVertical;
         }
-        
+
+        final int dy = current.getY() - prev.getY();
+
         if (dy == 0) {
             return snakeBodyHorizontal;
         }
@@ -196,23 +227,38 @@ public final class GameBoardPanel extends JPanel {
     }
 
     /**
-     * Calculate direction from one point to another
+     * Calculate direction from one point to another.
+     * 
+     * @param from from The starting point.
+     * @param to The destination point.
+     * @return The {@link Direction} from the starting point to the destination.
      */
     private Direction getDirection(final Point2D<Integer, Integer> from, final Point2D<Integer, Integer> to) {
         final int dx = to.getX() - from.getX();
+
+        if (dx > 0) {
+            return Direction.RIGHT;
+        }
+        if (dx < 0) {
+            return Direction.LEFT;
+        }
+
         final int dy = to.getY() - from.getY();
 
-        if (dx > 0) return Direction.RIGHT;
-        if (dx < 0) return Direction.LEFT;
-        if (dy > 0) return Direction.DOWN;
-        if (dy < 0) return Direction.UP;
+        if (dy > 0) {
+            return Direction.DOWN;
+        }
+        if (dy < 0) {
+            return Direction.UP;
+        }
 
         return Direction.RIGHT;
     }
 
     /**
-     * Draw obstacle
-     * @param g
+     * Draw obstacle.
+     * 
+     * @param g Graphics g.
      */
     private void drawObstacle(final Graphics g) {
         g.setColor(Color.RED);
@@ -220,15 +266,14 @@ public final class GameBoardPanel extends JPanel {
         for (final Point2D<Integer, Integer> p : worldController.getObstacles()) {
             final int x = p.getX() * CELL;
             final int y = p.getY() * CELL;
-
-            //g.fillRect(x * CELL, y * CELL, CELL, CELL);
             g.drawImage(obstacleImage, x, y, CELL, CELL, this);
         }
     }
 
     /**
-     * Draw collectibles
-     * @param g
+     * Draw collectibles.
+     * 
+     * @param g Grapgics g.
      */
     private void drawCollectibles(final Graphics g) {
        for (final Collectible collectible : worldController.getCollectibles()) {
@@ -241,6 +286,7 @@ public final class GameBoardPanel extends JPanel {
             case CLOCK -> g.drawImage(clockImage, x, y, CELL, CELL, this);
             case KEY -> g.drawImage(keyImage, x, y, CELL, CELL, this);
             case LIFE_BOOST -> g.drawImage(mushroomImage, x, y, CELL, CELL, this);
+            case FLAG -> g.drawImage(flagImage, x, y, CELL, CELL, this);
             default -> {
                 g.setColor(Color.YELLOW);
                 g.fillOval(x, y, CELL, CELL);
@@ -249,6 +295,11 @@ public final class GameBoardPanel extends JPanel {
        }
     }
 
+    /**
+     * Draw doors.
+     * 
+     * @param g Graphics g.
+     */
     private void drawDoors(final Graphics g) {
         final List<Door> doors = worldController.getDoors();
 
