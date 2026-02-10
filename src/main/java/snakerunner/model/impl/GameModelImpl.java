@@ -13,8 +13,10 @@ import snakerunner.model.Level;
 import snakerunner.model.LevelData;
 import snakerunner.model.Snake;
 
-
-public class GameModelImpl implements GameModel {
+/**
+ * MISSING JAVADOC.
+ */
+public final class GameModelImpl implements GameModel {
 
     private static final int INITIAL_SPEED = 150;
     private static final int SLOW_EFFECT_DURATION = 50;
@@ -33,6 +35,9 @@ public class GameModelImpl implements GameModel {
     private int slowEffectDuration;
     private List<Door> doors;
 
+    /**
+     * GameModelImpl constructor.
+     */
     public GameModelImpl() {
         currentLevel = null;
         snake = new Snake(STARTING_POSITION); // Starting position of the snake
@@ -40,28 +45,29 @@ public class GameModelImpl implements GameModel {
         levelCompleted = false;
         score = 0;
         speed = INITIAL_SPEED;
-        lives = INITIAL_LIVES; 
+        lives = INITIAL_LIVES;
         slowEffectDuration = 0;
     }
 
     @Override
     public void update() {
         // Every game update logic goes here and updates the game state accordingly.
-        if (isGameOver() || levelCompleted)
+        if (isGameOver() || levelCompleted) {
             return;
-        
+        }
+
         snake.move();
         /*  
         //Check fatal collision
-        Point2D<Integer,Integer> head = snake.getHead();
-        if (getObstacles().contains(head) || snake.isCollidingWithItself()){
+        final Point2D<Integer, Integer> head = snake.getHead();
+        if (getObstacles().contains(head) || snake.isCollidingWithItself()) {
 
             this.lives--; //remove of life
 
-            if (this.lives > 0){
+            if (this.lives > 0) {
                 //the snake respawns
-                this.snake= new Snake (new Point2D<>(5,10));
-            }else {
+                this.snake = new Snake(STARTING_POSITION);
+            } else {
                 return;
             }
 
@@ -75,7 +81,7 @@ public class GameModelImpl implements GameModel {
         //Collision with collectibles
 
         //controllo impatti con ostacoli/porte/corpo del serpente
-        //checkCollisions();
+        checkCollisions();
         //gestione power-up e cibo
         checkCollectibles();
 
@@ -91,28 +97,28 @@ public class GameModelImpl implements GameModel {
         }
         if (collectibles.isEmpty()) {
             levelCompleted = true;
-        }    
+        }
     }
 
     @Override
     public boolean isGameOver() {
-       return this.lives <=0;
+       return this.lives <= 0;
 
     }
 
     @Override
-    public void loadLevel(LevelData data) {
+    public void loadLevel(final LevelData data) {
         this.currentLevel = new LevelImpl(data);
-        //this.obstacle = data.getObstacles(); //TODO: decide if we want to set the obstacles from the level data or always use the ones defined in the level implementation
+        //this.obstacle = data.getObstacles(); 
+        //TODO: decide if we want to set the obstacles from the level data or always use the ones defined in the level implementation
         this.collectibles = data.getCollectibles();
         this.doors = data.getDoors();
-        //this.snake = data.getSnake(); //TODO: decide if we want to set the snake position from the level data or always start in a fixed position
+        //this.snake = data.getSnake(); 
+        //TODO: decide if we want to set the snake position from the level data or always start in a fixed position
         this.levelCompleted = false;
 
         //debugPrintLevel();
     }
-
-    
 
     @Override
     public Snake getSnake() {
@@ -121,7 +127,7 @@ public class GameModelImpl implements GameModel {
 
     @Override
     public List<Collectible> getCollectibles() {
-        return Collections.unmodifiableList(collectibles);    
+        return Collections.unmodifiableList(collectibles);
     }
 
     @Override
@@ -141,7 +147,7 @@ public class GameModelImpl implements GameModel {
 
     @Override
     public void completeLevel() {
-        this.levelCompleted = true ;
+        this.levelCompleted = true;
     }
 
 
@@ -165,7 +171,6 @@ public class GameModelImpl implements GameModel {
         return this.currentLevel;
     }
 
-
     @Override
     public void applySlowEffect() {
         speed = SLOW_EFFECT_SPEED;
@@ -179,7 +184,7 @@ public class GameModelImpl implements GameModel {
 
     @Override
     public void openDoor() {
-        for( Door door : doors) { 
+        for (final Door door : doors) {
             door.setOpen(true);
         }
     }
@@ -194,7 +199,7 @@ public class GameModelImpl implements GameModel {
         this.speed = INITIAL_SPEED;
         this.slowEffectDuration = 0;
         this.isGameOver = false;
-        this.lives =3;
+        this.lives = 3;
     }
 
     private void checkCollisions() {
@@ -231,11 +236,11 @@ public class GameModelImpl implements GameModel {
     }
     
     private void checkCollectibles() {
-        Iterator<Collectible> iterator = collectibles.iterator();
-        Point2D<Integer, Integer> snakeHead = snake.getHead();
+        final Iterator<Collectible> iterator = collectibles.iterator();
+        final Point2D<Integer, Integer> snakeHead = snake.getHead();
 
         while (iterator.hasNext()) {
-            Collectible c = iterator.next();
+            final Collectible c = iterator.next();
 
             if (c.getPosition().equals(snakeHead)) {
                 c.consume(this);
@@ -243,8 +248,6 @@ public class GameModelImpl implements GameModel {
             }
         }
     }
-
-    
 
     private void resetAfterGameOver() {
         this.snake = new Snake(STARTING_POSITION);
