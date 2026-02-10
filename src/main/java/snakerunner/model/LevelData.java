@@ -29,4 +29,6 @@ public interface LevelData {
      * @return a list of doors.
      */
     List<Door> getDoors();
+
+    VictoryCondition geVictoryCondition();
 }

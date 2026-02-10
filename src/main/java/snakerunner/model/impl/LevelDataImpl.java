@@ -9,6 +9,7 @@ import snakerunner.commons.Point2D;
 import snakerunner.model.Collectible;
 import snakerunner.model.Door;
 import snakerunner.model.LevelData;
+import snakerunner.model.VictoryCondition;
 
 /**
  * The LevelDataImpl class implements the LevelData interface
@@ -18,6 +19,7 @@ public final class LevelDataImpl implements LevelData {
     private final Set<Point2D<Integer, Integer>> obstacles;
     private final List<Collectible> collectibles;
     private final List<Door> doors;
+    private final  VictoryCondition victoryCondition;
 
     /**
      * Constructs a LevelDataImpl with the specified obstacles and collectibles.
@@ -25,13 +27,17 @@ public final class LevelDataImpl implements LevelData {
      * @param obstacles of the level.
      * @param collectibles of the level.
      * @param doors of the level.
+     * @param victoryCondition of the level.
      */
     public LevelDataImpl(final Set<Point2D<Integer, Integer>> obstacles, 
                         final List<Collectible> collectibles, 
-                        final List<Door> doors) {
+                        final List<Door> doors,
+                        final VictoryCondition victoryCondition) {
+                            
         this.obstacles = new HashSet<>(obstacles);
         this.collectibles = new ArrayList<>(collectibles);
         this.doors = new ArrayList<>(doors);
+        this.victoryCondition = victoryCondition;
     }
 
     /**
@@ -60,4 +66,9 @@ public final class LevelDataImpl implements LevelData {
         return new ArrayList<>(doors);
     }
 
+    
+    @Override
+    public VictoryCondition getVictoryCondition() {
+        return victoryCondition;
+    }
 }

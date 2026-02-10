@@ -8,8 +8,10 @@ import java.util.Set;
 
 import snakerunner.commons.Point2D;
 import snakerunner.model.Collectible;
+import snakerunner.model.CollectibleType;
 import snakerunner.model.Door;
 import snakerunner.model.LevelData;
+import snakerunner.model.VictoryCondition;
 
 /**
  * The LevelLoader class is responsible for loading level data from a list of strings,
@@ -17,7 +19,9 @@ import snakerunner.model.LevelData;
  */
 public final class LevelLoader {
 
-    private LevelLoader() { }
+    private LevelLoader() { 
+
+    }
 
     /**
      * Loads level data from a list of strings from a file.
@@ -82,6 +86,8 @@ public final class LevelLoader {
 
                     case "LIFE_BOOST" -> collectibles.add(new LifeBoost(p));
 
+                    case "FLAG" -> collectibles.add(new Flag(p));
+
                     default -> throw new IOException("Unknown collectible type: " + type);
                 }
             } else if (section.equals("doors")) { //TEMPORARY FIX, USE TO TEST gameBoardPanel drawDoors()
@@ -89,6 +95,14 @@ public final class LevelLoader {
             }
         }
 
-        return new LevelDataImpl(obstacles, collectibles, doors);
+        
+        VictoryCondition victoryCondition = VictoryCondition.COLLECT_ALL_FOOD;
+        for (final Collectible c : collectibles ) {
+            if (c.getType() == CollectibleType.FLAG) {
+                victoryCondition = VictoryCondition.COLLECT_FLAG;
+                break;
+            }
+        }
+        return new LevelDataImpl(obstacles, collectibles, doors, victoryCondition);
     }
 }

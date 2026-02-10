@@ -7,6 +7,8 @@ import java.util.Set;
 
 import snakerunner.commons.Point2D; 
 import snakerunner.model.Collectible;
+import snakerunner.model.CollectibleType;
+import snakerunner.model.VictoryCondition;
 import snakerunner.model.Door;
 import snakerunner.model.GameModel;
 import snakerunner.model.Level;
@@ -34,6 +36,7 @@ public final class GameModelImpl implements GameModel {
     private int lives;
     private int slowEffectDuration;
     private List<Door> doors;
+    private VictoryCondition victoryCondition;
 
     /**
      * GameModelImpl constructor.
@@ -92,6 +95,7 @@ public final class GameModelImpl implements GameModel {
         //this.snake = data.getSnake(); 
         //TODO: decide if we want to set the snake position from the level data or always start in a fixed position
         this.levelCompleted = false;
+        this.victoryCondition = data.getVictoryCondition();
 
         //debugPrintLevel();
     }
@@ -221,6 +225,18 @@ public final class GameModelImpl implements GameModel {
             if (c.getPosition().equals(snakeHead)) {
                 c.consume(this);
                 iterator.remove();
+            }
+        }
+        if (victoryCondition == VictoryCondition.COLLECT_ALL_FOOD) {
+            boolean hasFood = false;
+            for (final Collectible c : collectibles ) {
+                if (c.getType() == CollectibleType.FOOD) {
+                    hasFood = true;
+                    break;
+                }
+            }
+            if (!hasFood){
+                completeLevel();
             }
         }
     }
