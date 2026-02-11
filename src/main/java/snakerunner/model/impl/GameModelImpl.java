@@ -134,7 +134,7 @@ public final class GameModelImpl implements GameModel {
         return Collections.emptySet(); /* In order to avoid errors we return an empty set of points */
     }
 
-    /**  
+    /**
      * Checks if the current level has been completed 
      * based on the victory condition and game state.
      */
@@ -230,8 +230,7 @@ public final class GameModelImpl implements GameModel {
     }
 
     private void checkCollisions() {
-        /* Collision logic */
-       final Point2D<Integer, Integer> head = snake.getHead();
+        final Point2D<Integer, Integer> head = snake.getHead();
         if (snake.isCollidingWithItself()) {
             handleCollision();
             return;
@@ -249,7 +248,6 @@ public final class GameModelImpl implements GameModel {
                 }
             }
         }
-
     }
 
     private void handleCollision() {
