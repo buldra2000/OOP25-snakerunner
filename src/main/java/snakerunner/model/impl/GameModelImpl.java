@@ -298,9 +298,4 @@ public final class GameModelImpl implements GameModel {
         this.speed = INITIAL_SPEED;
         this.slowEffectDuration = 0;
     }
-
-    @Override
-    public void resetLives() {
-        //TODO
-    }
 }

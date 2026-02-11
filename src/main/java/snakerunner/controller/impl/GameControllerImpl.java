@@ -101,7 +101,6 @@ public final class GameControllerImpl implements GameController, KeyListener {
      */
     @Override
     public void start() {
-        gameModel.resetLives();
         timeLeft = INITIAL_TIME;
         loadCurrentLevel();
         if (mainFrame instanceof javax.swing.JFrame) {
