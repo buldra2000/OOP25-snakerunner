@@ -292,7 +292,7 @@ public final class GameModelImpl implements GameModel {
     }
 
     @Override
-    public void resetLives() {
-        //TODO
+    public void killSnake() {
+        lives = 0;
     }
 }

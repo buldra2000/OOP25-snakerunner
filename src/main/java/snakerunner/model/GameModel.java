@@ -110,9 +110,9 @@ public interface GameModel {
     void openDoor();
 
     /**
-     * Reset lives.
+     * Fatal collision, setting lives to 0.
      */
-    void resetLives();
+    void killSnake();
 
     /**
      * Resets the game state to the initial conditions. This method is called when the game is over to prepare for a new game.
