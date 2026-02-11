@@ -94,7 +94,7 @@ public final class GameModelImpl implements GameModel {
 
     /**
      * Loads a new level into the game model using the provided LevelData,
-     *  initializing the level state,
+     * initializing the level state.
      */
     @Override
     public void loadLevel(final LevelData data) {
@@ -128,7 +128,7 @@ public final class GameModelImpl implements GameModel {
     public Set<Point2D<Integer, Integer>> getObstacles() {
         /* Error control in case the current level is still null */
         if (currentLevel != null) {
-        /* We get the coordinates */
+            /* We get the coordinates */
             return currentLevel.getObstacles();
         }
         return Collections.emptySet(); /* In order to avoid errors we return an empty set of points */
@@ -230,18 +230,18 @@ public final class GameModelImpl implements GameModel {
     }
 
     private void checkCollisions() {
-    /* Collision logic */
+        /* Collision logic */
        final Point2D<Integer, Integer> head = snake.getHead();
-        if(snake.isCollidingWithItself()) {
+        if (snake.isCollidingWithItself()) {
             handleCollision();
             return;
         }
 
-        if(currentLevel.isBlocked(head)) {
+        if (currentLevel.isBlocked(head)) {
             handleCollision();
             return;
         }
-        if(doors != null) /* If the door is ≠ null */{
+        if (doors != null) {
             for (final Door door : doors) {
                 if (!door.isOpen() && door.getPosition().equals(head)) { 
                 handleCollision();
@@ -259,7 +259,6 @@ public final class GameModelImpl implements GameModel {
         } else {
             this.isGameOver = true;
         }
-     
     }
     
     private void checkCollectibles() {
@@ -276,13 +275,13 @@ public final class GameModelImpl implements GameModel {
         }
         if (victoryCondition == VictoryCondition.COLLECT_ALL_FOOD) {
             boolean hasFood = false;
-            for (final Collectible c : collectibles ) {
+            for (final Collectible c : collectibles) {
                 if (c.getType() == CollectibleType.FOOD) {
                     hasFood = true;
                     break;
                 }
             }
-            if (!hasFood){
+            if (!hasFood) {
                 completeLevel();
             }
         }
