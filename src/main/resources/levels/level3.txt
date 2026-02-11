@@ -97,6 +97,9 @@
 4,20
 5,20
 
+[Doors]
+5,22
+
 [Collectibles]
 2,4,FOOD
 23,2,KEY
@@ -105,5 +108,5 @@
 12,14,FOOD
 25,21,FOOD
 3,18,FOOD
-5,22,DOOR
+
 
