@@ -10,7 +10,7 @@ import snakerunner.model.GameModel;
  * MISSING JAVADOC.
  */
 public final class Flag implements Collectible {
-    private static final String FLAG = "sounds/flag.wav";
+    private static final String SOUND_FLAG = "sounds/flag.wav";
     private final Point2D<Integer, Integer> position;
 
     /**
@@ -24,7 +24,7 @@ public final class Flag implements Collectible {
 
     @Override
     public void consume(final GameModel model) {
-        AudioPlayer.playSound(FLAG);
+        AudioPlayer.playSound(SOUND_FLAG);
         model.completeLevel(); /* A level is completed when the flag is consumed */
     }
 

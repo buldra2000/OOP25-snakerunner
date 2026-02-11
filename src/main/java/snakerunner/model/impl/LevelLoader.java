@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Set;
 
 import snakerunner.commons.Point2D;
@@ -47,17 +48,17 @@ public final class LevelLoader {
                 continue;
             }
 
-            if (line.equalsIgnoreCase("[Obstacles]")) {
+            if ("[Obstacles]".equalsIgnoreCase(line)) {
                 section = "obstacles";
                 continue;
             }
 
-            if (line.equalsIgnoreCase("[Collectibles]")) {
+            if ("[Collectibles]".equalsIgnoreCase(line)) {
                 section = "collectibles";
                 continue;
             }
 
-            if (line.equalsIgnoreCase("[Doors]")) { //TEMPORARY FIX, USE TO TEST gameBoardPanel drawDoors()
+            if ("[Doors]".equalsIgnoreCase(line)) { //TEMPORARY FIX, USE TO TEST gameBoardPanel drawDoors()
                 section = "doors";
                 continue;
             }
@@ -75,7 +76,7 @@ public final class LevelLoader {
             switch (section) {
                 case "obstacles" -> obstacles.add(p);
                 case "collectibles" -> {
-                    final String type = parts[2].trim().toUpperCase();
+                    final String type = parts[2].trim().toUpperCase(Locale.ROOT);
 
                     switch (type) {
                         case "FOOD" -> collectibles.add(new FoodImpl(p));

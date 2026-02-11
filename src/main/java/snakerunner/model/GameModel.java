@@ -64,10 +64,15 @@ public interface GameModel {
      */
     boolean isLevelCompleted();
 
-    /* "Flags" the current level as completed */
+    /**
+     * Completes the current level and prepares for the next level.
+     * This method is called when the player meets the victory condition for the current level.
+     */
     void completeLevel();
-    
-    /** Adds points to the player's score. 
+
+    /** 
+     * Adds points to the player's score. 
+     * 
      * @param points The number of points to add to the score.
      */
     void addScore(int points);

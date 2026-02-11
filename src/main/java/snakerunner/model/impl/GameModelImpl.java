@@ -225,7 +225,6 @@ public final class GameModelImpl implements GameModel {
         this.score = 0;
         this.speed = INITIAL_SPEED;
         this.slowEffectDuration = 0;
-        this.isGameOver = false;
         this.lives = 3;
     }
 
