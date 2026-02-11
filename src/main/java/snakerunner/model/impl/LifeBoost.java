@@ -7,15 +7,16 @@ import snakerunner.model.CollectibleType;
 import snakerunner.model.GameModel;
 
 /**
- * MISSING JAVADOC.
+ * The LifeBoost class represents a collectible item in the Snake Runner game
+ * that, when consumed, grants the player an extra life.
  */
 public final class LifeBoost implements Collectible {
     private final Point2D<Integer, Integer> position;
 
     /**
-     * MISSING JAVADOC.
+     * Constructs a LifeBoost collectible at the specified position.
      *
-     * @param position MISSING JAVADOC.
+     * @param position The coordinates where the life boost is located in the game world.
      */
     public LifeBoost(final Point2D<Integer, Integer> position) {
         this.position = position;

@@ -18,35 +18,36 @@ public interface GameModel {
     /**
      * Checks if the game is over.
      * 
-     * @return MISSING JAVADOC.
+     * @return true if the game is over, false otherwise.
      */
     boolean isGameOver();
 
     /**
      * Loads a level from the given data.
      *
-     * @param data MISSING JAVADOC.
+     * @param data The LevelData object 
+     * containing the level information to be loaded.
      */
     void loadLevel(LevelData data);
 
     /**
      * Returns the snake in the game.
      *
-     * @return MISSING JAVADOC.
+     * @return The Snake object representing the player's snake.
      */
     Snake getSnake();
 
     /**
      * Returns the list of collectibles in the game.
      *
-     * @return MISSING JAVADOC.
+     * @return An unmodifiable list of Collectible objects.
      */
     List<Collectible> getCollectibles();
 
     /**
      * Returns the current level.
      *
-     * @return MISSING JAVADOC.
+     * @return The current Level object.
      */
     Level getLevel();
 

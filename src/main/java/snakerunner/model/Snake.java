@@ -20,7 +20,7 @@ import snakerunner.commons.Point2D;
 //}
 
 /**
- * MISSING JAVADOC.
+ * The Snake class represents the player's snake in the Snake Runner game.
  */
 public final class Snake {
 
@@ -29,9 +29,9 @@ public final class Snake {
     private Direction currentDirection = Direction.RIGHT; //initial direction
 
     /**
-     * MISSING JAVADOC.
+     * Constructs a Snake object with the specified starting position.
      * 
-     * @param startPosition MISSING JAVADOC.
+     * @param startPosition The starting position of the snake's head.
      */
     public Snake(final Point2D<Integer, Integer> startPosition) {
 
@@ -75,7 +75,7 @@ public final class Snake {
     /**
      * change direction so it doesn't turn 180 degrees.
      * 
-     * @param d MISSING JAVADOC.
+     * @param d the new direction of the snake.
      */
     public void setDirection(final Direction d) {
         if (d == null) {

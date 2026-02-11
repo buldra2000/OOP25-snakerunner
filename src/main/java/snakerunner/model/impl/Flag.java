@@ -7,7 +7,8 @@ import snakerunner.model.CollectibleType;
 import snakerunner.model.GameModel;
 
 /**
- * MISSING JAVADOC.
+ * The Flag class represents a collectible item in the Snake Runner game that,
+ *  when consumed, completes the level.
  */
 public final class Flag implements Collectible {
     private static final String SOUND_FLAG = "sounds/flag.wav";
