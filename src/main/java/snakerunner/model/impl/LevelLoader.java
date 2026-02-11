@@ -72,26 +72,29 @@ public final class LevelLoader {
 
             final Point2D<Integer, Integer> p = new Point2D<>(x, y);
 
-            if (section.equals("obstacles")) {
-                obstacles.add(p);
-            } else if (section.equals("collectibles")) {
-                final String type = parts[2].trim().toUpperCase();
-
-                switch (type) {
-                    case "FOOD" -> collectibles.add(new FoodImpl(p));
-
-                    case "CLOCK" -> collectibles.add(new Clock(p));
-
-                    case "KEY" -> collectibles.add(new Key(p));
-
-                    case "LIFE_BOOST" -> collectibles.add(new LifeBoost(p));
-
-                    case "FLAG" -> collectibles.add(new Flag(p));
-
-                    default -> throw new IOException("Unknown collectible type: " + type);
+            switch (section) {
+                case "obstacles" -> obstacles.add(p);
+                case "collectibles" -> {
+                    final String type = parts[2].trim().toUpperCase();
+                    
+                    switch (type) {
+                        case "FOOD" -> collectibles.add(new FoodImpl(p));
+                        
+                        case "CLOCK" -> collectibles.add(new Clock(p));
+                        
+                        case "KEY" -> collectibles.add(new Key(p));
+                        
+                        case "LIFE_BOOST" -> collectibles.add(new LifeBoost(p));
+                        
+                        case "FLAG" -> collectibles.add(new Flag(p));
+                        
+                        default -> throw new IOException("Unknown collectible type: " + type);
+                    }
                 }
-            } else if (section.equals("doors")) { //TEMPORARY FIX, USE TO TEST gameBoardPanel drawDoors()
-                doors.add(new Door(x, y));
+                case "doors" -> //TEMPORARY FIX, USE TO TEST gameBoardPanel drawDoors()
+                    doors.add(new Door(x, y));
+                default -> {
+                }
             }
         }
 
