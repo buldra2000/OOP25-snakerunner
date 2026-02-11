@@ -8,15 +8,16 @@ import java.util.Set;
 import snakerunner.commons.Point2D; 
 import snakerunner.model.Collectible;
 import snakerunner.model.CollectibleType;
-import snakerunner.model.VictoryCondition;
 import snakerunner.model.Door;
 import snakerunner.model.GameModel;
 import snakerunner.model.Level;
 import snakerunner.model.LevelData;
 import snakerunner.model.Snake;
+import snakerunner.model.VictoryCondition;
 
 /**
- * MISSING JAVADOC.
+ * GameModelImpl class that implements the GameModel interface 
+ * and represents the core game logic and state management for the Snake Runner game.
  */
 public final class GameModelImpl implements GameModel {
 
@@ -43,7 +44,7 @@ public final class GameModelImpl implements GameModel {
      */
     public GameModelImpl() {
         currentLevel = null;
-        snake = new Snake(STARTING_POSITION); // Starting position of the snake
+        snake = new Snake(STARTING_POSITION);
         collectibles = Collections.emptyList();
         levelCompleted = false;
         score = 0;
@@ -88,16 +89,10 @@ public final class GameModelImpl implements GameModel {
     @Override
     public void loadLevel(final LevelData data) {
         this.currentLevel = new LevelImpl(data);
-        //this.obstacle = data.getObstacles(); 
-        //TODO: decide if we want to set the obstacles from the level data or always use the ones defined in the level implementation
         this.collectibles = data.getCollectibles();
         this.doors = data.getDoors();
-        //this.snake = data.getSnake(); 
-        //TODO: decide if we want to set the snake position from the level data or always start in a fixed position
         this.levelCompleted = false;
         this.victoryCondition = data.getVictoryCondition();
-
-        //debugPrintLevel();
     }
 
     @Override
