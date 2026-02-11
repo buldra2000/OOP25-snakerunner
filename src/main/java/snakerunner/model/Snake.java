@@ -1,8 +1,8 @@
 package snakerunner.model;
 
-import java.util.List;
 import java.util.Collections;
 import java.util.LinkedList;
+import java.util.List;
 
 import snakerunner.commons.Point2D;
 
@@ -16,41 +16,50 @@ import snakerunner.commons.Point2D;
 //    public List<Point2D<Integer, Integer>> getBody();
 
 //    public boolean isCollidingWithItself();
-        
+
 //}
 
-public class Snake  {
-    
+/**
+ * The Snake class represents the player's snake in the Snake Runner game.
+ */
+public final class Snake {
+
     private static final int FIXED_SIZE = 5; //the lenght never changes
     private final LinkedList<SnakeSegment> body = new LinkedList<>(); //the list
     private Direction currentDirection = Direction.RIGHT; //initial direction
 
-    public Snake(Point2D<Integer, Integer> startPosition){
-       
-    
-        for (int i = 0; i < FIXED_SIZE; i++){
+    /**
+     * Constructs a Snake object with the specified starting position.
+     * 
+     * @param startPosition The starting position of the snake's head.
+     */
+    public Snake(final Point2D<Integer, Integer> startPosition) {
+
+        for (int i = 0; i < FIXED_SIZE; i++) {
             //we create the points, if the head is at point X the pieces behind are ate X-1, X-2 ETC
-            Point2D<Integer, Integer> p = new Point2D<>(startPosition.getX() - i, startPosition.getY());
-            //at first the will be empty cuz update logic () will fill them 
-            body.add(new SnakeSegment(p, SnakeSegment.SegmentType.BODY_STRAIGHT,null, null, null));
+            final Point2D<Integer, Integer> p = new Point2D<>(startPosition.getX() - i, startPosition.getY());
+            //at first the will be empty cuz update logic () will fill them
+            body.add(new SnakeSegment(p, SnakeSegment.SegmentType.BODY_STRAIGHT, null, null, null));
         }
         updateLogic(); //makes head, tail and directions
 
     }
 
-    //the movement like a train : the ereditate the position left by the previous pieces
-    public void move (){
+    /**
+     * the movement like a train : the ereditate the position left by the previous pieces.
+     */
+    public void move() {
         //actual head position
-        Point2D<Integer, Integer> headPos = body.getFirst().pos;
+        final Point2D<Integer, Integer> headPos = body.getFirst().pos;
         int nextX = headPos.getX();
         int nextY = headPos.getY();
 
         //calculates new position base on where we are going
-        switch (currentDirection){
-            case UP:    nextY  -=1;  break;
-            case DOWN:  nextY  +=1;  break;
-            case LEFT:  nextX  -=1;  break;  
-            case RIGHT: nextX  +=1;  break;  
+        switch (currentDirection) {
+            case UP -> nextY -= 1;
+            case DOWN -> nextY += 1;
+            case LEFT -> nextX -= 1;
+            case RIGHT -> nextX += 1;
         }
 
         //we add the new piece on top of the list (becomes the new head)
@@ -63,44 +72,70 @@ public class Snake  {
 
     }
 
-    //change direction so it doesn't turn 180 degrees
+    /**
+     * change direction so it doesn't turn 180 degrees.
+     * 
+     * @param d the new direction of the snake.
+     */
+    public void setDirection(final Direction d) {
+        if (d == null) {
+            return;
+        }
+        if (currentDirection == Direction.UP && d == Direction.DOWN) {
+            return;
+        }
+        if (currentDirection == Direction.DOWN && d == Direction.UP) {
+            return;
+        }
+        if (currentDirection == Direction.LEFT && d == Direction.RIGHT) {
+            return;
+        }
 
-    public void setDirection(Direction d){
-        if (d == null) return;
-        if (currentDirection == Direction.UP && d == Direction.DOWN)
+        if (currentDirection == Direction.RIGHT && d == Direction.LEFT) {
             return;
-        if (currentDirection == Direction.DOWN && d == Direction.UP) 
-            return;
-        if (currentDirection == Direction.LEFT && d == Direction.RIGHT)
-            return;
-        if (currentDirection == Direction.RIGHT && d == Direction.LEFT)
-            return;
+        }
 
         currentDirection = d;
 
     }
 
+    /**
+     * returns the current direction of the snake.
+     * 
+     * @return the current direction of the snake.
+     */
     public Direction getCurrentDirection() {
         return currentDirection;
     }
 
-    //returns the head position 
-    public Point2D<Integer, Integer> getHead(){
+    /**
+     * returns the head position.
+     * 
+     * @return the head position of the snake.
+     */
+    public Point2D<Integer, Integer> getHead() {
         return body.getFirst().pos;
     }
 
-    //return the list of the segment for the view to draw
-    public List<SnakeSegment> getFullBody(){
+    /**
+     * Return the list of the segment for the view to draw.
+     * 
+     * @return the list of snake segments.
+     */
+    public List<SnakeSegment> getFullBody() {
         return Collections.unmodifiableList(body);
     }
 
-
-    //collision with itself 
-    public boolean isCollidingWithItself(){
-        Point2D<Integer, Integer> head = body.getFirst().pos;
-        for (int i =1; i < body.size(); i++) {
-            Point2D<Integer, Integer> p = body.get(i).pos;
-            if (head.getX().equals(p.getX()) && head.getY().equals(p.getY())){
+    /**
+     * collision with itself.
+     * 
+     * @return true if the snake is colliding with itself, false otherwise.
+     */
+    public boolean isCollidingWithItself() {
+        final Point2D<Integer, Integer> head = body.getFirst().pos;
+        for (int i = 1; i < body.size(); i++) {
+            final Point2D<Integer, Integer> p = body.get(i).pos;
+            if (head.getX().equals(p.getX()) && head.getY().equals(p.getY())) {
                 return true;
             }
         }
@@ -108,57 +143,61 @@ public class Snake  {
 
     }
 
-    //update logics 
-    //this method decides what each piece should be 
-
-    private void updateLogic(){
-        if (body.isEmpty())
-        return;
+    //update logics
+    //this method decides what each piece should be.
+    private void updateLogic() {
+        if (body.isEmpty()) {
+            return;
+        }
 
         for (int i = 0; i < body.size(); i++) {
-            Point2D<Integer, Integer> curr = body.get(i).pos;
+            final Point2D<Integer, Integer> curr = body.get(i).pos;
 
-            //first case : it's the head 
-            if (i ==0) {
-                Direction toTail = getRelativeDirection(curr, body.get(1).pos);
-                body.set(i, new SnakeSegment(curr, SnakeSegment.SegmentType.HEAD, currentDirection,null, toTail));
-
-            }
-            //second case : it's the head 
-            else if (i == body.size() - 1 ){
-                Direction toHead = getRelativeDirection(curr,body.get(i-1).pos);
-                body.set(i, new SnakeSegment(curr, SnakeSegment.SegmentType.TAIL,null, toHead, null));
+            //first case : it's the head
+            if (i == 0) {
+                final Direction toTail = getRelativeDirection(curr, body.get(1).pos);
+                body.set(i, new SnakeSegment(curr, SnakeSegment.SegmentType.HEAD, currentDirection, null, toTail));
 
             }
-            //third case : it's the body 
+            //second case : it's the tail
+            else if (i == body.size() - 1) {
+                final Direction toHead = getRelativeDirection(curr, body.get(i - 1).pos);
+                body.set(i, new SnakeSegment(curr, SnakeSegment.SegmentType.TAIL, null, toHead, null));
+
+            }
+            //third case : it's the body
             else {
-                Point2D<Integer, Integer> prev = body.get (i-1).pos;//toward the head 
-                Point2D<Integer, Integer> next = body.get (i+1).pos;//toward the tail
+                final Point2D<Integer, Integer> prev = body.get(i - 1).pos; //toward the head
+                final Point2D<Integer, Integer> next = body.get(i + 1).pos; //toward the tail
 
-                Direction toHead = getRelativeDirection(curr, prev);
-                Direction toTail = getRelativeDirection(curr, next);
+                final Direction toHead = getRelativeDirection(curr, prev);
+                final Direction toTail = getRelativeDirection(curr, next);
 
                 //if prev dir and next dirr are on the same line it's going ahead, else is curving
-                SnakeSegment.SegmentType t = isStraight(prev, next) ? SnakeSegment.SegmentType.BODY_STRAIGHT : SnakeSegment.SegmentType.BODY_CURVE;
+                final SnakeSegment.SegmentType t = isStraight(prev, next) ? SnakeSegment.SegmentType.BODY_STRAIGHT : SnakeSegment.SegmentType.BODY_CURVE;
                 body.set(i, new SnakeSegment(curr, t, null, toHead, toTail));
-
-
             }
         }
     }
 
-    private boolean isStraight(Point2D<Integer, Integer> prev, Point2D<Integer, Integer> next){
+    private boolean isStraight(final Point2D<Integer, Integer> prev, final Point2D<Integer, Integer> next) {
         return prev.getX().equals(next.getX()) || prev.getY().equals(next.getY());
     }
 
     //given two close points, tells the direction of the seocnd one given the first
-    private Direction getRelativeDirection(Point2D<Integer,Integer> from, Point2D<Integer, Integer> to){
-        if (to.getX() > from.getX())
+    private Direction getRelativeDirection(final Point2D<Integer, Integer> from, final Point2D<Integer, Integer> to) {
+        if (to.getX() > from.getX()) {
             return Direction.RIGHT;
-        if (to.getX() < from.getX())
+        }
+
+        if (to.getX() < from.getX()) {
             return Direction.LEFT;
-        if (to.getY() > from.getY())
+        }
+
+        if (to.getY() > from.getY()) {
             return Direction.DOWN;
+        }
+
         return Direction.UP;
 
     }

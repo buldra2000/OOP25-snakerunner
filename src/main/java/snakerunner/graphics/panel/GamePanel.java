@@ -1,20 +1,21 @@
 package snakerunner.graphics.panel;
 
 import java.awt.BorderLayout;
-import javax.swing.BoxLayout;
+
+import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import snakerunner.controller.GameController;
 import snakerunner.controller.WorldController;
 import snakerunner.graphics.hud.BaseHUD;
-import snakerunner.graphics.hud.LevelView;
-import snakerunner.graphics.hud.LifeView;
-import snakerunner.graphics.hud.ScoreView;
-import snakerunner.graphics.hud.TimerView;
-import snakerunner.graphics.impl.BasePanelImpl;
+import snakerunner.graphics.hud.HUDFactory;
+import snakerunner.graphics.impl.AbstractBasePanel;
 
-public final class GamePanel extends BasePanelImpl {
+/**
+ * GamePanel define the GameView when the user click "start".
+ */
+public final class GamePanel extends AbstractBasePanel {
 
     private static final long serialVersionUID = 1L;
     private static final String PAUSE = "Pause";
@@ -24,7 +25,6 @@ public final class GamePanel extends BasePanelImpl {
     private final BaseHUD levelView;
     private final BaseHUD lifeView;
     private final GameController controller;
-    private WorldController worldController;
     private final JPanel nPanel;
     private final JPanel sPanel;
     private GameBoardPanel gameBoardPanel;
@@ -33,17 +33,23 @@ public final class GamePanel extends BasePanelImpl {
     private final JButton pause;
     private final JButton resume;
 
+    /**
+     * GamePanel Constructor.
+     * 
+     * @param controller GameController.
+     */
     public GamePanel(final GameController controller) {
         super();
+        initPanel();
         this.controller = controller;
         nPanel = new JPanel();
         sPanel = new JPanel();
         ePanel = new JPanel();
         wPanel = new JPanel();
-        timerView = new TimerView();
-        scoreView = new ScoreView();
-        levelView = new LevelView();
-        lifeView = new LifeView();
+        timerView = HUDFactory.createTimerView();
+        scoreView = HUDFactory.createScoreView();
+        levelView = HUDFactory.createLevelView();
+        lifeView = HUDFactory.createLifeView();
         setLayoutPanel();
         pause = createButton(PAUSE);
         resume = createButton(RESUME);
@@ -55,29 +61,32 @@ public final class GamePanel extends BasePanelImpl {
         add(ePanel, BorderLayout.EAST);
         add(wPanel, BorderLayout.WEST);
         add(sPanel, BorderLayout.SOUTH);
-        nPanel.add((JLabel)timerView);
-        nPanel.add((JLabel)levelView);
+        nPanel.add((JLabel) timerView);
+        nPanel.add(Box.createHorizontalStrut(20));
         ePanel.add(pause);
         ePanel.add(resume);
-        wPanel.add((JLabel)lifeView);
-        sPanel.setLayout(new BoxLayout(sPanel, BoxLayout.X_AXIS));
-        nPanel.add((JLabel)scoreView);
+        wPanel.add((JLabel) lifeView);
+        nPanel.add((JLabel) levelView);
+        nPanel.add(Box.createHorizontalStrut(25));
+        nPanel.add((JLabel) scoreView);
         this.addActionListeners();
     }
 
-    public void setWorldController(WorldController worldController) {
-    this.worldController = worldController;
-    
-    if (gameBoardPanel == null) {
-        gameBoardPanel = PanelFactory.createGameBoardPanel(worldController);
-        add(gameBoardPanel, BorderLayout.CENTER);
+    /**
+     * Sets the worldController and initialize the gameBoardPanel.
+     * 
+     * @param worldController the worldController for game state.
+     */
+    public void setWorldController(final WorldController worldController) {
+
+        if (gameBoardPanel == null) {
+            gameBoardPanel = PanelFactory.createGameBoardPanel(worldController);
+            add(gameBoardPanel, BorderLayout.CENTER);
+        }
+
         revalidate();
         repaint();
     }
-    
-    revalidate();
-    repaint();
-}
 
     @Override
     public void setLayoutPanel() {
@@ -90,23 +99,39 @@ public final class GamePanel extends BasePanelImpl {
         resume.addActionListener(e -> controller.resume());
     }
 
-    public void updateTimer(final int timeLeft) {
-        //timerView.setValue(timeLeft);
-        
-        repaint();
-
-    }
-    //Commented because it was causing merge conflicts
-    /*public void updateObstacles(java.util.Set<snakerunner.commons.Point2D<Integer, Integer>> obstacles){
-        gameBoardPanel.setObstacles(obstacles);
-        repaint();
-    }*/
-
+    /**
+     * Getter for TimerView.
+     * 
+     * @return TimerView.
+     */
     public BaseHUD getTimerView() {
         return timerView;
     }
 
-    public BaseHUD getScoreView(){
+    /**
+     * Getter for ScoreView.
+     * 
+     * @return ScoreView.
+     */
+    public BaseHUD getScoreView() {
         return scoreView;
+    }
+
+    /**
+     * Getter for LevelView.
+     * 
+     * @return LevelView.
+     */
+    public BaseHUD getLevelView() {
+        return levelView;
+    }
+
+    /**
+     * Getter for LifeView.
+     * 
+     * @return LifeView.
+     */
+    public BaseHUD getLifeView() {
+        return lifeView;
     }
 }

@@ -4,31 +4,32 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 
-/*TimerView is a HUD component and is used to show level in GamePanel*/
-public final class LevelView extends BaseView {
+/**
+ * TimerView is a HUD component and is used to show level in GamePanel.
+ */
+public final class LevelView extends AbstractBaseView {
 
     private static final long serialVersionUID = 1L;
     private static final String LEVEL_TEXT = "Level : %1d";
-    private static final int WIDTH = 60;
+    private static final int WIDTH = 80;
     private static final int HEIGHT = 30;
-    private static final int X = 5;
+    private static final int X = 15;
     private static final int Y = 15;
 
     private int level;
 
+    /**
+     * Constructor for LevelView.
+     */
     public LevelView() {
+        initBaseView();
         setOpaque(false);
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
     }
 
     @Override
-    public void setValue(int value) {
+    public void setValue(final int value) {
         this.level = value;
-        repaint();
-    }
-
-    public void setLevel(final int level) {
-        this.level = level;
         repaint();
     }
 

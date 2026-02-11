@@ -7,5 +7,7 @@ public enum CollectibleType {
     FOOD,
     CLOCK,
     KEY,
-    LIFE_BOOST
+    LIFE_BOOST,
+    FLAG,
+    BOMB
 }

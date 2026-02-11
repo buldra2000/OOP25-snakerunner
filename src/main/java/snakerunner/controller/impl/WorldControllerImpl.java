@@ -12,10 +12,18 @@ import snakerunner.model.Door;
 import snakerunner.model.GameModel;
 import snakerunner.model.Snake;
 
-public class WorldControllerImpl implements WorldController {
+/**
+ * WoldControllerImpl define methods for Worldontroller'Interface.
+ */
+public final class WorldControllerImpl implements WorldController {
 
-    private GameModel gameModel;
+    private final GameModel gameModel;
 
+    /**
+     * WorldControllerImpl's Constructor.
+     * 
+     * @param gameModel GameModel.
+     */
     public WorldControllerImpl(final GameModel gameModel) {
         this.gameModel = gameModel;
     }
@@ -44,18 +52,8 @@ public class WorldControllerImpl implements WorldController {
     }
 
     @Override
-    public int getLevel() {
-        return 0;
-    }
-
-    @Override
-    public int getScore() {
-        return gameModel.getScore();
-    }
-
-    @Override
-    public Direction getDirection() {
-        return gameModel.getSnake().getCurrentDirection();
+    public int getGridHeight() {
+        return gameModel.getLevel().getGrid().getHeight();
     }
 
     @Override
@@ -64,8 +62,9 @@ public class WorldControllerImpl implements WorldController {
     }
 
     @Override
-    public int getGridHeight() {
-        return gameModel.getLevel().getGrid().getHeight();
+    public Direction getDirection() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getDirection'");
     }
 
 

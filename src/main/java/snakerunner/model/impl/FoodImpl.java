@@ -11,8 +11,8 @@ import snakerunner.model.GameModel;
  * When consumed, it increases the player's score.
  */
 public class FoodImpl implements Collectible {
-    private static final String FOOD = "eat.wav";
-    private final int scorePoints = 10;
+    private static final String FOOD = "sounds/eat.wav";
+    private static final int SCORE_POINTS = 10;
     private final Point2D<Integer, Integer> position;
 
     /**
@@ -32,7 +32,7 @@ public class FoodImpl implements Collectible {
     @Override
     public void consume(final GameModel model) {
         AudioPlayer.playSound(FOOD);
-        model.addScore(scorePoints);
+        model.addScore(SCORE_POINTS);
     }
 
     /**
