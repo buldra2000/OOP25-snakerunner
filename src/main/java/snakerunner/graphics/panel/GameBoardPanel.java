@@ -22,7 +22,7 @@ import snakerunner.model.SnakeSegment;
 public final class GameBoardPanel extends JPanel {
 
     private static final long serialVersionUID = 1L;
-    private static final int CELL = 20;
+    private static final int CELL = 15;
     private final WorldController worldController;
     private Image foodImage;
     private Image keyImage;
