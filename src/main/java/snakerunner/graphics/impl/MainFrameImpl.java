@@ -10,7 +10,6 @@ import snakerunner.graphics.MainFrame;
 import snakerunner.graphics.panel.BasePanel;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
-
 /**
  * MainFrameImpl is the concrete class of the MainFrame'Interface.
  */

@@ -63,25 +63,25 @@ public final class GameControllerImpl implements GameController {
 }
 
     @Override
-public void moveDown() {
-    if (state == StateGame.RUNNING) {
-        gameModel.getSnake().setDirection(Direction.DOWN);
+    public void moveDown() {
+        if (state == StateGame.RUNNING) {
+            gameModel.getSnake().setDirection(Direction.DOWN);
+        }
     }
-}
 
     @Override
-public void moveLeft() {
-    if (state == StateGame.RUNNING) {
-        gameModel.getSnake().setDirection(Direction.LEFT);
+    public void moveLeft() {
+        if (state == StateGame.RUNNING) {
+            gameModel.getSnake().setDirection(Direction.LEFT);
+        }
     }
-}
 
     @Override
-public void moveRight() {
-    if (state == StateGame.RUNNING) {
-        gameModel.getSnake().setDirection(Direction.RIGHT);
+    public void moveRight() {
+        if (state == StateGame.RUNNING) {
+            gameModel.getSnake().setDirection(Direction.RIGHT);
+        }
     }
-}
 
     /**
      * Starts the game by initializing the timer, loading the current level,
