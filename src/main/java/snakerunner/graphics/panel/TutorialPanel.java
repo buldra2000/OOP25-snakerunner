@@ -8,6 +8,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 
 import snakerunner.controller.NavigationController;
+import snakerunner.core.GameConfiguration;
 import snakerunner.graphics.impl.AbstractBasePanel;
 
 /**
@@ -19,9 +20,9 @@ public final class TutorialPanel extends AbstractBasePanel {
     private static final String COMMAND = "COMMAND";
     private static final String DESCRIPTION = "All you need to play Snake Runner are the arrow keys on your keyboard!";
     private static final String BACK = "Back";
-    private static final Integer VALUE_STRUT = 20;
-    private static final Integer SIZE_DESC = 15;
-    private static final Integer SIZE_COMM = 20;
+    private static final Integer VALUE_STRUT = GameConfiguration.VALUE_STRUT;
+    private static final Integer SIZE_DESC = GameConfiguration.SIZE_DESC;
+    private static final Integer SIZE_COMM = GameConfiguration.SIZE_COMM;
     private final NavigationController navigationController;
     private final JLabel command;
     private final JLabel description;

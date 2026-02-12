@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 
+import snakerunner.core.GameConfiguration;
+
 /**
  * LifeView is a HUD component and is used to show the remaining life in GamePanel.
  */
@@ -11,10 +13,10 @@ public final class LifeView extends AbstractBaseView {
 
     private static final long serialVersionUID = 1L;
     private static final String LIFE_TEXT = "Life : %1d";
-    private static final int X = 5;
-    private static final int Y = 15;
-    private static final int WIDTH = 80;
-    private static final int HEIGHT = 30;
+    private static final int X = GameConfiguration.X_HUD;
+    private static final int Y = GameConfiguration.Y_HUD;
+    private static final int WIDTH_HUD = GameConfiguration.WIDTH_HUD;
+    private static final int HEIGHT_HUD = GameConfiguration.HEIGHT_HUD;
 
     private int life;
 
@@ -24,7 +26,7 @@ public final class LifeView extends AbstractBaseView {
     public LifeView() {
         initBaseView();
         setOpaque(false);
-        setPreferredSize(new Dimension(WIDTH, HEIGHT));
+        setPreferredSize(new Dimension(WIDTH_HUD, HEIGHT_HUD));
     }
 
     @Override
