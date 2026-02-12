@@ -9,50 +9,58 @@ import snakerunner.model.Snake;
 
 class SnakeTest {
 
+    private static final int START_X = 10;
+    private static final int START_Y = 10;
+    private static final int EXPECTED_SIZE = 5;
+
+    private static final int MOVE_START_X = 5;
+    private static final int MOVE_START_Y = 5;
+
+    private static final int EXPECTED_RIGHT_X = 6;
+    private static final int EXPECTED_RIGHT_Y = 5;
+
+    private static final int EXPECTED_UP_X = 6;
+    private static final int EXPECTED_UP_Y = 4;
+
     @Test
     void mySnakeTest() {
 
-        final Point2D<Integer, Integer> startPos = new Point2D<>(10, 10);
+        final Point2D<Integer, Integer> startPos = new Point2D<>(START_X, START_Y);
         final Snake testSnake = new Snake(startPos);
 
-        
-        assertEquals(10, testSnake.getHead().getX());
-        assertEquals(10, testSnake.getHead().getY());
+        assertEquals(START_X, testSnake.getHead().getX());
+        assertEquals(START_Y, testSnake.getHead().getY());
 
-        
         final int size = testSnake.getFullBody().size();
-        assertEquals(5, size);
+        assertEquals(EXPECTED_SIZE, size);
     }
 
     @Test
     void movementTest() {
-        final Point2D<Integer, Integer> p = new Point2D<>(5, 5);
+        final Point2D<Integer, Integer> p = new Point2D<>(MOVE_START_X, MOVE_START_Y);
         final Snake s = new Snake(p);
-        
+
         s.move();
 
-        assertEquals(6, s.getHead().getX());
-        assertEquals(5, s.getHead().getY());
+        assertEquals(EXPECTED_RIGHT_X, s.getHead().getX());
+        assertEquals(EXPECTED_RIGHT_Y, s.getHead().getY());
 
-        
         s.setDirection(Direction.UP);
         s.move();
 
-        
-        assertEquals(6, s.getHead().getX());
-        assertEquals(4, s.getHead().getY());
+        assertEquals(EXPECTED_UP_X, s.getHead().getX());
+        assertEquals(EXPECTED_UP_Y, s.getHead().getY());
     }
 
     @Test
     void testWrongTurn() {
-        final Snake s = new Snake(new Point2D<>(5, 5));
+        final Snake s = new Snake(new Point2D<>(MOVE_START_X, MOVE_START_Y));
 
-        
         s.setDirection(Direction.LEFT);
 
-        
         final Direction current = s.getCurrentDirection();
         assertEquals(Direction.RIGHT, current);
     }
 }
+
 

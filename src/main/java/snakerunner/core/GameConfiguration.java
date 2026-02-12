@@ -17,7 +17,7 @@ public final class GameConfiguration {
 
     public static final int MAX_LEVEL = 4;
     public static final int INITIAL_LEVEL = 1;
-    public static final int INITIAL_TIME = 500;
+    public static final int INITIAL_TIME = 1500;
 
     public static final int WIDTH_HUD = 150;
     public static final int HEIGHT_HUD = 30;

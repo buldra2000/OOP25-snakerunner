@@ -53,7 +53,6 @@ public final class GameControllerImpl implements GameController {
 
     //Creation components
 
-    
     @Override
     public void moveUp() {
     if (state == StateGame.RUNNING) {
@@ -234,4 +233,5 @@ public void moveRight() {
         gameLoopTimer.start();
     }
 }
+
 

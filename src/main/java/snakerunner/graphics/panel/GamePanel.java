@@ -96,8 +96,8 @@ public final class GamePanel extends AbstractBasePanel {
 
     @Override
     public void addActionListeners() {
-        pause.addActionListener(e -> controller.pause());
-        resume.addActionListener(e -> controller.resume());
+        pause.addActionListener((final ActionEvent e) -> controller.pause());
+        resume.addActionListener((final ActionEvent e) -> controller.resume());
     }
 
     /**
@@ -146,28 +146,28 @@ public final class GamePanel extends AbstractBasePanel {
         // tell the controller what to do everyaction
         this.getActionMap().put("up", new AbstractAction() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(final ActionEvent e) {
                 controller.moveUp();
             }
         });
 
         this.getActionMap().put("down", new AbstractAction() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(final ActionEvent e) {
                 controller.moveDown();
             }
         });
 
         this.getActionMap().put("left", new AbstractAction() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(final ActionEvent e) {
                 controller.moveLeft();
             }
         });
 
         this.getActionMap().put("right", new AbstractAction() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(final ActionEvent e) {
                 controller.moveRight();
             }
         });

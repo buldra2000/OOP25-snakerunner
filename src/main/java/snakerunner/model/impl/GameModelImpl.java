@@ -59,7 +59,6 @@ public final class GameModelImpl implements GameModel {
      */
     @Override
     public void update() {
-        // Every game update logic goes here and updates the game state accordingly.
         if (isGameOver() || levelCompleted) {
             return;
         }
