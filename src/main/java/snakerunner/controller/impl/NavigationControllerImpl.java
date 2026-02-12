@@ -8,13 +8,11 @@ import snakerunner.graphics.panel.BasePanel;
 import snakerunner.graphics.panel.GamePanel;
 import snakerunner.graphics.panel.PanelFactory;
 import snakerunner.model.GameModel;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 
 /**
  * NavigationControllerImpl define methods for NavigationController'Interface.
  */
-public final class NavigationControllerImpl implements NavigationController, KeyListener {
+public final class NavigationControllerImpl implements NavigationController {
 
     private final MainFrame mainFrame;
     private final GameModel gameModel;
@@ -40,8 +38,6 @@ public final class NavigationControllerImpl implements NavigationController, Key
         optionPanel = PanelFactory.createOptionPanel(this);
         tutorialPanel = PanelFactory.createTutorialPanel(this);
 
-        mainFrame.addKeyListener(this);
-
         if (mainFrame instanceof javax.swing.JFrame) {
         final javax.swing.JFrame frame = (javax.swing.JFrame) mainFrame;
         frame.setFocusable(true);
@@ -54,27 +50,10 @@ public final class NavigationControllerImpl implements NavigationController, Key
     }
 
     @Override
-    public void keyTyped(final KeyEvent e) {
-        // Non necessario qui
-    }
-
-    @Override
-    public void keyPressed(final KeyEvent e) {
-        // Non necessario qui, la logica è in GameControllerImpl
-    }
-
-    @Override
-    public void keyReleased(final KeyEvent e) {
-        // Non necessario qui
-    }
-
-    @Override
     public void startGame() {
         if (gameController == null) {
             gameController = new GameControllerImpl(mainFrame, gameModel);
         }
-
-        mainFrame.addKeyListener((KeyListener) gameController);
 
         final WorldController wc = new WorldControllerImpl(gameModel);
 
@@ -117,3 +96,4 @@ public final class NavigationControllerImpl implements NavigationController, Key
     }
 
 }
+

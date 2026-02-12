@@ -43,4 +43,24 @@ public interface GameController {
      * @param filepath path file levels.
      */
     void loadLevelFromFile(String filepath);
+
+    /**
+     * Moves the snake up.
+     */
+    void moveUp();
+
+    /**
+     * Moves the snake down.
+     */
+    void moveDown();
+
+    /**
+     * Moves the snake left.
+     */
+    void moveLeft();
+
+    /**
+     * Moves the snake right.
+     */
+    void moveRight();
 }

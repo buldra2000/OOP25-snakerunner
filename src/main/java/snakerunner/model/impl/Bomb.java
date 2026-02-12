@@ -13,7 +13,7 @@ public class Bomb implements Collectible {
 
     private final Point2D<Integer, Integer> position;
 
-    public Bomb(final Point2D<Integer, Integer> position) {
+    public Bomb(final  Point2D<Integer, Integer> position) {
         this.position = position;
     }
 

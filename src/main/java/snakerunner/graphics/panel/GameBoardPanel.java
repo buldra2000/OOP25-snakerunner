@@ -155,7 +155,7 @@ public final class GameBoardPanel extends JPanel {
 
         for (int i = 0; i < body.size(); i++) {
             final SnakeSegment segment = body.get(i);
-            final Point2D<Integer, Integer> pos = segment.pos;
+            final Point2D<Integer, Integer> pos = segment.getPos();
             final int x = pos.getX() * getCellSize();
             final int y = pos.getY() * getCellSize();
 
@@ -164,10 +164,10 @@ public final class GameBoardPanel extends JPanel {
             if (i == 0) {
                 segmentImage = getHeadImage(worldController.getDirection());
             } else if (i == body.size() - 1) {
-                final Direction tailDirection = getDirection(body.get(i - 1).pos, pos);
+                final Direction tailDirection = getDirection(body.get(i - 1).getPos(), pos);
                 segmentImage = getTailImage(tailDirection);
             } else {
-                final Point2D<Integer, Integer> prevPos = body.get(i - 1).pos;
+                final Point2D<Integer, Integer> prevPos = body.get(i - 1).getPos();
                 segmentImage = getBodyImage(prevPos, pos);
             }
 

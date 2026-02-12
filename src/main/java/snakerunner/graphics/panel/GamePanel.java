@@ -12,6 +12,10 @@ import snakerunner.graphics.hud.BaseHUD;
 import snakerunner.graphics.hud.HUDFactory;
 import snakerunner.graphics.impl.AbstractBasePanel;
 
+import javax.swing.KeyStroke;
+import javax.swing.AbstractAction;
+import java.awt.event.ActionEvent;
+
 /**
  * GamePanel define the GameView when the user click "start".
  */
@@ -35,7 +39,7 @@ public final class GamePanel extends AbstractBasePanel {
 
     /**
      * GamePanel Constructor.
-     * 
+     *
      * @param controller GameController.
      */
     public GamePanel(final GameController controller) {
@@ -70,11 +74,12 @@ public final class GamePanel extends AbstractBasePanel {
         nPanel.add(Box.createHorizontalStrut(25));
         nPanel.add((JLabel) scoreView);
         this.addActionListeners();
+        this.setupKeyBindings();
     }
 
     /**
      * Sets the worldController and initialize the gameBoardPanel.
-     * 
+     *
      * @param worldController the worldController for game state.
      */
     public void setWorldController(final WorldController worldController) {
@@ -101,7 +106,7 @@ public final class GamePanel extends AbstractBasePanel {
 
     /**
      * Getter for TimerView.
-     * 
+     *
      * @return TimerView.
      */
     public BaseHUD getTimerView() {
@@ -110,7 +115,7 @@ public final class GamePanel extends AbstractBasePanel {
 
     /**
      * Getter for ScoreView.
-     * 
+     *
      * @return ScoreView.
      */
     public BaseHUD getScoreView() {
@@ -119,7 +124,7 @@ public final class GamePanel extends AbstractBasePanel {
 
     /**
      * Getter for LevelView.
-     * 
+     *
      * @return LevelView.
      */
     public BaseHUD getLevelView() {
@@ -128,10 +133,48 @@ public final class GamePanel extends AbstractBasePanel {
 
     /**
      * Getter for LifeView.
-     * 
+     *
      * @return LifeView.
      */
     public BaseHUD getLifeView() {
         return lifeView;
     }
+
+    private void setupKeyBindings() {
+        // connect the rows with the actions
+        this.getInputMap(WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("UP"), "up");
+        this.getInputMap(WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("DOWN"), "down");
+        this.getInputMap(WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("LEFT"), "left");
+        this.getInputMap(WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("RIGHT"), "right");
+
+        // tell the controller what to do everyaction
+        this.getActionMap().put("up", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                controller.moveUp();
+            }
+        });
+
+        this.getActionMap().put("down", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                controller.moveDown();
+            }
+        });
+
+        this.getActionMap().put("left", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                controller.moveLeft();
+            }
+        });
+
+        this.getActionMap().put("right", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                controller.moveRight();
+            }
+        });
+    }
 }
+

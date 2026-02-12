@@ -1,7 +1,5 @@
 package snakerunner.controller.impl;
 
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -23,11 +21,11 @@ import snakerunner.model.impl.LevelLoader;
 /**
  * GameControllerImpl define methods for GameController'Interface.
  */
-public final class GameControllerImpl implements GameController, KeyListener {
+public final class GameControllerImpl implements GameController {
 
     private static final int MAX_LEVEL = 4;
     private static final int INITIAL_LEVEL = 1;
-    private static final int INITIAL_TIME = 500;
+    private static final int INITIAL_TIME = 1500;
     private StateGame state;
     private Timer gameLoopTimer;
     private BaseHUD timerView;
@@ -56,44 +54,32 @@ public final class GameControllerImpl implements GameController, KeyListener {
 
     //KeyListener
     @Override
-    public void keyPressed(final KeyEvent e) {
-        //if the fame is not running we ignore the keys
-        if (state != StateGame.RUNNING) {
-            return;
-        }
-        final int key = e.getKeyCode();
-
-        //the keyboard bottoms becomes the snake's direction WASD
-        switch (key) {
-            case KeyEvent.VK_UP:
-                gameModel.getSnake().setDirection(Direction.UP);
-                break;
-            case KeyEvent.VK_DOWN:
-                gameModel.getSnake().setDirection(Direction.DOWN);
-                break;
-            case KeyEvent.VK_LEFT:
-                gameModel.getSnake().setDirection(Direction.LEFT);
-                break;
-            case KeyEvent.VK_RIGHT:
-                gameModel.getSnake().setDirection(Direction.RIGHT);
-                break;
-            case KeyEvent.VK_P:
-                pause();
-                break;
-            default:
-                break;
-        }
+    public void moveUp() {
+    if (state == StateGame.RUNNING) {
+        gameModel.getSnake().setDirection(Direction.UP);
     }
+}
 
     @Override
-    public void keyTyped(final KeyEvent e) {
-
+public void moveDown() {
+    if (state == StateGame.RUNNING) {
+        gameModel.getSnake().setDirection(Direction.DOWN);
     }
+}
 
     @Override
-    public void keyReleased(final KeyEvent e) {
-
+public void moveLeft() {
+    if (state == StateGame.RUNNING) {
+        gameModel.getSnake().setDirection(Direction.LEFT);
     }
+}
+
+    @Override
+public void moveRight() {
+    if (state == StateGame.RUNNING) {
+        gameModel.getSnake().setDirection(Direction.RIGHT);
+    }
+}
 
     /**
      * Starts the game by initializing the timer, loading the current level,
@@ -103,9 +89,7 @@ public final class GameControllerImpl implements GameController, KeyListener {
     public void start() {
         timeLeft = INITIAL_TIME;
         loadCurrentLevel();
-        if (mainFrame instanceof javax.swing.JFrame) {
-        ((javax.swing.JFrame) mainFrame).requestFocusInWindow();
-    }
+
         timerView.setValue(timeLeft);
         scoreView.setValue(gameModel.getScore());
         gameLoopTimer.start();
@@ -133,9 +117,6 @@ public final class GameControllerImpl implements GameController, KeyListener {
             state = StateGame.RUNNING;
             gameLoopTimer.restart();
 
-            if (mainFrame instanceof javax.swing.JFrame) {
-            ((javax.swing.JFrame) mainFrame).requestFocusInWindow();
-            }
         }
     }
 
@@ -248,9 +229,8 @@ public final class GameControllerImpl implements GameController, KeyListener {
         gameLoopTimer.stop();
         nextLevel();
         loadCurrentLevel();
-        if (mainFrame instanceof javax.swing.JFrame) {
-        ((javax.swing.JFrame) mainFrame).requestFocusInWindow();
-    }
+
         gameLoopTimer.start();
     }
 }
+
