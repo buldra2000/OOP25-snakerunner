@@ -1,5 +1,8 @@
 package snakerunner.core;
 
+/**
+ * Global constants.
+ */
 public final class GameConfiguration {
 
     public static final int INITIAL_SPEED = 150;
@@ -25,6 +28,6 @@ public final class GameConfiguration {
     public static final Integer SIZE_DESC = 15;
     public static final Integer SIZE_COMM = 20;
 
-    private GameConfiguration() {}
+    private GameConfiguration() { }
 
 }
