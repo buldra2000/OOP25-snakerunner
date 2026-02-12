@@ -24,6 +24,7 @@ Verifies collisions between:
 class CollisionTest {
     private GameModelImpl gameModel;
     private TestLevelData levelData;
+    
 
  /*
  *This is a setup that "cleans" the game before every test
@@ -32,6 +33,7 @@ class CollisionTest {
     void setUp() {
         gameModel = new GameModelImpl(); 
         levelData = new TestLevelData(); /* New Level  */
+        levelData.addFood(30,20);
     }
 
     @Test
@@ -60,7 +62,7 @@ class CollisionTest {
     /* Third collision */
     gameModel.update();
     assertEquals(0, gameModel.getLives(),"Lives should be 0 after 3rd collision");
-    assertEquals(gameModel.isGameOver()," Game should be over");
+    assertTrue(gameModel.isGameOver()," Game should be over");
     }
 
     @Test
@@ -129,7 +131,7 @@ class CollisionTest {
             assertFalse(levelData.getDoors().get(0).isOpen());
             gameModel.update(); /*We update and the snake collects the key */
 
-            assertTrue(gameModel.getCollectibles().isEmpty(), "Key should be collected");
+            assertTrue(gameModel.getCollectibles().size() == 1, "Key should be collected");
             assertTrue(levelData.getDoors().get(0).isOpen(), "Door should be open once the key is collected");
             gameModel.update(); 
 
@@ -175,9 +177,12 @@ class CollisionTest {
     public void addObstacle(final int x, final int y) {
         obstacles.add(new Point2D<>(x,y));
     }
+
     public void addKey(final int x, final int y) {
         collectibles.add(new Key(new Point2D<>(x,y)));
     }
-
+    public void addFood(final int x, final int y) {
+        collectibles.add(new snakerunner.model.impl.FoodImpl(new Point2D<>(x,y)));
+    }
     }
 }
