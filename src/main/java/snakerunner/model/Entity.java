@@ -15,6 +15,25 @@ public class Entity {
     private int y;
 
     /**
+     * Default constructor fon Entity.
+     * Initializes a new instance for default values.
+     */
+    public Entity() {
+    //Default constructor
+    }
+
+    /**
+     * Constructs an Entity with coordinates.
+     *
+     * @param x set X-coordinate.
+     * @param y set Y-coordinate.
+     */
+    protected Entity(final int x, final int y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    /**
      * generate the entity.
      */
     public void generate() {
