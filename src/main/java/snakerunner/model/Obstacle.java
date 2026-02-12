@@ -22,8 +22,7 @@ public class Obstacle extends Entity {
      * @param height the height of the obstacle in grid units.
      */
     public Obstacle(final int x, final int y, final int width, final int height) {
-        setX(x); 
-        setY(y);
+        super(x, y);
         this.width = width;
         this.height = height;
     }
