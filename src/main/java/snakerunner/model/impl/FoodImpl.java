@@ -2,6 +2,7 @@ package snakerunner.model.impl;
 
 import snakerunner.audio.AudioPlayer;
 import snakerunner.commons.Point2D;
+import snakerunner.core.GameConfiguration;
 import snakerunner.model.Collectible;
 import snakerunner.model.CollectibleType;
 import snakerunner.model.GameModel;
@@ -12,7 +13,7 @@ import snakerunner.model.GameModel;
  */
 public class FoodImpl implements Collectible {
     private static final String FOOD = "sounds/eat.wav";
-    private static final int SCORE_POINTS = 10;
+    private static final int SCORE_POINTS = GameConfiguration.SCORE_POINTS;
     private final Point2D<Integer, Integer> position;
 
     /**

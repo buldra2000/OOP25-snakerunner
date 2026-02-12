@@ -4,19 +4,21 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 
+import snakerunner.core.GameConfiguration;
+
 /**
  * TimerView is a HUD component and is used to show the remaining game time in GamePanel.
  */
 public final class TimerView extends AbstractBaseView {
 
     private static final long serialVersionUID = 1L;
-    private static final int WIDTH = 150;
-    private static final int HEIGHT = 30;
+    private static final int WIDTH_HUD = GameConfiguration.WIDTH_HUD;
+    private static final int HEIGHT_HUD = GameConfiguration.HEIGHT_HUD;
     private static final int TIME = 60;
     private static final String TIMER_TEXT = "%02d : %02d";
     private static final Integer TIMER_COUNTDOWN = 10;
-    private static final int X = 20;
-    private static final int Y = 15;
+    private static final int X = GameConfiguration.X_HUD;
+    private static final int Y = GameConfiguration.Y_HUD;
 
     private int timeLeft;
 
@@ -26,7 +28,7 @@ public final class TimerView extends AbstractBaseView {
     public TimerView() {
         initBaseView();
         setOpaque(false);
-        setPreferredSize(new Dimension(WIDTH, HEIGHT));
+        setPreferredSize(new Dimension(WIDTH_HUD, HEIGHT_HUD));
     }
 
     @Override

@@ -10,6 +10,7 @@ import java.util.List;
 import javax.swing.Timer;
 
 import snakerunner.controller.GameController;
+import snakerunner.core.GameConfiguration;
 import snakerunner.core.StateGame;
 import snakerunner.graphics.MainFrame;
 import snakerunner.graphics.hud.BaseHUD;
@@ -23,9 +24,9 @@ import snakerunner.model.impl.LevelLoader;
  */
 public final class GameControllerImpl implements GameController {
 
-    private static final int MAX_LEVEL = 4;
-    private static final int INITIAL_LEVEL = 1;
-    private static final int INITIAL_TIME = 1500;
+    private static final int MAX_LEVEL = GameConfiguration.MAX_LEVEL;
+    private static final int INITIAL_LEVEL = GameConfiguration.INITIAL_LEVEL;
+    private static final int INITIAL_TIME = GameConfiguration.INITIAL_TIME;
     private StateGame state;
     private Timer gameLoopTimer;
     private BaseHUD timerView;

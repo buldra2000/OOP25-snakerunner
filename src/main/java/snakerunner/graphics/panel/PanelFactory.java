@@ -5,7 +5,9 @@ import snakerunner.controller.NavigationController;
 import snakerunner.controller.WorldController;
 
 /**
- * PanelFactory create BasePanel (not GameBoardPanel).
+ * Factory class for creating UI panel components of the application.
+ * Provides static factory methods that return {@link BasePanel} instances
+ * for each screen of the application, plus {@link GameBoardPanel} for the game rendering area.
  */
 public final class PanelFactory {
 
@@ -41,6 +43,12 @@ public final class PanelFactory {
         return new OptionPanel(navigationController);
     }
 
+    /**
+     * Create a new TutorialPanel.
+     * 
+     * @param navigationController NavigationController.
+     * @return new TutorialPanel.
+     */
     public static BasePanel createTutorialPanel(final NavigationController navigationController) {
         return new TutorialPanel(navigationController);
     }

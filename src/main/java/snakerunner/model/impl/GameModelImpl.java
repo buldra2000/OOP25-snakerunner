@@ -5,7 +5,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-import snakerunner.commons.Point2D; 
+import snakerunner.commons.Point2D;
+import snakerunner.core.GameConfiguration;
 import snakerunner.model.Collectible;
 import snakerunner.model.CollectibleType;
 import snakerunner.model.Door;
@@ -21,13 +22,12 @@ import snakerunner.model.VictoryCondition;
  */
 public final class GameModelImpl implements GameModel {
 
-    private static final int INITIAL_SPEED = 150;
-    private static final int SLOW_EFFECT_DURATION = 50;
-    private static final int SLOW_EFFECT_SPEED = 300;
-    private static final int INITIAL_LIVES = 3;
+    private static final int INITIAL_SPEED = GameConfiguration.INITIAL_SPEED;
+    private static final int SLOW_EFFECT_DURATION = GameConfiguration.SLOW_EFFECT_DURATION;
+    private static final int SLOW_EFFECT_SPEED = GameConfiguration.SLOW_EFFECT_SPEED;
+    private static final int INITIAL_LIVES = GameConfiguration.INITIAL_LIVES;
     private static final Point2D<Integer, Integer> STARTING_POSITION = new Point2D<>(2, 10);
     private boolean isGameOver;
-
     private Level currentLevel;
     private Snake snake;
     private List<Collectible> collectibles;

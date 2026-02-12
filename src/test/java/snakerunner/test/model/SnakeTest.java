@@ -1,7 +1,6 @@
 package snakerunner.test.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import org.junit.jupiter.api.Test;
 
 import snakerunner.commons.Point2D;

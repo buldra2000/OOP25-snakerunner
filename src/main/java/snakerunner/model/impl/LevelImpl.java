@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Set;
 
 import snakerunner.commons.Point2D;
+import snakerunner.core.GameConfiguration;
 import snakerunner.model.Door;
 import snakerunner.model.Grid;
 import snakerunner.model.Level;
@@ -13,8 +14,8 @@ import snakerunner.model.LevelData;
  * Implementation of the Level interface representing a level in the game.
  */
 public final class LevelImpl implements Level {
-    private static final int WIDTH = 37;
-    private static final int HEIGHT = 29;
+    private static final int WIDTH = GameConfiguration.WIDTH;
+    private static final int HEIGHT = GameConfiguration.HEIGHT;
 
     private final Grid grid;
     private final Set<Point2D<Integer, Integer>> obstacles;
